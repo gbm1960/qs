@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Solutions | Administración PH</title>
+    <!-- Font Awesome para iconos profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ===== ESTILOS GENERALES - TONO CLÁSICO Y FORMAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: #2c3e50;
+            line-height: 1.6;
+            background-color: #faf9f7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ===== TIPOGRAFÍA ELEGANTE ===== */
+        h1, h2, h3 {
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: #1e2b37;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.4rem;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            padding-bottom: 20px;
+            color: #1e2b37;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: #c9a959; /* Toque de distinción */
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 20px 0 15px;
+            color: #2c3e50;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #4a5b6b;
+            font-size: 1.1rem;
+        }
+
+        /* ===== HEADER CON LOGO ===== */
+        .site-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 0;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: #c9a959;
+            margin-right: 15px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            margin: 5px 0 0;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* ===== BOTONES ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background-color: #c9a959;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border: 1px solid #c9a959;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: #c9a959;
+            border: 1px solid #c9a959;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            border-color: #25D366;
+            font-size: 1.3rem;
+            padding: 16px 40px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: transparent;
+            color: #25D366;
+        }
+
+        .btn-whatsapp i {
+            margin-right: 10px;
+        }
+
+        /* ===== HEADER / HERO ===== */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('01-Hero.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 4rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            color: #e0e0e0;
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+        }
+
+        /* ===== SECCIÓN QUIÉNES SOMOS ===== */
+        .about {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 20px 20px 0px rgba(201, 169, 89, 0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ===== SERVICIOS ===== */
+        .services {
+            padding: 100px 0;
+            background-color: #f5f3f0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+            min-height: 400px; /* Evita saltos visuales mientras carga */
+        }
+
+        .service-card {
+            background: white;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card i {
+            font-size: 3.5rem;
+            color: #c9a959;
+            margin-bottom: 20px;
+        }
+
+        .service-card p {
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        /* ===== TESTIMONIOS ===== */
+        .testimonials {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .testimonial-card {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-style: italic;
+            padding: 40px;
+            background-color: #faf9f7;
+            border-left: 4px solid #c9a959;
+        }
+
+        .testimonial-card p {
+            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+
+        .testimonial-author {
+            margin-top: 30px;
+            font-weight: bold;
+            color: #c9a959;
+        }
+
+        /* ===== CTA FINAL ===== */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .cta h2::after {
+            background-color: #c9a959;
+        }
+
+        .cta p {
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            font-size: 1.2rem;
+        }
+
+        .contact-info i {
+            color: #c9a959;
+            margin-right: 10px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 30px 0;
+            background-color: #1e2b37;
+            color: #95a5a6;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Pequeño indicador de carga */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #c9a959;
+            font-style: italic;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.8rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .container { padding: 0 20px; }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER CON LOGO ===== -->
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-square"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>QUADRATIC SOLUTIONS</h1>
+                    <p>Administración de Propiedad Horizontal</p>
+                </div>
+            </div>
+            <!-- Podrías agregar un menú aquí si lo deseas -->
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Administración de Propiedad Horizontal</h1>
+            <p>Gestión profesional, transparente y con total integridad para conjuntos residenciales de estratos 5 y 6 en Bogotá</p>
+            <a href="#contacto" class="btn">Conozca nuestros servicios</a>
+        </div>
+    </section>
+
+    <!-- ===== QUIÉNES SOMOS ===== -->
+    <section class="about">
+        <div class="container">
+            <h2>Quiénes Somos</h2>
+            <div class="about-grid">
+                <!-- EL CONTENIDO SE CARGARÁ DINÁMICAMENTE DESDE data/quienes-somos.txt -->
+                <div class="about-text">
+                    <!-- Los párrafos se insertarán aquí mediante JavaScript -->
+                    <div class="loading">Cargando información...</div>
+                </div>
+                <div class="about-image">
+                    <img src="02-Edificio.png" alt="Edificio Parque Real - 7 pisos">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICIOS ===== -->
+    <section class="services">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <!-- EL CONTENIDO SE CARGARÁ DINÁMICAMENTE DESDE data/servicios.txt -->
+            <div class="services-grid">
+                <div class="loading">Cargando servicios...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EDIFICIOS QUE CONFÍAN (PRUEBA SOCIAL) ===== -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Confían en Nosotros</h2>
+            <div class="testimonial-card">
+                <p>"Desde que Quadratic Solutions tomó la administración de nuestra torre, todo es más ordenado y transparente. Los informes mensuales son clarísimos y por fin podemos dormir tranquilos sabiendo que nuestro patrimonio está en buenas manos."</p>
+                <p class="testimonial-author">— Consejo de Administración, Edificio Parque Real</p>
+            </div>
+            <!-- Podrías agregar logos aquí si los tuvieras -->
+        </div>
+    </section>
+
+    <!-- ===== CTA FINAL CON WHATSAPP ===== -->
+    <section id="contacto" class="cta">
+        <div class="container">
+            <h2>Solicite una reunión informativa</h2>
+            <p>Descubra cómo podemos brindarle a su edificio la administración que merece, con la seriedad y el detalle que los estratos 5 y 6 exigen.</p>
+            
+            <!-- BOTÓN DE WHATSAPP -->
+            <a href="https://wa.me/573175861006?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20administración%20para%20mi%20edificio." 
+               class="btn btn-whatsapp" 
+               target="_blank">
+               <i class="fab fa-whatsapp"></i> +57 317 5861006
+            </a>
+
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> contacto@quadraticsolutions.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Bogotá D.C., Colombia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Quadratic Solutions - Administración de Propiedad Horizontal. Todos los derechos reservados.</p>
+            <p>Soluciones precisas para su patrimonio.</p>
+        </div>
+    </footer>
+
+    <!-- Script que carga el contenido dinámico -->
+    <script src="js/cargar-contenido.js"></script>
+</body>
+</html>

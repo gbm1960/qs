@@ -1,0 +1,32 @@
+[
+  {
+    "icono": "fa-calculator",
+    "titulo": "Administración Financiera",
+    "descripcion": "<strong>Cuentas claras:</strong> Elaboración de presupuestos anuales, estados financieros mensuales detallados, recaudo de cuotas de administración y gestión de cartera. Utilizamos software especializado para garantizar la trazabilidad de cada peso."
+  },
+  {
+    "icono": "fa-tools",
+    "titulo": "Mantenimiento Preventivo",
+    "descripcion": "<strong>Mejores proveedores:</strong> Supervisión y ejecución de mantenimiento de áreas comunes (piscinas, gimnasios, ascensores, fachadas). Contamos con alianzas estratégicas con los proveedores más calificados de Bogotá."
+  },
+  {
+    "icono": "fa-gavel",
+    "titulo": "Gestión Legal y de Seguros",
+    "descripcion": "Acompañamiento en asambleas de copropietarios, asesoría jurídica continua, actualización del reglamento de propiedad horizontal y gestión integral de pólizas de seguros."
+  },
+  {
+    "icono": "fa-mobile-alt",
+    "titulo": "Tecnología y Comunicación",
+    "descripcion": "<strong>Informes detallados:</strong> Implementación de una plataforma digital donde podrá consultar en tiempo real el estado de cuentas, solicitar mantenimientos y recibir comunicados importantes."
+  },
+  {
+    "icono": "fa-file-invoice",
+    "titulo": "Informes Gerenciales",
+    "descripcion": "Reportes mensuales de fácil comprensión. Convertimos datos complejos en información clara para que el consejo de administración tome las mejores decisiones."
+  },
+  {
+    "icono": "fa-concierge-bell",
+    "titulo": "Servicio de Conserjería",
+    "descripcion": "Capacitación y supervisión del personal de recepción y vigilancia, garantizando un trato amable, profesional y la imagen premium que su edificio merece."
+  }
+]
