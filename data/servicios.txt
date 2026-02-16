@@ -7,17 +7,17 @@
   {
     "icono": "fa-tools",
     "titulo": "Mantenimiento Preventivo",
-    "descripcion": "<strong>Mejores proveedores:</strong> Supervisión y ejecución de mantenimiento de áreas comunes (piscinas, gimnasios, ascensores, fachadas). Contamos con alianzas estratégicas con los proveedores más calificados de Bogotá."
+    "descripcion": "<strong>Mejores proveedores:</strong> Supervisión y ejecución de mantenimiento de áreas comunes. Contamos con alianzas estratégicas con los proveedores que garantizan un servicio excelente."
   },
   {
     "icono": "fa-gavel",
     "titulo": "Gestión Legal y de Seguros",
-    "descripcion": "Acompañamiento en asambleas de copropietarios, asesoría jurídica continua, actualización del reglamento de propiedad horizontal y gestión integral de pólizas de seguros."
+    "descripcion": "Acompañamiento en asambleas de copropietarios, asesoría jurídica continua, actualización del reglamento de propiedad horizontal y gestión integral de la mano del Consejo de Administración."
   },
   {
     "icono": "fa-mobile-alt",
     "titulo": "Tecnología y Comunicación",
-    "descripcion": "<strong>Informes detallados:</strong> Implementación de una plataforma digital donde podrá consultar en tiempo real el estado de cuentas, solicitar mantenimientos y recibir comunicados importantes."
+    "descripcion": "<strong>Informes detallados:</strong> Implementación en una plataforma digital que permite consultar los estados de cuenta. Incluye el envío de información de manera automatizada."
   },
   {
     "icono": "fa-file-invoice",

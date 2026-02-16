@@ -57,7 +57,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 2px;
-            background-color: #c9a959; /* Toque de distinción */
+            background-color: #c9a959;
         }
 
         h3 {
@@ -221,7 +221,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
             margin-top: 40px;
-            min-height: 400px; /* Evita saltos visuales mientras carga */
+            min-height: 400px;
         }
 
         .service-card {
@@ -245,6 +245,35 @@
         .service-card p {
             text-align: left;
             font-size: 1rem;
+        }
+
+        /* ===== SECCIÓN DE VIDEO ===== */
+        .video-section {
+            padding: 80px 0;
+            background-color: white;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 2px solid #c9a959;
+        }
+
+        .video-player {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-caption {
+            margin-top: 25px;
+            font-style: italic;
+            color: #4a5b6b;
+            font-size: 1.1rem;
         }
 
         /* ===== TESTIMONIOS ===== */
@@ -320,7 +349,6 @@
             font-size: 0.9rem;
         }
 
-        /* Pequeño indicador de carga */
         .loading {
             text-align: center;
             padding: 40px;
@@ -361,7 +389,6 @@
                     <p>Administración de Propiedad Horizontal</p>
                 </div>
             </div>
-            <!-- Podrías agregar un menú aquí si lo deseas -->
         </div>
     </header>
 
@@ -379,9 +406,7 @@
         <div class="container">
             <h2>Quiénes Somos</h2>
             <div class="about-grid">
-                <!-- EL CONTENIDO SE CARGARÁ DINÁMICAMENTE DESDE data/quienes-somos.txt -->
                 <div class="about-text">
-                    <!-- Los párrafos se insertarán aquí mediante JavaScript -->
                     <div class="loading">Cargando información...</div>
                 </div>
                 <div class="about-image">
@@ -395,14 +420,27 @@
     <section class="services">
         <div class="container">
             <h2>Nuestros Servicios</h2>
-            <!-- EL CONTENIDO SE CARGARÁ DINÁMICAMENTE DESDE data/servicios.txt -->
             <div class="services-grid">
                 <div class="loading">Cargando servicios...</div>
             </div>
         </div>
     </section>
 
-    <!-- ===== EDIFICIOS QUE CONFÍAN (PRUEBA SOCIAL) ===== -->
+    <!-- ===== SECCIÓN DE VIDEO (ACTUALIZADA CON MP4) ===== -->
+    <section class="video-section">
+        <div class="container">
+            <h2>Conozca nuestro estilo</h2>
+            <div class="video-container">
+                <video class="video-player" autoplay loop muted playsinline>
+                    <source src="03-Video.mp4" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
+            </div>
+            <p class="video-caption">Edificios de estratos 5 y 6 en Bogotá confían en Quadratic Solutions</p>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIOS ===== -->
     <section class="testimonials">
         <div class="container">
             <h2>Confían en Nosotros</h2>
@@ -410,7 +448,6 @@
                 <p>"Desde que Quadratic Solutions tomó la administración de nuestra torre, todo es más ordenado y transparente. Los informes mensuales son clarísimos y por fin podemos dormir tranquilos sabiendo que nuestro patrimonio está en buenas manos."</p>
                 <p class="testimonial-author">— Consejo de Administración, Edificio Parque Real</p>
             </div>
-            <!-- Podrías agregar logos aquí si los tuvieras -->
         </div>
     </section>
 
@@ -420,7 +457,6 @@
             <h2>Solicite una reunión informativa</h2>
             <p>Descubra cómo podemos brindarle a su edificio la administración que merece, con la seriedad y el detalle que los estratos 5 y 6 exigen.</p>
             
-            <!-- BOTÓN DE WHATSAPP -->
             <a href="https://wa.me/573175861006?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20administración%20para%20mi%20edificio." 
                class="btn btn-whatsapp" 
                target="_blank">
@@ -442,7 +478,6 @@
         </div>
     </footer>
 
-    <!-- Script que carga el contenido dinámico -->
     <script src="js/cargar-contenido.js"></script>
 </body>
 </html>

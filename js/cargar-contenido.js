@@ -1,16 +1,19 @@
-// Función para cargar archivos de texto
 async function cargarContenido() {
     try {
+        console.log("Cargando contenido...");
+        
         // Cargar Quiénes Somos
         const quienesResponse = await fetch('data/quienes-somos.txt');
+        if (!quienesResponse.ok) {
+            throw new Error(`Error cargando quienes-somos: ${quienesResponse.status}`);
+        }
         const quienesTexto = await quienesResponse.text();
         
-        // Reemplazar el contenido en el HTML
-        const quienesParrafos = quienesTexto.split('\n\n'); // Separa por párrafos
         const quienesDiv = document.querySelector('.about-text');
         if (quienesDiv) {
-            quienesDiv.innerHTML = ''; // Limpiar contenido existente
-            quienesParrafos.forEach(parrafo => {
+            quienesDiv.innerHTML = '';
+            const parrafos = quienesTexto.split('\n\n');
+            parrafos.forEach(parrafo => {
                 if (parrafo.trim() !== '') {
                     const p = document.createElement('p');
                     p.textContent = parrafo.trim();
@@ -21,13 +24,15 @@ async function cargarContenido() {
 
         // Cargar Servicios
         const serviciosResponse = await fetch('data/servicios.txt');
+        if (!serviciosResponse.ok) {
+            throw new Error(`Error cargando servicios: ${serviciosResponse.status}`);
+        }
         const serviciosTexto = await serviciosResponse.text();
-        const servicios = JSON.parse(serviciosTexto); // Convertir JSON a objeto
+        const servicios = JSON.parse(serviciosTexto);
         
-        // Reemplazar los servicios en el HTML
         const serviciosGrid = document.querySelector('.services-grid');
         if (serviciosGrid) {
-            serviciosGrid.innerHTML = ''; // Limpiar servicios existentes
+            serviciosGrid.innerHTML = '';
             servicios.forEach(servicio => {
                 const card = document.createElement('div');
                 card.className = 'service-card';
@@ -41,9 +46,12 @@ async function cargarContenido() {
         }
 
     } catch (error) {
-        console.error('Error cargando contenido:', error);
+        console.error('Error:', error);
+        const quienesDiv = document.querySelector('.about-text');
+        if (quienesDiv) {
+            quienesDiv.innerHTML = '<p style="color: #c0392b;">Error cargando contenido. Por favor, recarga la página.</p>';
+        }
     }
 }
 
-// Ejecutar cuando la página esté lista
 document.addEventListener('DOMContentLoaded', cargarContenido);
