@@ -62,6 +62,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.getElementById('form-status');
 
     if (contactForm) {
+        // Validación y formato del campo teléfono
+        const phoneInput = document.getElementById('telefono');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', (e) => {
+                let value = e.target.value;
+                
+                // Asegurar que siempre empiece con +57 
+                if (!value.startsWith('+57 ')) {
+                    value = '+57 ' + value.replace(/^\+?5?7?\s?/, '');
+                }
+                
+                // Limitar a +57 seguido de máximo 10 dígitos
+                const prefix = '+57 ';
+                const digits = value.slice(prefix.length).replace(/\D/g, '').slice(0, 10);
+                e.target.value = prefix + digits;
+            });
+
+            // Evitar que se borre el inicio
+            phoneInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.selectionStart <= 4 && e.target.selectionEnd <= 4) {
+                    e.preventDefault();
+                }
+            });
+        }
+
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             

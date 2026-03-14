@@ -25,8 +25,18 @@
     "descripcion": "Reportes mensuales de fácil comprensión. Convertimos datos complejos en información clara para que el consejo de administración tome las mejores decisiones."
   },
   {
-    "icono": "fa-concierge-bell",
-    "titulo": "Servicio de Conserjería",
-    "descripcion": "Capacitación y supervisión del personal de recepción y vigilancia, garantizando un trato amable, profesional y la imagen premium que su edificio merece."
+    "icono": "fa-solid fa-elevator",
+    "titulo": "Soluciones Técnicas Integrales",
+    "descripcion": "Coordinación ágil y transparente de proyectos como impermeabilización de cubiertas y fachadas, modernización de ascensores y recuperación de áreas comunes; evaluación de propuestas y comparativos claros para el Consejo."
+  },
+  {
+    "icono": "fa-video",
+    "titulo": "Vigilancia Inteligente y Seguridad",
+    "descripcion": "Diseño y supervisión de esquemas de seguridad con tecnologías de vigilancia automatizada, control de accesos y monitoreo remoto, optimizando costos sin sacrificar tranquilidad."
+  },
+  {
+    "icono": "fa-regular fa-building",
+    "titulo": "Imagen y Valor del Edificio",
+    "descripcion": "Acompañamos procesos de recuperación, decoración y embellecimiento de áreas comunes (lobbies, fachadas, zonas verdes y sociales) para mejorar la percepción y el valor del inmueble."
   }
 ]
