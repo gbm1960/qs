@@ -373,6 +373,78 @@
                 margin-bottom: 15px;
             }
         }
+
+        /* ===== FORMULARIO DE CONTACTO ===== */
+        .contact-form-container {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201, 169, 89, 0.3);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #c9a959;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: #1e2b37;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #c9a959;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(201, 169, 89, 0.2);
+        }
+
+        .btn-submit {
+            width: 100%;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+
+        #form-status {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .status-success {
+            background: rgba(37, 211, 102, 0.2);
+            color: #25D366;
+            display: block !important;
+        }
+
+        .status-error {
+            background: rgba(192, 57, 43, 0.2);
+            color: #e74c3c;
+            display: block !important;
+        }
     </style>
 </head>
 <body>
@@ -457,6 +529,35 @@
             <h2>Solicite una reunión informativa</h2>
             <p>Descubra cómo podemos brindarle a su edificio la administración que merece, con la seriedad y el detalle requeridos.</p>
             
+            <div class="contact-form-container">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="edificio">Edificio / Conjunto</label>
+                        <input type="text" id="edificio" name="edificio" class="form-control" required placeholder="Nombre de su copropiedad">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" class="form-control" required placeholder="ejemplo@correo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono / Celular</label>
+                        <input type="tel" id="telefono" name="telefono" class="form-control" required placeholder="Ej: 311 000 0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" class="form-control" rows="4" required placeholder="¿En qué podemos ayudarle?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-submit">Enviar Solicitud</button>
+                    <div id="form-status"></div>
+                </form>
+            </div>
+
+            <p style="margin-bottom: 20px; font-size: 1.1rem; opacity: 0.8;">O si prefiere, contáctenos directamente:</p>
+
             <a href="https://wa.me/573112263821?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20administración%20para%20mi%20edificio." 
                class="btn btn-whatsapp" 
                target="_blank">
@@ -464,7 +565,7 @@
             </a>
 
             <div class="contact-info">
-                <p><i class="fas fa-envelope"></i> contacto@quadraticsolutions.com</p>
+                <p><i class="fas fa-envelope"></i> contacto@quadraticsolutions.com.co</p>
                 <p><i class="fas fa-map-marker-alt"></i> Bogotá D.C., Colombia</p>
             </div>
         </div>

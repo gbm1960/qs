@@ -54,4 +54,53 @@ async function cargarContenido() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', cargarContenido);
+document.addEventListener('DOMContentLoaded', () => {
+    cargarContenido();
+
+    // Lógica del Formulario de Contacto
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Cambiar estado del botón
+            const submitBtn = contactForm.querySelector('button');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // NOTA: Esta URL será la de tu Cloudflare Worker una vez desplegada
+                const WORKER_URL = 'https://contacto-quadratic.gilberto-borbon-1ec.workers.dev/'; 
+                
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    formStatus.textContent = '¡Mensaje enviado con éxito! Nos contactaremos pronto.';
+                    formStatus.className = 'status-success';
+                    contactForm.reset();
+                } else {
+                    throw new Error('Error en el servidor');
+                }
+            } catch (error) {
+                console.error('Error enviando formulario:', error);
+                formStatus.textContent = 'Hubo un error al enviar el mensaje. Por favor intenta por WhatsApp.';
+                formStatus.className = 'status-error';
+            } finally {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+});
