@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,9 @@
         }
 
         /* ===== TIPOGRAFÍA ELEGANTE ===== */
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             font-weight: 400;
             letter-spacing: 1px;
         }
@@ -80,7 +83,7 @@
             width: 100%;
             padding: 30px 0;
             z-index: 10;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
         }
 
         .header-content {
@@ -104,7 +107,7 @@
             font-size: 1.8rem;
             margin: 0;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             letter-spacing: 2px;
         }
 
@@ -156,8 +159,8 @@
         /* ===== HEADER / HERO ===== */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('01-Hero.jpeg');
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('01-Hero.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -176,7 +179,7 @@
         .hero h1 {
             color: white;
             font-size: 4rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero p {
@@ -228,7 +231,7 @@
             background: white;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
         }
 
@@ -259,7 +262,7 @@
             margin: 0 auto;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border: 2px solid #c9a959;
         }
 
@@ -306,8 +309,8 @@
         /* ===== CTA FINAL ===== */
         .cta {
             padding: 100px 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
-                        url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
             background-size: cover;
             background-position: center;
             color: white;
@@ -358,17 +361,31 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .hero h1 { font-size: 2.8rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .services-grid { grid-template-columns: 1fr; }
-            .container { padding: 0 20px; }
-            
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
             .header-content {
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .logo {
                 margin-bottom: 15px;
             }
@@ -447,6 +464,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- ===== HEADER CON LOGO ===== -->
@@ -468,7 +486,8 @@
     <section class="hero">
         <div class="container hero-content">
             <h1>Administración de Propiedad Horizontal</h1>
-            <p>Gestión profesional, transparente y con total integridad para conjuntos residenciales del norte de Bogotá</p>
+            <p>Gestión profesional, transparente y con total integridad para conjuntos residenciales del norte de Bogotá
+            </p>
             <a href="#contacto" class="btn">Conozca nuestros servicios</a>
         </div>
     </section>
@@ -517,7 +536,9 @@
         <div class="container">
             <h2>Confían en Nosotros</h2>
             <div class="testimonial-card">
-                <p>"Desde que Quadratic Solutions tomó la administración de nuestra torre, todo es más ordenado y transparente. Los informes mensuales son clarísimos y por fin podemos dormir tranquilos sabiendo que nuestro patrimonio está en buenas manos."</p>
+                <p>"Desde que Quadratic Solutions tomó la administración de nuestra torre, todo es más ordenado y
+                    transparente. Los informes mensuales son clarísimos y por fin podemos dormir tranquilos sabiendo que
+                    nuestro patrimonio está en buenas manos."</p>
                 <p class="testimonial-author">— Consejo de Administración, Edificio Parque Real</p>
             </div>
         </div>
@@ -527,41 +548,47 @@
     <section id="contacto" class="cta">
         <div class="container">
             <h2>Solicite una reunión informativa</h2>
-            <p>Descubra cómo podemos brindarle a su edificio la administración que merece, con la seriedad y el detalle requeridos.</p>
-            
+            <p>Descubra cómo podemos brindarle a su edificio la administración que merece, con la seriedad y el detalle
+                requeridos.</p>
+
             <div class="contact-form-container">
                 <form id="contact-form">
                     <div class="form-group">
                         <label for="nombre">Nombre Completo</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control" required placeholder="Ej: Juan Pérez">
+                        <input type="text" id="nombre" name="nombre" class="form-control" required
+                            placeholder="Ej: Juan Pérez">
                     </div>
                     <div class="form-group">
                         <label for="edificio">Edificio / Conjunto</label>
-                        <input type="text" id="edificio" name="edificio" class="form-control" required placeholder="Nombre de su copropiedad">
+                        <input type="text" id="edificio" name="edificio" class="form-control" required
+                            placeholder="Nombre de su copropiedad">
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" class="form-control" required placeholder="ejemplo@correo.com">
+                        <input type="email" id="email" name="email" class="form-control" required
+                            placeholder="ejemplo@correo.com">
                     </div>
                     <div class="form-group">
                         <label for="telefono">Teléfono / Celular</label>
-                        <input type="tel" id="telefono" name="telefono" class="form-control" required placeholder="Ej: 311 000 0000">
+                        <input type="tel" id="telefono" name="telefono" class="form-control" required
+                            placeholder="Ej: 311 000 0000">
                     </div>
                     <div class="form-group">
                         <label for="mensaje">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" class="form-control" rows="4" required placeholder="¿En qué podemos ayudarle?"></textarea>
+                        <textarea id="mensaje" name="mensaje" class="form-control" rows="4" required
+                            placeholder="¿En qué podemos ayudarle?"></textarea>
                     </div>
                     <button type="submit" class="btn btn-submit">Enviar Solicitud</button>
                     <div id="form-status"></div>
                 </form>
             </div>
 
-            <p style="margin-bottom: 20px; font-size: 1.1rem; opacity: 0.8;">O si prefiere, contáctenos directamente:</p>
+            <p style="margin-bottom: 20px; font-size: 1.1rem; opacity: 0.8;">O si prefiere, contáctenos directamente:
+            </p>
 
-            <a href="https://wa.me/573112263821?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20administración%20para%20mi%20edificio." 
-               class="btn btn-whatsapp" 
-               target="_blank">
-               <i class="fab fa-whatsapp"></i> +57 311 *******
+            <a href="https://wa.me/573112263821?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20administración%20para%20mi%20edificio."
+                class="btn btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> +57 311 *******
             </a>
 
             <div class="contact-info">
@@ -581,4 +608,5 @@
 
     <script src="js/cargar-contenido.js"></script>
 </body>
+
 </html>
