@@ -1,42 +1,37 @@
 [
   {
     "icono": "fa-calculator",
-    "titulo": "Administración Financiera",
-    "descripcion": "<strong>Cuentas claras:</strong> Elaboración de presupuestos anuales, estados financieros mensuales detallados, recaudo de cuotas de administración y gestión de cartera. Utilizamos software especializado para garantizar la trazabilidad de cada peso."
+    "titulo": "Gestión Financiera de Precisión & Transparencia",
+    "descripcion": "<strong>Control total:</strong> Optimizamos el recaudo y la ejecución presupuestal mediante software especializado. Entregamos reportes ejecutivos claros y trazables; se ofrece la consulta de la información financiera sobre el día 12 de cada mes para garantizar decisiones informadas."
   },
   {
     "icono": "fa-tools",
-    "titulo": "Mantenimiento Preventivo",
-    "descripcion": "<strong>Mejores proveedores:</strong> Supervisión y ejecución de mantenimiento de áreas comunes. Contamos con alianzas estratégicas con los proveedores que garantizan un servicio excelente."
-  },
-  {
-    "icono": "fa-gavel",
-    "titulo": "Gestión Legal y de Seguros",
-    "descripcion": "Acompañamiento en asambleas de copropietarios, asesoría jurídica continua, actualización del reglamento de propiedad horizontal y gestión integral de la mano del Consejo de Administración."
-  },
-  {
-    "icono": "fa-mobile-alt",
-    "titulo": "Tecnología y Comunicación",
-    "descripcion": "<strong>Informes detallados:</strong> Implementación en una plataforma digital que permite consultar los estados de cuenta. Incluye el envío de información de manera automatizada."
-  },
-  {
-    "icono": "fa-file-invoice",
-    "titulo": "Informes Gerenciales",
-    "descripcion": "Reportes mensuales de fácil comprensión. Convertimos datos complejos en información clara para que el consejo de administración tome las mejores decisiones."
-  },
-  {
-    "icono": "fa-solid fa-elevator",
-    "titulo": "Soluciones Técnicas Integrales",
-    "descripcion": "Coordinación ágil y transparente de proyectos como impermeabilización de cubiertas y fachadas, modernización de ascensores y recuperación de áreas comunes; evaluación de propuestas y comparativos claros para el Consejo."
+    "titulo": "Mantenimiento Estratégico & Proyectos Técnicos",
+    "descripcion": "<strong>Infraestructura impecable:</strong> Supervisamos la operatividad de áreas comunes y lideramos proyectos de alta ingeniería (ascensores, fachadas, impermeabilización). Nuestro enfoque proactivo detecta fallas antes de que ocurran, protegiendo la vida útil de los activos."
   },
   {
     "icono": "fa-video",
-    "titulo": "Vigilancia Inteligente y Seguridad",
-    "descripcion": "Diseño y supervisión de esquemas de seguridad con tecnologías de vigilancia automatizada, control de accesos y monitoreo remoto, optimizando costos sin sacrificar tranquilidad."
+    "titulo": "Seguridad Avanzada & Vigilancia Inteligente",
+    "descripcion": "<strong>Tranquilidad sin compromisos:</strong> Diseñamos esquemas de seguridad que combinan el factor humano con tecnologías de vanguardia (monitoreo remoto y control de acceso), logrando una protección superior con mayor eficiencia en costos para la copropiedad."
   },
   {
-    "icono": "fa-regular fa-building",
-    "titulo": "Imagen y Valor del Edificio",
-    "descripcion": "Acompañamos procesos de recuperación, decoración y embellecimiento de áreas comunes (lobbies, fachadas, zonas verdes y sociales) para mejorar la percepción y el valor del inmueble."
+    "icono": "fa-gavel",
+    "titulo": "Blindaje Legal & Gestión Normativa PH",
+    "descripcion": "<strong>Seguridad jurídica:</strong> Brindamos asesoría continua en el reglamento de Propiedad Horizontal y normativa vigente. Actuamos como un puente sólido entre el Consejo y la Asamblea, asegurando que cada decisión estratégica esté dentro del marco legal."
+  },
+  {
+    "icono": "fa-mobile-alt",
+    "titulo": "Ecosistema Digital & Comunicación Proactiva",
+    "descripcion": "<strong>Información al alcance:</strong> Implementamos plataformas digitales para notificaciones automatizadas y consulta inmediata de documentos. Eliminamos barreras de comunicación con acceso 24/7, manteniendo a la comunidad siempre conectada e informada."
+  },
+  {
+    "icono": "fa-leaf",
+    "titulo": "Sostenibilidad & Valorización del Patrimonio",
+    "descripcion": "<strong>Compromiso y plusvalía:</strong> Implementamos programas de ahorro energético y embellecimiento de áreas comunes. Entendemos que la estética, el orden y la gestión ambiental son inversiones directas que aumentan el valor comercial de cada inmueble."
+  },
+  {
+    "icono": "fa-hands-helping",
+    "titulo": "Excelencia en Convivencia & Bienestar Comunal",
+    "descripcion": "<strong>Armonía residencial:</strong> Fortalecemos el tejido social mediante mediación preventiva y resolución pacífica de conflictos. Convertimos el edificio en un entorno de respeto y bienestar, fomentando una cultura de sana convivencia y vecindad."
   }
 ]

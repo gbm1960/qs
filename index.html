@@ -221,10 +221,17 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 40px;
             margin-top: 40px;
             min-height: 400px;
+        }
+
+        /* Centrar el 7mo servicio en la base (solo en desktop) */
+        @media (min-width: 769px) {
+            .service-card:nth-child(7) {
+                grid-column: 2;
+            }
         }
 
         .service-card {
@@ -536,8 +543,8 @@
         <div class="container">
             <h2>Confían en Nosotros</h2>
             <div class="testimonial-card">
-                <p>"Desde que Quadratic Solutions tomó la administración de nuestra torre, todo es más ordenado y
-                    transparente. Los informes mensuales son clarísimos y por fin podemos dormir tranquilos sabiendo que
+                <p>"Desde que Quadratic Solutions tomó la administración de nuestro edificio, todo es más ordenado y
+                    transparente. Los informes mensuales son clarísimos y podemos estar tranquilos sabiendo que
                     nuestro patrimonio está en buenas manos."</p>
                 <p class="testimonial-author">— Consejo de Administración, Edificio Parque Real</p>
             </div>
@@ -607,7 +614,7 @@
         </div>
     </footer>
 
-    <script src="js/cargar-contenido.js"></script>
+    <script src="js/cargar-contenido.js?v=5"></script>
 </body>
 
 </html>

@@ -55,6 +55,7 @@ async function cargarContenido() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("ANTIGRAVITY: Cargando contenido dinámico v3...");
     cargarContenido();
 
     // Lógica del Formulario de Contacto
