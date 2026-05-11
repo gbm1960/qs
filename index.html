@@ -38,6 +38,8 @@
             color: var(--text-off-white);
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
 
         /* ===== UTILIDADES ===== */
@@ -134,6 +136,7 @@
             align-items: center;
             position: relative;
             padding-top: 80px;
+            overflow: hidden; /* Prevent horizontal scroll from glow */
         }
 
         /* Glow de fondo para simular IA/Energía */
@@ -598,6 +601,46 @@
             .card {
                 padding: 30px 20px;
             }
+            
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            /* Responsive UI Mockup */
+            .ui-body {
+                grid-template-columns: 1fr;
+            }
+            .ui-sidebar {
+                display: none; /* Hide abstract sidebar on very small screens to save space */
+            }
+            .ui-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Responsive Paddings for Form */
+            .contact-form-container {
+                padding: 0 20px 20px;
+            }
+            .cta-header {
+                padding: 40px 20px 10px;
+            }
+            .cta-footer {
+                padding: 0 20px 40px;
+            }
+            .btn-whatsapp {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .cta-header {
+            padding: 60px 40px 20px;
+        }
+        .cta-footer {
+            padding: 0 40px 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 20px;
+            padding-top: 40px;
         }
     </style>
 </head>
@@ -743,7 +786,7 @@
     <section id="contacto" class="cta-section">
         <div class="container">
             <div class="cta-card glass" style="padding: 0; max-width: 800px;">
-                <div style="padding: 60px 40px 20px;">
+                <div class="cta-header">
                     <h2 style="margin-bottom: 20px; font-size: 2.2rem;">Inicie su Transformación Digital</h2>
                     <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">Hablemos sobre cómo
                         automatizar y blindar la operación técnica de su industria con Inteligencia Artificial.</p>
@@ -782,8 +825,7 @@
                     </form>
                 </div>
 
-                <div
-                    style="padding: 0 40px 60px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 20px; padding-top: 40px;">
+                <div class="cta-footer">
                     <p style="margin-bottom: 20px; font-size: 1rem; color: var(--text-muted);">O si prefiere,
                         contáctenos directamente:</p>
                     <a href="https://wa.me/573112263821?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20ingeniería%20inteligente."
