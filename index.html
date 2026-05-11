@@ -4,11 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quadratic Solutions | Administración PH</title>
-    <!-- Font Awesome para iconos profesionales -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Quadratic Solutions | Ingeniería Inteligente B2B</title>
+
+    <!-- Tipografía: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Iconos: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* ===== ESTILOS GENERALES - TONO CLÁSICO Y FORMAL ===== */
+        /* ===== VARIABLES DE DISEÑO (MINIMALISMO INDUSTRIAL) ===== */
+        :root {
+            --bg-deep-space: #050914;
+            --text-off-white: #f8f9fa;
+            --text-muted: #94a3b8;
+            --accent-cyan: #00d4ff;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(0, 212, 255, 0.15);
+            --glass-glow: rgba(0, 212, 255, 0.05);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,604 +33,856 @@
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            color: #2c3e50;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep-space);
+            color: var(--text-off-white);
             line-height: 1.6;
-            background-color: #faf9f7;
+            overflow-x: hidden;
+        }
+
+        /* ===== UTILIDADES ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 24px;
         }
 
-        /* ===== TIPOGRAFÍA ELEGANTE ===== */
+        .text-accent {
+            color: var(--accent-cyan);
+        }
+
         h1,
         h2,
         h3 {
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-
-        h1 {
-            font-size: 3.2rem;
-            margin-bottom: 20px;
-            color: #1e2b37;
+            font-weight: 800;
             line-height: 1.2;
         }
 
-        h2 {
-            font-size: 2.4rem;
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            padding-bottom: 20px;
-            color: #1e2b37;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background-color: #c9a959;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            margin: 20px 0 15px;
-            color: #2c3e50;
-        }
-
-        p {
-            margin-bottom: 20px;
-            color: #4a5b6b;
-            font-size: 1.1rem;
-        }
-
-        /* ===== HEADER CON LOGO ===== */
-        .site-header {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* ===== NAVEGACIÓN ===== */
+        nav {
+            padding: 20px 0;
+            position: fixed;
             width: 100%;
-            padding: 30px 0;
-            z-index: 10;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 9, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .header-content {
+        .nav-content {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
             display: flex;
             align-items: center;
+            gap: 12px;
         }
 
-        .logo-icon {
-            font-size: 2.5rem;
-            color: #c9a959;
-            margin-right: 15px;
-        }
-
-        .logo-text h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            letter-spacing: 2px;
-        }
-
-        .logo-text p {
-            font-size: 0.9rem;
-            margin: 5px 0 0;
-            color: #e0e0e0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+        .logo i {
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
         }
 
         /* ===== BOTONES ===== */
         .btn {
             display: inline-block;
-            padding: 14px 36px;
-            background-color: #c9a959;
-            color: #ffffff;
+            padding: 12px 28px;
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            font-weight: 600;
             text-decoration: none;
-            font-weight: 400;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            border: 1px solid #c9a959;
             transition: all 0.3s ease;
+            cursor: pointer;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
         }
 
-        .btn:hover {
-            background-color: transparent;
-            color: #c9a959;
-            border: 1px solid #c9a959;
+        .btn-primary {
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
         }
 
-        .btn-whatsapp {
-            background-color: #25D366;
-            border-color: #25D366;
-            font-size: 1.3rem;
-            padding: 16px 40px;
+        .btn-primary:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-deep-space);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
         }
 
-        .btn-whatsapp:hover {
-            background-color: transparent;
-            color: #25D366;
-        }
-
-        .btn-whatsapp i {
-            margin-right: 10px;
-        }
-
-        /* ===== HEADER / HERO ===== */
+        /* ===== HERO SECTION ===== */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url('01-Hero.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            text-align: center;
-            color: white;
             position: relative;
+            padding-top: 80px;
+        }
+
+        /* Glow de fondo para simular IA/Energía */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--glass-glow) 0%, rgba(0, 0, 0, 0) 60%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .hero-content {
             max-width: 900px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .hero h1 {
-            color: white;
-            font-size: 4rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #8ca1ba 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
         .hero p {
-            color: #e0e0e0;
-            font-size: 1.4rem;
-            margin-bottom: 40px;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            font-weight: 300;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* ===== SECCIÓN QUIÉNES SOMOS ===== */
-        .about {
-            padding: 100px 0;
-            background-color: white;
+        /* ===== CAPACIDADES (PILARES) ===== */
+        .capabilities {
+            padding: 120px 0;
+            position: relative;
         }
 
-        .about-grid {
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 60px;
+        }
+
+        .grid-4 {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            padding: 40px 30px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Línea de acento superior interactiva */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(0, 212, 255, 0.4);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card i {
+            font-size: 2.2rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.05);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ===== PROTOTIPADO (CASO MUNDO VITAL) ===== */
+        .prototype {
+            padding: 120px 0;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.02) 0%, transparent 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
             gap: 60px;
             align-items: center;
         }
 
-        .about-image {
-            width: 100%;
-            border-radius: 5px;
+        .prototype-text h2 {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            margin-bottom: 24px;
         }
 
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
+        .prototype-text p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.15rem;
+            line-height: 1.8;
         }
 
-        /* ===== SERVICIOS ===== */
-        .services {
-            padding: 100px 0;
-            background-color: #f5f3f0;
+        /* UI Mockup CSS puro (Para evitar fotos genéricas) */
+        .ui-mockup {
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            position: relative;
         }
 
-        .services-grid {
+        .ui-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 16px;
+        }
+
+        .ui-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .ui-dot.r {
+            background: #ff5f56;
+        }
+
+        .ui-dot.y {
+            background: #ffbd2e;
+        }
+
+        .ui-dot.g {
+            background: #27c93f;
+        }
+
+        .ui-body {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 40px;
-            min-height: 400px;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
         }
 
-        /* Centrar el 7mo servicio en la base (solo en desktop) */
-        @media (min-width: 769px) {
-            .service-card:nth-child(7) {
-                grid-column: 2;
-            }
+        .ui-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .service-card {
-            background: white;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+        .ui-sidebar-item {
+            height: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
+        .ui-main {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .service-card i {
-            font-size: 3.5rem;
-            color: #c9a959;
-            margin-bottom: 20px;
-        }
-
-        .service-card p {
-            text-align: left;
-            font-size: 1rem;
-        }
-
-        /* ===== SECCIÓN DE VIDEO ===== */
-        .video-section {
-            padding: 80px 0;
-            background-color: white;
-            text-align: center;
-        }
-
-        .video-container {
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 10px;
+        .ui-chart {
+            height: 160px;
+            background: linear-gradient(to top right, rgba(0, 212, 255, 0.1), transparent);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border: 2px solid #c9a959;
         }
 
-        .video-player {
+        /* Simulación de gráfica de línea */
+        .ui-chart::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 60%;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.2) 0%, transparent 100%);
+            clip-path: polygon(0 40%, 20% 60%, 40% 20%, 60% 70%, 80% 30%, 100% 50%, 100% 100%, 0 100%);
         }
 
-        .video-caption {
-            margin-top: 25px;
-            font-style: italic;
-            color: #4a5b6b;
+        .ui-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .ui-stat-card {
+            height: 80px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        /* ===== PROPUESTA DE VALOR FINANCIERA ===== */
+        .value-prop {
+            padding: 120px 0;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .value-card {
+            padding: 40px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .value-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(0, 212, 255, 0.08);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .value-card h3 {
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+        }
+
+        .value-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* ===== CTA FINAL & FOOTER ===== */
+        .cta-section {
+            padding: 80px 0 120px;
+            text-align: center;
+        }
+
+        .cta-card {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .cta-card h2 {
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        .cta-card p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
             font-size: 1.1rem;
         }
 
-        /* ===== TESTIMONIOS ===== */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-
-        .testimonial-card {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            font-style: italic;
-            padding: 40px;
-            background-color: #faf9f7;
-            border-left: 4px solid #c9a959;
-        }
-
-        .testimonial-card p {
-            font-size: 1.3rem;
-            color: #2c3e50;
-        }
-
-        .testimonial-author {
-            margin-top: 30px;
-            font-weight: bold;
-            color: #c9a959;
-        }
-
-        /* ===== CTA FINAL ===== */
-        .cta {
-            padding: 100px 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                url('https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-        }
-
-        .cta h2 {
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        .cta h2::after {
-            background-color: #c9a959;
-        }
-
-        .cta p {
-            color: #e0e0e0;
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-
-        .contact-info {
-            margin-top: 40px;
-            font-size: 1.2rem;
-        }
-
-        .contact-info i {
-            color: #c9a959;
-            margin-right: 10px;
-        }
-
-        /* ===== FOOTER ===== */
         footer {
-            padding: 30px 0;
-            background-color: #1e2b37;
-            color: #95a5a6;
+            padding: 40px 0;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #475569;
             font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #c9a959;
-            font-style: italic;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                padding: 0 20px;
-            }
-
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .logo {
-                margin-bottom: 15px;
-            }
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-off-white);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
         }
 
         /* ===== FORMULARIO DE CONTACTO ===== */
         .contact-form-container {
             max-width: 600px;
-            margin: 0 auto 50px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 169, 89, 0.3);
+            margin: 0 auto;
+            padding: 0 40px 40px;
             text-align: left;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #c9a959;
-            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid transparent;
-            border-radius: 4px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
             font-family: inherit;
             font-size: 1rem;
-            color: #1e2b37;
+            color: var(--text-off-white);
             transition: all 0.3s ease;
         }
 
         .form-control:focus {
             outline: none;
-            border-color: #c9a959;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(201, 169, 89, 0.2);
+            border-color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .btn-submit {
             width: 100%;
             cursor: pointer;
-            border: none;
             font-family: inherit;
             margin-top: 10px;
+            padding: 16px;
+            font-size: 1rem;
         }
 
         #form-status {
             margin-top: 20px;
             text-align: center;
-            padding: 10px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 8px;
             display: none;
+            font-weight: 600;
         }
 
         .status-success {
-            background: rgba(37, 211, 102, 0.2);
+            background: rgba(37, 211, 102, 0.1);
             color: #25D366;
+            border: 1px solid rgba(37, 211, 102, 0.3);
             display: block !important;
         }
 
         .status-error {
-            background: rgba(192, 57, 43, 0.2);
-            color: #e74c3c;
+            background: rgba(255, 95, 86, 0.1);
+            color: #ff5f56;
+            border: 1px solid rgba(255, 95, 86, 0.3);
             display: block !important;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            border-color: #25D366;
+            font-size: 1.1rem;
+            padding: 14px 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: transparent;
+            color: #25D366;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            font-size: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .contact-info i {
+            color: var(--accent-cyan);
+            margin-right: 10px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .prototype-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prototype-text {
+                text-align: center;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .value-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ===== HEADER CON LOGO ===== -->
-    <header class="site-header">
-        <div class="container header-content">
+    <!-- Navegación Superior -->
+    <nav>
+        <div class="container nav-content">
             <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-square"></i>
-                </div>
-                <div class="logo-text">
-                    <h1>QUADRATIC SOLUTIONS</h1>
-                    <p>Administración de Propiedad Horizontal</p>
-                </div>
+                <i class="fa-solid fa-microchip"></i>
+                QUADRATIC
             </div>
+            <a href="#contacto" class="btn">Contáctenos</a>
         </div>
-    </header>
+    </nav>
 
-    <!-- ===== HERO ===== -->
+    <!-- Sección Hero -->
     <section class="hero">
         <div class="container hero-content">
-            <h1>Administración de Propiedad Horizontal</h1>
-            <p>Gestión profesional, transparente y con total integridad para conjuntos residenciales del norte de Bogotá
-            </p>
-            <a href="#contacto" class="btn">Conozca nuestros servicios</a>
+            <h1>Ingeniería Inteligente para <span class="text-accent">Industrias que no se Detienen</span></h1>
+            <p>Diseñamos el cerebro digital de su empresa. Transformamos el caos operativo en sistemas automatizados de
+                alta precisión que garantizan control, rentabilidad y escalabilidad.</p>
+            <a href="#capacidades" class="btn btn-primary">Explorar Ecosistemas Industriales</a>
         </div>
     </section>
 
-    <!-- ===== QUIÉNES SOMOS ===== -->
-    <section class="about">
+    <!-- Pilares Estratégicos -->
+    <section id="capacidades" class="capabilities">
         <div class="container">
-            <h2>Quiénes Somos</h2>
-            <div class="about-grid">
-                <div class="about-text">
-                    <div class="loading">Cargando información...</div>
+            <h2 class="section-title">Capacidades Centrales</h2>
+            <div class="grid-4">
+
+                <div class="card glass">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h3>CRM Estratégico</h3>
+                    <p>El corazón comercial para centralizar clientes, activos y contratos en una sola fuente de verdad,
+                        accesible y auditable en todo momento.</p>
                 </div>
-                <div class="about-image">
-                    <img src="02-Edificio.png" alt="Edificio Parque Real - 7 pisos">
+
+                <div class="card glass">
+                    <i class="fa-solid fa-brain"></i>
+                    <h3>IA Generativa de Negocios</h3>
+                    <p>Módulos avanzados que redactan propuestas comerciales, contratos complejos y reportes
+                        técnicos en segundos, eliminando cuellos de botella.</p>
+                </div>
+
+                <div class="card glass">
+                    <i class="fa-solid fa-cubes"></i>
+                    <h3>Control de Activos Críticos</h3>
+                    <p>Trazabilidad total con Hojas de Vida Digitales y acceso vía QR para mantenimiento industrial y
+                        logística de suministros sin margen de error.</p>
+                </div>
+
+                <div class="card glass">
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3>Respuesta Prioritaria</h3>
+                    <p>Inteligencia Artificial que procesa emergencias y solicitudes en tiempo real, optimizando el
+                        despacho técnico y garantizando la seguridad en campo.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Prototipado / Caso de Éxito -->
+    <section class="prototype">
+        <div class="container prototype-grid">
+            <div class="prototype-text">
+                <h2>No solo prometemos, <span class="text-accent">construimos.</span></h2>
+                <p>
+                    Conozca el prototipo <strong>Dashboard de Control</strong>, aplicado en infraestructura y
+                    mantenimiento vertical. Una interfaz diseñada para gerentes que exigen visibilidad absoluta y
+                    control remoto.
+                </p>
+                <a href="mundo-vital-dashboard/index.html" class="btn btn-primary">Ver Prototipo en Vivo</a>
+            </div>
+
+            <div class="prototype-visual">
+                <!-- UI Dashboard Mockup (Minimalista) -->
+                <div class="ui-mockup glass">
+                    <div class="ui-header">
+                        <div class="ui-dot r"></div>
+                        <div class="ui-dot y"></div>
+                        <div class="ui-dot g"></div>
+                    </div>
+                    <div class="ui-body">
+                        <div class="ui-sidebar">
+                            <div class="ui-sidebar-item"
+                                style="opacity: 0.8; background: rgba(0,212,255,0.1); border-left: 3px solid var(--accent-cyan);">
+                            </div>
+                            <div class="ui-sidebar-item"></div>
+                            <div class="ui-sidebar-item"></div>
+                            <div class="ui-sidebar-item" style="margin-top: 20px; height: 80px;"></div>
+                        </div>
+                        <div class="ui-main">
+                            <div class="ui-chart"></div>
+                            <div class="ui-stats">
+                                <div class="ui-stat-card"></div>
+                                <div class="ui-stat-card"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SERVICIOS ===== -->
-    <section class="services">
+    <!-- Propuesta de Valor Financiera -->
+    <section class="value-prop">
         <div class="container">
-            <h2>Nuestros Servicios</h2>
-            <div class="services-grid">
-                <div class="loading">Cargando servicios...</div>
+            <h2 class="section-title">Impacto Financiero Directo</h2>
+            <div class="value-grid">
+
+                <div class="value-card glass">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h3>Soberanía de Datos</h3>
+                        <p>Usted es dueño absoluto de su sistema y su información. Implementamos arquitecturas propias
+                            <strong>con licenciamiento accequible</strong>. Libérese de las suscripciones.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="value-card glass">
+                    <div class="value-icon">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+                    <div>
+                        <h3>ROI Operativo Acelerado</h3>
+                        <p>Nuestro enfoque se centra en la rentabilidad comprobable mediante la <strong>recuperación de
+                                cartera automatizada</strong> y la eliminación radical de fugas en inventarios.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- ===== SECCIÓN DE VIDEO (ACTUALIZADA CON MP4) ===== -->
-    <section class="video-section">
+    <!-- CTA Final & Contacto -->
+    <section id="contacto" class="cta-section">
         <div class="container">
-            <h2>Conozca nuestro estilo</h2>
-            <div class="video-container">
-                <video class="video-player" autoplay loop muted playsinline>
-                    <source src="04-Video.mp4" type="video/mp4">
-                    Tu navegador no soporta el elemento de video.
-                </video>
-            </div>
-            <p class="video-caption">Edificios del norte de Bogotá confían en Quadratic Solutions</p>
-        </div>
-    </section>
+            <div class="cta-card glass" style="padding: 0; max-width: 800px;">
+                <div style="padding: 60px 40px 20px;">
+                    <h2 style="margin-bottom: 20px; font-size: 2.2rem;">Inicie su Transformación Digital</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">Hablemos sobre cómo
+                        automatizar y blindar la operación técnica de su industria con Inteligencia Artificial.</p>
+                </div>
 
-    <!-- ===== TESTIMONIOS ===== -->
-    <section class="testimonials">
-        <div class="container">
-            <h2>Confían en Nosotros</h2>
-            <div class="testimonial-card">
-                <p>"Desde que Quadratic Solutions tomó la administración de nuestro edificio, todo es más ordenado y
-                    transparente. Los informes mensuales son clarísimos y podemos estar tranquilos sabiendo que
-                    nuestro patrimonio está en buenas manos."</p>
-                <p class="testimonial-author">— Consejo de Administración, Edificio Parque Real</p>
-            </div>
-        </div>
-    </section>
+                <div class="contact-form-container">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" required
+                                placeholder="Ej: Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label for="edificio">Empresa / Industria</label>
+                            <input type="text" id="edificio" name="edificio" class="form-control" required
+                                placeholder="Nombre de su organización">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" class="form-control" required
+                                placeholder="ejemplo@correo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono / Celular</label>
+                            <input type="tel" id="telefono" name="telefono" class="form-control" required value="+57 "
+                                pattern="^\+57 \d{10}$" title="Debe incluir el indicativo +57 seguido de 10 dígitos"
+                                placeholder="+57 3xx xxx xxxx">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" class="form-control" rows="4" required
+                                placeholder="¿En qué podemos ayudarle?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">Enviar Solicitud</button>
+                        <div id="form-status"></div>
+                    </form>
+                </div>
 
-    <!-- ===== CTA FINAL CON WHATSAPP ===== -->
-    <section id="contacto" class="cta">
-        <div class="container">
-            <h2>Solicite una reunión informativa</h2>
-            <p>Descubra cómo podemos brindarle a su edificio la administración que merece, con la seriedad y el detalle
-                requeridos.</p>
+                <div
+                    style="padding: 0 40px 60px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 20px; padding-top: 40px;">
+                    <p style="margin-bottom: 20px; font-size: 1rem; color: var(--text-muted);">O si prefiere,
+                        contáctenos directamente:</p>
+                    <a href="https://wa.me/573112263821?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20ingeniería%20inteligente."
+                        class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> +57 311 2263821
+                    </a>
 
-            <div class="contact-form-container">
-                <form id="contact-form">
-                    <div class="form-group">
-                        <label for="nombre">Nombre Completo</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control" required
-                            placeholder="Ej: Juan Pérez">
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> quadraticsolutions@proton.me</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Bogotá D.C., Colombia</p>
                     </div>
-                    <div class="form-group">
-                        <label for="edificio">Edificio / Conjunto</label>
-                        <input type="text" id="edificio" name="edificio" class="form-control" required
-                            placeholder="Nombre de su copropiedad">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" class="form-control" required
-                            placeholder="ejemplo@correo.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono / Celular</label>
-                        <input type="tel" id="telefono" name="telefono" class="form-control" required value="+57 "
-                            pattern="^\+57 \d{10}$" title="Debe incluir el indicativo +57 seguido de 10 dígitos"
-                            placeholder="+57 3xx xxx xxxx">
-                    </div>
-                    <div class="form-group">
-                        <label for="mensaje">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" class="form-control" rows="4" required
-                            placeholder="¿En qué podemos ayudarle?"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-submit">Enviar Solicitud</button>
-                    <div id="form-status"></div>
-                </form>
-            </div>
-
-            <p style="margin-bottom: 20px; font-size: 1.1rem; opacity: 0.8;">O si prefiere, contáctenos directamente:
-            </p>
-
-            <a href="https://wa.me/573112263821?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20administración%20para%20mi%20edificio."
-                class="btn btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> +57 311 2263821
-            </a>
-
-            <div class="contact-info">
-                <p><i class="fas fa-envelope"></i> quadraticsolutions@proton.me</p>
-                <p><i class="fas fa-map-marker-alt"></i> Bogotá D.C., Colombia</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- Footer Corporativo -->
     <footer>
         <div class="container">
-            <p>© 2025 Quadratic Solutions - Administración de Propiedad Horizontal. Todos los derechos reservados.</p>
-            <p>Soluciones precisas para su patrimonio.</p>
+            <div class="footer-logo">QUADRATIC SOLUTIONS</div>
+            <p>Ingeniería de Sistemas de Información & Automatización IA</p>
+            <p style="margin-top: 15px;">&copy; 2026 Quadratic Solutions. Operaciones Seguras e Inteligentes.</p>
         </div>
     </footer>
 
-    <script src="js/cargar-contenido.js?v=5"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            if (contactForm) {
+                // Validación y formato del campo teléfono
+                const phoneInput = document.getElementById('telefono');
+                if (phoneInput) {
+                    phoneInput.addEventListener('input', (e) => {
+                        let value = e.target.value;
+
+                        // Asegurar que siempre empiece con +57 
+                        if (!value.startsWith('+57 ')) {
+                            value = '+57 ' + value.replace(/^\+?5?7?\s?/, '');
+                        }
+
+                        // Limitar a +57 seguido de máximo 10 dígitos
+                        const prefix = '+57 ';
+                        const digits = value.slice(prefix.length).replace(/\D/g, '').slice(0, 10);
+                        e.target.value = prefix + digits;
+                    });
+
+                    // Evitar que se borre el inicio
+                    phoneInput.addEventListener('keydown', (e) => {
+                        if (e.key === 'Backspace' && e.target.selectionStart <= 4 && e.target.selectionEnd <= 4) {
+                            e.preventDefault();
+                        }
+                    });
+                }
+
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    // Cambiar estado del botón
+                    const submitBtn = contactForm.querySelector('button');
+                    const originalBtnText = submitBtn.textContent;
+                    submitBtn.textContent = 'Enviando...';
+                    submitBtn.disabled = true;
+
+                    const formData = new FormData(contactForm);
+                    const data = Object.fromEntries(formData.entries());
+
+                    try {
+                        // URL del Cloudflare Worker original
+                        const WORKER_URL = 'https://contacto-quadratic.gilberto-borbon-1ec.workers.dev/';
+
+                        const response = await fetch(WORKER_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        if (response.ok) {
+                            formStatus.textContent = '¡Mensaje enviado con éxito! Nos contactaremos pronto.';
+                            formStatus.className = 'status-success';
+                            contactForm.reset();
+                        } else {
+                            throw new Error('Error en el servidor');
+                        }
+                    } catch (error) {
+                        console.error('Error enviando formulario:', error);
+                        formStatus.textContent = 'Hubo un error al enviar el mensaje. Por favor intenta por WhatsApp.';
+                        formStatus.className = 'status-error';
+                    } finally {
+                        submitBtn.textContent = originalBtnText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
