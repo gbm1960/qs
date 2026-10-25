@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <title>El Poder de Caminar - El Diseño Perfecto de Tu Cuerpo</title>
+  <meta name="description" content="Presentación interactiva y guía práctica de salud basada en evidencia sobre biomecánica, metabolismo, neurociencia y longevidad al caminar." />
+  
+  <!-- Configuración PWA / Web App Manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#020617" />
+  <meta name="application-name" content="Caminar" />
+  <meta name="format-detection" content="telephone=no" />
+  
+  <!-- Soporte Apple iOS (iPhone X en adelante, iPads) -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Caminar" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180x180.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  
+  <!-- Favicons Estándar y Vectorial -->
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png" />
+
+  <!-- Dependencias Externas (Cacheadas por sw.js para uso offline) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding-top: var(--sat);
+      padding-bottom: var(--sab);
+      padding-left: var(--sal);
+      padding-right: var(--sar);
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior-y: none;
+    }
+
+    .slide-enter {
+      animation: fadeSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Ocultar scrollbars manteniendo scroll fluido táctil */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      body { background: white !important; color: black !important; padding: 0 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+  <!-- Barra Superior de Navegación, Modos e Instalación -->
+  <header class="no-print border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-40 px-3 sm:px-4 py-2.5 sm:py-3" style="padding-top: max(0.65rem, env(safe-area-inset-top));">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2.5 sm:gap-3">
+      
+      <!-- Marca y Título -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
+          <i data-lucide="footprints" class="w-5 h-5 sm:w-6 sm:h-6 text-slate-950"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-sm sm:text-base md:text-lg text-white leading-tight">Caminar: El Diseño Perfecto</h1>
+          <p class="text-[11px] sm:text-xs text-slate-400 hidden sm:block">Presentación interactiva familiar • Basada en evidencia científica</p>
+        </div>
+      </div>
+
+      <!-- Controles de Modo, Instalación y Descarga -->
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+        
+        <!-- Selector Diapositivas / Guía PDF -->
+        <div class="bg-slate-800 p-1 rounded-xl flex items-center border border-slate-700/70">
+          <button id="btnModeSlides" onclick="switchView('slides')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1.5">
+            <i data-lucide="presentation" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+            <span>Diapositivas</span>
+          </button>
+          <button id="btnModeGuide" onclick="switchView('guide')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+            <span>Guía PDF</span>
+          </button>
+        </div>
+
+        <!-- Botón Instalar PWA (Android / PC Chrome & Edge) -->
+        <button id="btnInstallApp" class="hidden px-3 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/25 ring-2 ring-emerald-400/40 animate-pulse">
+          <i data-lucide="download-cloud" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Instalar App</span>
+          <span class="sm:hidden">Instalar</span>
+        </button>
+
+        <!-- Botón Ayuda Instalar en iOS (iPhone X en adelante) -->
+        <button id="btnIosInstall" onclick="showIosModal()" class="hidden px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition-all flex items-center gap-1.5">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400"></i>
+          <span class="hidden sm:inline">Instalar en iPhone</span>
+          <span class="sm:hidden">Instalar</span>
+        </button>
+
+        <!-- Botón Descargar PowerPoint -->
+        <button onclick="downloadPPTX()" id="btnDownloadPptx" class="px-2.5 sm:px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 transition-all flex items-center gap-1.5 shadow-lg shadow-amber-500/20">
+          <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          <span class="hidden sm:inline">Descargar .PPTX</span>
+          <span class="sm:hidden">.PPTX</span>
+        </button>
+
+        <!-- Botón Guardar / Imprimir PDF -->
+        <button onclick="printGuide()" class="px-2.5 sm:px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 active:scale-95 text-emerald-400 border border-emerald-500/30 transition-all flex items-center gap-1.5">
+          <i data-lucide="printer" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          <span class="hidden sm:inline">Guardar PDF</span>
+          <span class="sm:hidden">PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MODO 1: PRESENTACIÓN INTERACTIVA DE DIAPOSITIVAS ================= -->
+  <main id="slidesView" class="no-print flex-1 flex flex-col justify-between max-w-6xl w-full mx-auto px-3 sm:px-4 py-3 sm:py-5">
+    
+    <!-- Indicador de progreso y pestañas rápidas -->
+    <div class="mb-3 sm:mb-4">
+      <div class="flex items-center justify-between text-xs text-slate-400 mb-1.5 sm:mb-2">
+        <span id="slideCounter" class="font-semibold text-emerald-400 uppercase tracking-wider text-[11px] sm:text-xs">Diapositiva 1 de 9</span>
+        <span class="hidden sm:inline text-slate-500 text-xs">Usa flechas ⬅️ ➡️ o desliza en tu teléfono</span>
+      </div>
+      <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-300" style="width: 11.11%"></div>
+      </div>
+      <!-- Mini índice de diapositivas -->
+      <div id="slidePills" class="flex items-center gap-1.5 overflow-x-auto py-2 sm:py-2.5 no-scrollbar"></div>
+    </div>
+
+    <!-- Contenedor Principal de la Diapositiva Activa -->
+    <div id="slideContainer" class="flex-1 flex flex-col justify-center bg-gradient-to-b from-slate-900 to-slate-900/90 border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden min-h-[440px] sm:min-h-[500px]">
+      <!-- Contenido inyectado dinámicamente por JS -->
+    </div>
+
+    <!-- Controles Inferiores de Diapositiva -->
+    <div class="mt-3.5 sm:mt-5 flex items-center justify-between gap-3" style="padding-bottom: max(0.5rem, env(safe-area-inset-bottom));">
+      <button id="prevBtn" onclick="changeSlide(-1)" class="px-4 sm:px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 transition-all disabled:opacity-40 disabled:pointer-events-none border border-slate-700">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>Anterior</span>
+      </button>
+
+      <!-- Consejo para el presentador (para contar a la familia) -->
+      <div id="speakerNote" class="hidden md:flex items-center gap-2.5 bg-emerald-950/40 border border-emerald-500/20 px-4 py-2 rounded-xl max-w-xl text-xs text-emerald-200">
+        <i data-lucide="message-circle-heart" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+        <span id="speakerNoteText">Frase clave para tu familia...</span>
+      </div>
+
+      <button id="nextBtn" onclick="changeSlide(1)" class="px-5 sm:px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 transition-all shadow-lg shadow-emerald-500/20">
+        <span>Siguiente</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Indicador de navegación gestual para móviles -->
+    <div class="mt-2 text-center text-[11px] text-slate-500 sm:hidden flex items-center justify-center gap-1.5">
+      <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400/80"></i>
+      <span>Desliza lateralmente para navegar entre diapositivas</span>
+    </div>
+  </main>
+
+  <!-- ================= MODO 2: VISTA GUÍA PRÁCTICA IMPRIMIBLE (PDF) ================= -->
+  <section id="guideView" class="hidden print-only max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-white text-slate-900 rounded-2xl my-4 sm:my-6 shadow-xl" style="padding-bottom: max(2rem, env(safe-area-inset-bottom));">
+    <div class="border-b-2 border-emerald-600 pb-5 sm:pb-6 mb-6 flex flex-col sm:flex-row justify-between items-start gap-4">
+      <div>
+        <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">Guía Práctica de Salud y Longevidad</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">Caminar: El Único Ejercicio Para El Que Tu Cuerpo Fue Realmente Diseñado</h1>
+        <p class="text-slate-600 mt-1 text-xs sm:text-sm">Resumen práctico y motivacional para compartir con familiares y amigos</p>
+      </div>
+      <button onclick="window.print()" class="no-print px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-2 shrink-0 shadow active:scale-95">
+        <i data-lucide="printer" class="w-4 h-4"></i> Imprimir / Guardar PDF
+      </button>
+    </div>
+
+    <div class="p-4 rounded-xl bg-emerald-50 border-l-4 border-emerald-600 mb-6">
+      <p class="text-xs sm:text-sm font-semibold text-emerald-950 italic">
+        “No necesitas castigar tu cuerpo para cuidarlo. Caminar entre 7.000 y 8.000 pasos al día, especialmente después de comer y al aire libre, es una de las inversiones más simples, gratuitas y poderosas en tu salud física y mental.”
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-6">
+      <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+        <h2 class="font-bold text-base text-slate-900 mb-2">1. La Paradoja del Fitness Moderno</h2>
+        <p class="text-xs text-slate-700 leading-relaxed">
+          Nos han vendido que la salud exige sufrimiento extremo, sudor y agotamiento. Sin embargo, nunca hubo tantos gimnasios ni tantas enfermedades metabólicas y articulares. Intentar compensar 10 horas de silla con 45 minutos de castigo extremo agota el sistema nervioso. Tu biología evolucionó durante 6 millones de años para el movimiento constante, fluido y suave: <strong>caminar</strong>.
+        </p>
+      </div>
+      <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+        <h2 class="font-bold text-base text-slate-900 mb-2">2. Ingeniería Biomecánica Perfecta</h2>
+        <ul class="text-xs text-slate-700 space-y-1.5">
+          <li>• <strong>Arco del pie:</strong> 26 huesos, 33 articulaciones y +100 músculos que actúan como un muelle reciclador de energía elástica.</li>
+          <li>• <strong>Glúteo mayor y Tendón de Aquiles:</strong> Mantienen el tronco erguido e impulsan cada paso como una caída controlada hacia adelante.</li>
+          <li>• <strong>Bajo impacto articular:</strong> Caminar genera apenas <strong>1,2 veces tu peso corporal</strong> de impacto, frente a <strong>3 o 4 veces al correr</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mb-6 p-4 sm:p-5 rounded-xl border border-slate-200">
+      <h2 class="font-bold text-base text-slate-900 mb-3">3. Metabolismo: Oxidación de Grasas vs. Trampa del Cortisol</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="p-3.5 rounded-lg bg-rose-50 border border-rose-200">
+          <h3 class="font-bold text-rose-900 mb-1">Ejercicio Extremo (170-180 ppm)</h3>
+          <p class="text-rose-800">La amígdala cerebral lo interpreta como peligro de muerte y dispara <strong>cortisol y adrenalina</strong>. Esto frena la quema de grasa abdominal, desata hambre feroz por azúcares al terminar y promueve el desgaste muscular.</p>
+        </div>
+        <div class="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200">
+          <h3 class="font-bold text-emerald-900 mb-1">Caminata Moderada (Zona 1 - Zona 2)</h3>
+          <p class="text-emerald-800">Con abundante oxígeno celular, tu cuerpo usa la <strong>grasa almacenada como combustible principal</strong>. Baja el cortisol, no provoca atracones posteriores y puedes repetirlo todos los días durante décadas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="font-bold text-base text-slate-900 mb-3">4. ¿Qué ocurre en tu cuerpo minuto a minuto cuando sales a caminar?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs">
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+          <span class="font-extrabold text-emerald-700 block text-sm">Minuto 3</span>
+          <strong>Lubricación:</strong> Se libera líquido sinovial en rodillas y caderas; pulso sube suave a 90-100 ppm.
+        </div>
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+          <span class="font-extrabold text-emerald-700 block text-sm">Minuto 10</span>
+          <strong>Cerebro (BDNF):</strong> Mayor flujo sanguíneo cerebral y liberación de proteína BDNF (claridad mental y nuevas conexiones).
+        </div>
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+          <span class="font-extrabold text-emerald-700 block text-sm">Minuto 20</span>
+          <strong>Sistema Linfático:</strong> El bombeo de los gemelos limpia toxinas, baja la hinchazón y refuerza defensas.
+        </div>
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+          <span class="font-extrabold text-emerald-700 block text-sm">Minuto 30</span>
+          <strong>Quema de Grasa:</strong> Se usan ácidos grasos; suben endorfinas/serotonina y el óxido nítrico baja la presión arterial.
+        </div>
+        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50">
+          <span class="font-extrabold text-emerald-700 block text-sm">Minuto 45+</span>
+          <strong>Flujo Biológico:</strong> Baja la inflamación sistémica y el estrés. Terminas con más energía que al empezar.
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-6">
+      <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+        <h2 class="font-bold text-base text-slate-900 mb-2">5. Neurociencia y Calma Mental</h2>
+        <p class="text-xs text-slate-700 leading-relaxed">
+          Grandes mentes (Darwin, Kant, Nietzsche, Jobs) caminaban horas al día. Al caminar se produce <strong>estimulación bilateral</strong> (sincronizando ambos hemisferios cerebrales) y <strong>escaneo óptico lateral</strong>: mirar al horizonte desactiva la amígdala y apaga la ansiedad producida por mirar pantallas a 40 cm todo el día.
+        </p>
+      </div>
+      <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+        <h2 class="font-bold text-base text-slate-900 mb-2">6. El Mito de los 10.000 Pasos</h2>
+        <p class="text-xs text-slate-700 leading-relaxed">
+          Los 10.000 pasos nacieron como campaña publicitaria en Japón (1965) para vender el podómetro <em>Manpo-kei</em>. La ciencia moderna (<em>The Lancet, JAMA</em>) demuestra que el gran salto en salud ocurre entre <strong>7.000 y 8.000 pasos diarios</strong>, reduciendo el riesgo de muerte prematura en <strong>más de un 50%</strong> frente al sedentarismo.
+        </p>
+      </div>
+    </div>
+
+    <div class="p-4 sm:p-5 rounded-xl bg-slate-900 text-white">
+      <h2 class="font-bold text-base text-emerald-400 mb-3">7. El Método «Walking 2.0»: 4 Reglas Prácticas para Empezar Hoy</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div class="p-3 rounded-lg bg-slate-800">
+          <strong class="text-emerald-300 block mb-1">1. Camina 10-15 min tras las comidas</strong>
+          Tus músculos absorben la glucosa directamente y reducen los picos de azúcar en sangre hasta en un 30%.
+        </div>
+        <div class="p-3 rounded-lg bg-slate-800">
+          <strong class="text-emerald-300 block mb-1">2. Toma luz solar por la mañana</strong>
+          Sincroniza tu reloj circadiano, eleva tu energía diurna y programa la melatonina para dormir profundo en la noche.
+        </div>
+        <div class="p-3 rounded-lg bg-slate-800">
+          <strong class="text-emerald-300 block mb-1">3. Varía el terreno e incluye cuestas</strong>
+          Caminar por parques, tierra o pendientes activa músculos estabilizadores y quema hasta un 40% más de calorías sin impacto dañino.
+        </div>
+        <div class="p-3 rounded-lg bg-slate-800">
+          <strong class="text-emerald-300 block mb-1">4. Prueba el «Rucking» (mochila con 4-8 kg)</strong>
+          Duplica el gasto calórico, fortalece espalda y piernas, mejora la postura y estimula la densidad ósea contra la osteoporosis.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL DE INSTALACIÓN EN IOS (iPHONE X EN ADELANTE) ================= -->
+  <div id="iosInstallModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-3xl p-5 sm:p-6 max-w-md w-full shadow-2xl space-y-4 slide-enter" style="padding-bottom: max(1.5rem, env(safe-area-inset-bottom));">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5 text-emerald-400 font-bold text-base">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+            <i data-lucide="smartphone" class="w-5 h-5 text-emerald-400"></i>
+          </div>
+          <span>Instalar en tu iPhone</span>
+        </div>
+        <button onclick="closeIosModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Agrega esta app a tu pantalla de inicio para acceder en pantalla completa y utilizarla sin conexión a internet:
+      </p>
+
+      <div class="space-y-2.5 text-xs text-slate-200">
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 font-bold">1</div>
+          <div>Pulsa el botón <strong>Compartir</strong> en la barra inferior de Safari (<i data-lucide="share" class="w-3.5 h-3.5 inline text-emerald-400"></i>).</div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 font-bold">2</div>
+          <div>Desliza hacia abajo en el menú y selecciona <strong>«Agregar al inicio»</strong> (<i data-lucide="plus-square" class="w-3.5 h-3.5 inline text-emerald-400"></i>).</div>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 font-bold">3</div>
+          <div>Toca <strong>«Agregar»</strong> en la esquina superior derecha. ¡Listo!</div>
+        </div>
+      </div>
+
+      <button onclick="closeIosModal()" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs transition-all shadow-lg shadow-emerald-500/20">
+        Entendido
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= NOTIFICACIÓN TOAST (RED / INSTALACIÓN) ================= -->
+  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-4 px-4 py-2.5 rounded-2xl bg-slate-800/95 border border-slate-700 text-xs font-semibold text-white shadow-2xl flex items-center gap-2 backdrop-blur-md">
+    <i id="toastIcon" data-lucide="wifi" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMsg">Notificación</span>
+  </div>
+
+  <script>
+    // ================= DATOS DE LAS 9 DIAPOSITIVAS INTERACTIVAS =================
+    const slides = [
+      {
+        id: 1,
+        shortTitle: "1. Portada",
+        badge: "SALUD EVOLUTIVA EN FAMILIA",
+        title: "Caminar: El Único Ejercicio Para El Que Tu Cuerpo Fue Realmente Diseñado",
+        subtitle: "Por qué no necesitas castigar a tu cuerpo en un gimnasio para transformar tu metabolismo, tu corazón, tu cerebro y tu longevidad.",
+        speakerTip: "Empieza preguntando a tu familia: ¿Alguien aquí siente culpa por no ir al gimnasio o no salir a correr? Hoy les traigo una gran noticia científica.",
+        render: () => `
+          <div class="slide-enter grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+            <div class="lg:col-span-7 space-y-4 sm:space-y-5">
+              <div class="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wider">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                <span>MEDICINA 100% NATURAL Y GRATUITA</span>
+              </div>
+              <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+                Caminar no es “hacer poco”: es <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">tu diseño biológico perfecto</span>.
+              </h2>
+              <p class="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed">
+                La cultura moderna nos hizo creer que estar sanos requiere sufrimiento extremo, sudor y agotamiento. Pero 6 millones de años de evolución cuentan una historia completamente distinta.
+              </p>
+              <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-800/70 border border-slate-700/80 flex items-start gap-3">
+                <i data-lucide="quote" class="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400 shrink-0 mt-0.5"></i>
+                <p class="text-xs sm:text-sm text-slate-200 italic">
+                  “No necesitas castigar tu cuerpo para cuidarlo. Caminar 7.000 u 8.000 pasos al día, especialmente después de comer y al aire libre, es una de las inversiones más simples y poderosas en tu salud física y mental.”
+                </p>
+              </div>
+            </div>
+            <div class="lg:col-span-5 grid grid-cols-2 gap-3 sm:gap-3.5">
+              <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-slate-800/60 border border-emerald-500/30 flex flex-col justify-between">
+                <i data-lucide="shield-check" class="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400 mb-2 sm:mb-3"></i>
+                <div>
+                  <div class="text-xl sm:text-2xl font-extrabold text-white">-50%</div>
+                  <div class="text-[11px] sm:text-xs text-slate-300 mt-1">Riesgo de mortalidad prematura al pasar de 3.000 a 7.000-8.000 pasos.</div>
+                </div>
+              </div>
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/60 border border-slate-700/70 flex flex-col justify-between">
+                <i data-lucide="feather" class="w-7 h-7 sm:w-8 sm:h-8 text-teal-400 mb-2 sm:mb-3"></i>
+                <div>
+                  <div class="text-xl sm:text-2xl font-extrabold text-white">1,2x</div>
+                  <div class="text-[11px] sm:text-xs text-slate-300 mt-1">Impacto suave sobre tus articulaciones (frente a 3x-4x al correr).</div>
+                </div>
+              </div>
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/60 border border-slate-700/70 flex flex-col justify-between">
+                <i data-lucide="flame" class="w-7 h-7 sm:w-8 sm:h-8 text-amber-400 mb-2 sm:mb-3"></i>
+                <div>
+                  <div class="text-xl sm:text-2xl font-extrabold text-white">Zona 2</div>
+                  <div class="text-[11px] sm:text-xs text-slate-300 mt-1">Oxida grasa acumulada como combustible principal sin cortisol alto.</div>
+                </div>
+              </div>
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/60 border border-slate-700/70 flex flex-col justify-between">
+                <i data-lucide="brain" class="w-7 h-7 sm:w-8 sm:h-8 text-purple-400 mb-2 sm:mb-3"></i>
+                <div>
+                  <div class="text-xl sm:text-2xl font-extrabold text-white">BDNF</div>
+                  <div class="text-[11px] sm:text-xs text-slate-300 mt-1">Fertilizante cerebral que se libera a los 10 minutos de paseo.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 2,
+        shortTitle: "2. La Paradoja",
+        badge: "EL ERROR DEL «SIN DOLOR NO HAY VICTORIA»",
+        title: "La Paradoja del Mundo Actual",
+        subtitle: "Tenemos más gimnasios, relojes inteligentes y apps de fitness por metro cuadrado que nunca... pero estamos más enfermos y agotados.",
+        speakerTip: "Comenta cómo muchas personas se apuntan al gimnasio en enero, se machacan 3 semanas y abandonan porque su cuerpo interpreta ese castigo como una agresión.",
+        render: () => `
+          <div class="slide-enter space-y-5 sm:space-y-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-400">EL PROBLEMA ACTUAL</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">¿Por qué fracasa el modelo del “castigo físico”?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div class="p-5 sm:p-6 rounded-2xl bg-rose-950/30 border border-rose-500/30 space-y-3 sm:space-y-4">
+                <div class="flex items-center gap-3">
+                  <div class="p-2 sm:p-2.5 rounded-xl bg-rose-500/20 text-rose-400">
+                    <i data-lucide="battery-warning" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                  </div>
+                  <h3 class="font-bold text-base sm:text-lg text-white">La Trampa Moderna: Silla + Sufrimiento</h3>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Pasamos <strong>8, 10 o 12 horas en inmovilidad absoluta</strong> sentados en una silla, y pretendemos compensarlo con 45 minutos de estrés físico destructivo al final del día.
+                </p>
+                <ul class="space-y-2 text-xs text-rose-200">
+                  <li class="flex items-center gap-2"><i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0"></i> Convertimos el ejercicio en un castigo por lo que comimos.</li>
+                  <li class="flex items-center gap-2"><i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0"></i> Saturamos el sistema nervioso y provocamos lesiones articulares.</li>
+                  <li class="flex items-center gap-2"><i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0"></i> El 90% abandona a las pocas semanas por agotamiento biológico.</li>
+                </ul>
+              </div>
+
+              <div class="p-5 sm:p-6 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 space-y-3 sm:space-y-4">
+                <div class="flex items-center gap-3">
+                  <div class="p-2 sm:p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400">
+                    <i data-lucide="compass" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                  </div>
+                  <h3 class="font-bold text-base sm:text-lg text-white">El Diseño Original: Movimiento Fluido</h3>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Hace 6 millones de años, al cambiar las selvas por sabanas abiertas, nos pusimos de pie (bipedestación) con un objetivo: <strong>recorrer largas distancias sin agotar nuestra energía</strong>.
+                </p>
+                <ul class="space-y-2 text-xs text-emerald-200">
+                  <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i> Somos la máquina de caminar más eficiente del reino animal.</li>
+                  <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i> No requiere 48 horas de recuperación ni deja agujetas incapacitantes.</li>
+                  <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i> Puedes hacerlo hoy, mañana y dentro de 40 o 50 años.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 3,
+        shortTitle: "3. Biomecánica",
+        badge: "INGENIERÍA HUMANA",
+        title: "Una «Caída Controlada Hacia Adelante»",
+        subtitle: "Cuando caminas casi no gastas energía muscular directa: aprovechas la gravedad y un sistema de resortes biológicos únicos.",
+        speakerTip: "Pídeles que miren sus pies: cada pie tiene 26 huesos y más de 100 músculos diseñados como un resorte de alta ingeniería.",
+        render: () => `
+          <div class="slide-enter space-y-5 sm:space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">ANATOMÍA EVOLUTIVA</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Los 3 Resortes de Tu Cuerpo al Caminar</h2>
+              </div>
+              <div class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs text-slate-300">
+                Impacto al caminar: <strong class="text-emerald-400">1,2x tu peso</strong> vs. Correr: <strong class="text-rose-400">3x a 4x tu peso</strong>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/70 border border-slate-700/80 hover:border-emerald-500/50 transition-all">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold mb-3">1</div>
+                <h3 class="font-bold text-base sm:text-lg text-white mb-2">El Arco del Pie</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Una obra maestra con <strong>26 huesos, 33 articulaciones y +100 músculos y ligamentos</strong>. Funciona como un muelle que absorbe el impacto de la pisada y te impulsa con energía elástica gratuita.
+                </p>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/70 border border-slate-700/80 hover:border-emerald-500/50 transition-all">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold mb-3">2</div>
+                <h3 class="font-bold text-base sm:text-lg text-white mb-2">El Glúteo Mayor</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Es el músculo más grande y potente de tu cuerpo. Su función en la naturaleza no es levantar 200 kg en el gimnasio, sino <strong>mantener tu tronco erguido paso tras paso</strong> sin caerte hacia adelante.
+                </p>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/70 border border-slate-700/80 hover:border-emerald-500/50 transition-all">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mb-3">3</div>
+                <h3 class="font-bold text-base sm:text-lg text-white mb-2">Tendón de Aquiles y Fascia</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Actúan como <strong>gomas elásticas gigantes</strong> que almacenan energía potencial cada vez que tu talón toca el suelo y la liberan automáticamente en la siguiente zancada.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <i data-lucide="activity" class="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400 shrink-0"></i>
+                <p class="text-xs sm:text-sm text-slate-200">
+                  <strong>¿Por qué sufren las rodillas al correr en asfalto?</strong> Porque correr obliga a despegar todo tu peso del suelo en cada zancada, multiplicando por 4 el golpe en tobillos, rodillas y caderas.
+                </p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 4,
+        shortTitle: "4. Metabolismo y Grasa",
+        badge: "BIOQUÍMICA DEL EJERCICIO",
+        title: "El Milagro Metabólico: Por Qué Caminar Quema Grasa Sin Estrés",
+        subtitle: "Haz clic para comparar qué ocurre dentro de tus hormonas y tus células cuando haces ejercicio extremo frente a cuando sales a caminar.",
+        speakerTip: "Explica por qué después de una clase agotadora da un hambre feroz de cosas dulces, mientras que después de caminar te sientes tranquilo y sin ansiedad.",
+        render: () => `
+          <div class="slide-enter space-y-4 sm:space-y-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-400">LA TRAMPA METABÓLICA</span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">¿Qué combustible usa tu cuerpo según la intensidad?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+              <!-- Columna Alta Intensidad -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/90 border border-rose-500/40 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-300 text-[11px] sm:text-xs font-bold">ALTA INTENSIDAD (170-180 PPM)</span>
+                  <i data-lucide="flame-kindling" class="w-5 h-5 text-rose-400"></i>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-white">Modo «Peligro de Muerte» (Cortisol Alto)</h3>
+                <p class="text-xs text-slate-300">
+                  Tu amígdala cree que huyes de un depredador. Tus glándulas bombean <strong>cortisol y adrenalina</strong>, causando 3 efectos:
+                </p>
+                <div class="space-y-2 text-xs">
+                  <div class="p-2.5 rounded-xl bg-rose-950/40 border border-rose-500/20 text-rose-200">
+                    <strong>1. Bloquea la grasa abdominal:</strong> El cuerpo guarda reservas de emergencia ante el estrés constante.
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-rose-950/40 border border-rose-500/20 text-rose-200">
+                    <strong>2. Hambre feroz de azúcares:</strong> Al quemar glucosa rápida, tu cerebro exige reponerla con carbohidratos.
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-rose-950/40 border border-rose-500/20 text-rose-200">
+                    <strong>3. Catabolismo e inflamación:</strong> Destruye masa muscular para convertir aminoácidos en glucosa.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Columna Caminata Zona 2 -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/90 border border-emerald-500/40 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-[11px] sm:text-xs font-bold">CAMINATA FLUIDA (ZONA 1 Y ZONA 2)</span>
+                  <i data-lucide="heart-handshake" class="w-5 h-5 text-emerald-400"></i>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-white">Vía Oxidativa de las Grasas (Calma Hormonal)</h3>
+                <p class="text-xs text-slate-300">
+                  Al haber abundante oxígeno celular y no hiperventilar, tu metabolismo usa <strong>grasa como energía primaria</strong>:
+                </p>
+                <div class="space-y-2 text-xs">
+                  <div class="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 text-emerald-200">
+                    <strong>1. Quema prioritaria de grasa acumulada:</strong> Oxida ácidos grasos sin agotar el glucógeno celular.
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 text-emerald-200">
+                    <strong>2. Reduce el cortisol:</strong> Activa el sistema nervioso parasimpático y calma el estrés crónico.
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 text-emerald-200">
+                    <strong>3. Cero atracones posteriores:</strong> Terminas renovado de energía y sin ataques de ansiedad.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 5,
+        shortTitle: "5. Minuto a Minuto",
+        badge: "SIMULADOR CRONOLÓGICO INTERACTIVO",
+        title: "¿Qué Ocurre en Tu Cuerpo Minuto a Minuto Cuando Caminas?",
+        subtitle: "Haz clic en cada minuto de la línea de tiempo para descubrir cómo reacciona tu cuerpo desde que abres la puerta de casa.",
+        speakerTip: "Invita a tu familia a elegir un minuto en pantalla: incluso caminar solo 10 o 20 minutos ya activa medicina real en el cerebro y el sistema linfático.",
+        render: () => `
+          <div class="slide-enter space-y-4 sm:space-y-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">CRONOLOGÍA FISIOLÓGICA (MINUTO 3 AL 45+)</span>
+              <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-1">Selecciona un momento de tu caminata:</h2>
+            </div>
+
+            <!-- Botones del Simulador de Tiempo Responsivo (2 cols en móvil, 5 cols en escritorio) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
+              ${timelineData.map((item, idx) => `
+                <button onclick="selectTimeline(${idx})" id="timeBtn-${idx}" class="p-2.5 sm:p-3 rounded-2xl border text-left transition-all ${idx === activeTimelineIdx ? 'bg-emerald-500 text-slate-950 border-emerald-400 font-bold shadow-lg shadow-emerald-500/20' : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:border-slate-500'} ${idx === 4 ? 'col-span-2 sm:col-span-1' : ''}">
+                  <div class="text-[10px] sm:text-xs opacity-80">Minuto</div>
+                  <div class="text-base sm:text-2xl font-extrabold">${item.min}</div>
+                  <div class="text-[11px] truncate mt-0.5">${item.tag}</div>
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Panel Detallado del Minuto Seleccionado -->
+            <div id="timelineDetailBox" class="p-4 sm:p-6 rounded-2xl bg-slate-800/90 border border-emerald-500/30 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center">
+              ${renderTimelineDetail(activeTimelineIdx)}
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 6,
+        shortTitle: "6. Cerebro y Calma",
+        badge: "NEUROCIENCIA DEL PASEO",
+        title: "Por Qué las Grandes Mentes Caminaban Horas Cada Día",
+        subtitle: "Nietzsche, Kant, Darwin, Beethoven, Kierkegaard y Steve Jobs usaban la caminata como su herramienta secreta de claridad mental.",
+        speakerTip: "Pregúntales cuántas horas miran el celular a 40 cm de la cara. Caminar mirando al horizonte es el antídoto biológico contra la ansiedad digital.",
+        render: () => `
+          <div class="slide-enter space-y-5 sm:space-y-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-purple-400">SALUD MENTAL Y SISTEMA NERVIOSO</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">La Forma Más Antigua de Meditación en Movimiento</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <div class="p-5 sm:p-6 rounded-2xl bg-slate-800/80 border border-purple-500/30 space-y-3">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center">
+                  <i data-lucide="git-merge" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white">1. Estimulación Bilateral</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Al mover de forma alterna el lado izquierdo y derecho del cuerpo, tus <strong>dos hemisferios cerebrales se sincronizan</strong> a través del cuerpo calloso con una fluidez que no ocurre cuando estás sentado. Por eso las mejores soluciones aparecen caminando.
+                </p>
+              </div>
+
+              <div class="p-5 sm:p-6 rounded-2xl bg-slate-800/80 border border-teal-500/30 space-y-3">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center">
+                  <i data-lucide="eye" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white">2. Escaneo Óptico Lateral (Stanford)</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Mirar pantallas fijas a 40 cm mantiene tu cerebro en alerta y estrés. Al caminar al aire libre y mirar el horizonte, el flujo visual lateral <strong>desactiva mecánicamente la amígdala cerebral</strong> (miedo y ansiedad): tu cerebro siente que estás a salvo.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-800/50 border border-slate-700 text-xs sm:text-sm text-slate-300 flex items-center gap-3">
+              <i data-lucide="lightbulb" class="w-5 h-5 text-amber-400 shrink-0"></i>
+              <span><strong>Regla de oro para tus paseos:</strong> Cuando salgas a caminar, guarda el teléfono y levanta la vista hacia el horizonte lejano.</span>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 7,
+        shortTitle: "7. Mito 10.000 Pasos",
+        badge: "CIENCIA VS. MARKETING",
+        title: "Desmontando el Mito de los 10.000 Pasos",
+        subtitle: "No necesitas frustrarte si no llegas a 10.000 pasos. Descubre de dónde salió ese número y cuál es la verdadera cifra que salva vidas.",
+        speakerTip: "Este dato siempre sorprende en las reuniones familiares: ¡los 10.000 pasos fueron un eslogan japonés de 1965! Con 7.000 a 8.000 pasos ya logras el máximo beneficio.",
+        render: () => `
+          <div class="slide-enter grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+            <div class="lg:col-span-6 space-y-3.5 sm:space-y-4">
+              <div class="p-4 sm:p-5 rounded-2xl bg-amber-950/30 border border-amber-500/30 space-y-2">
+                <div class="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase">
+                  <i data-lucide="megaphone" class="w-4 h-4"></i>
+                  <span>Japón, Año 1965: Marketing Puro</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-white">El origen del podómetro «Manpo-kei»</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  La cifra de 10.000 pasos no nació en la OMS ni en un estudio médico. Fue una campaña publicitaria japonesa para vender un podómetro llamado <em>Manpo-kei</em> (“medidor de 10.000 pasos”) porque el carácter japonés <strong>万</strong> parecía una persona caminando.
+                </p>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 space-y-2">
+                <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase">
+                  <i data-lucide="microscope" class="w-4 h-4"></i>
+                  <span>Estudios en The Lancet y JAMA Internal Medicine</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-white">El Punto Dulce: 7.000 a 8.000 Pasos</h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Tras seguir a decenas de miles de personas durante años, los científicos comprobaron que los mayores beneficios para la longevidad se alcanzan entre <strong>7.000 y 8.000 pasos diarios</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6 p-4 sm:p-6 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-4 sm:space-y-5">
+              <h4 class="font-bold text-white text-sm sm:text-base text-center">Reducción del Riesgo de Mortalidad Prematura</h4>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-slate-400">3.000 pasos/día (Sedentario base)</span>
+                    <span class="text-rose-400 font-bold">Riesgo alto</span>
+                  </div>
+                  <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden">
+                    <div class="h-full bg-rose-500 w-1/4"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-emerald-300 font-bold">7.000 - 8.000 pasos/día (Punto dulce científico)</span>
+                    <span class="text-emerald-400 font-extrabold">-50% Mortalidad</span>
+                  </div>
+                  <div class="w-full h-4 bg-slate-900 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 w-11/12"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-slate-400">10.000+ pasos/día (Curva de beneficio se aplana)</span>
+                    <span class="text-teal-300 font-bold">Beneficio extra leve</span>
+                  </div>
+                  <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden">
+                    <div class="h-full bg-teal-500 w-full"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-xs text-center text-slate-300 bg-slate-900/80 p-3 rounded-xl">
+                Pasar de 3.000 a <strong>7.000 u 8.000 pasos constantes</strong> transforma tu esperanza y calidad de vida sin obsesionarte.
+              </p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 8,
+        shortTitle: "8. Walking 2.0",
+        badge: "GUÍA PRÁCTICA DE OPTIMIZACIÓN",
+        title: "El Método «Walking 2.0»: 4 Reglas para Multiplicar Resultados",
+        subtitle: "Cómo transformar un simple paseo diario en una intervención fisiológica de alto nivel en menos tiempo.",
+        speakerTip: "Si solo pudieran elegir UNA regla para empezar hoy en casa, recomiéndales caminar 10-15 minutos justo después de comer o cenar.",
+        render: () => `
+          <div class="slide-enter space-y-4 sm:space-y-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">ESTRATEGIA PRÁCTICA</span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Las 4 Reglas Fisiológicas del Método Walking 2.0</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/80 border border-emerald-500/30 flex gap-3 sm:gap-4">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 font-extrabold text-base sm:text-lg">1</div>
+                <div>
+                  <h3 class="font-bold text-white text-sm sm:text-base">Camina 10-15 min después de comer</h3>
+                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                    Tus músculos absorben la glucosa en sangre directamente sin exigir picos de insulina al páncreas. <strong>Reduce los picos de glucosa hasta en un 30%</strong> y previene la diabetes.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/80 border border-amber-500/30 flex gap-3 sm:gap-4">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 font-extrabold text-base sm:text-lg">2</div>
+                <div>
+                  <h3 class="font-bold text-white text-sm sm:text-base">Aprovecha la luz solar matutina</h3>
+                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                    La luz de la mañana en tus ojos sincroniza tu reloj circadiano, eleva tu energía diurna y programa a tu cerebro para segregar <strong>melatonina 10-12 horas después</strong> (sueño profundo).
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/80 border border-teal-500/30 flex gap-3 sm:gap-4">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center shrink-0 font-extrabold text-base sm:text-lg">3</div>
+                <div>
+                  <h3 class="font-bold text-white text-sm sm:text-base">Varía el terreno e incluye cuestas</h3>
+                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                    Caminar por senderos, hierba, tierra o pendientes activa cientos de músculos estabilizadores en tobillos y caderas, <strong>aumentando el gasto calórico hasta en un 40%</strong> sin impacto dañino.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-800/80 border border-purple-500/30 flex gap-3 sm:gap-4">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0 font-extrabold text-base sm:text-lg">4</div>
+                <div>
+                  <h3 class="font-bold text-white text-sm sm:text-base">Practica el «Rucking» (mochila 4-8 kg)</h3>
+                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                    En vez de correr y castigar tus rodillas, lleva una mochila ajustada con peso moderado. <strong>Duplica la quema de calorías</strong>, corrige la postura y aumenta la densidad ósea contra la osteoporosis.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 9,
+        shortTitle: "9. Reto Familiar",
+        badge: "PASO A LA ACCIÓN",
+        title: "Nuestro Compromiso: Volver a lo Natural",
+        subtitle: "La medicina más poderosa del mundo es gratuita, no requiere equipamiento costoso y empieza en la puerta de tu casa.",
+        speakerTip: "Cierra la presentación proponiendo un paseo familiar hoy mismo después de comer o este fin de semana.",
+        render: () => `
+          <div class="slide-enter space-y-5 sm:space-y-6">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase">EL MENSAJE FINAL</span>
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-white">¿Con qué hábitos nos quedamos hoy?</h2>
+              <p class="text-xs sm:text-sm text-slate-300">Marca las casillas del plan que quieras poner en práctica esta semana con tu familia y amigos:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-3.5 max-w-4xl mx-auto">
+              <label class="p-3.5 sm:p-4 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-emerald-500/50 flex items-start gap-3.5 cursor-pointer transition-all">
+                <input type="checkbox" checked class="mt-1 w-5 h-5 accent-emerald-500 rounded" />
+                <div>
+                  <div class="font-bold text-white text-xs sm:text-sm">Paseo digestivo de 10 a 15 minutos</div>
+                  <div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Salir a caminar suave después del almuerzo o la cena para reducir hasta un 30% el pico de glucosa.</div>
+                </div>
+              </label>
+
+              <label class="p-3.5 sm:p-4 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-emerald-500/50 flex items-start gap-3.5 cursor-pointer transition-all">
+                <input type="checkbox" checked class="mt-1 w-5 h-5 accent-emerald-500 rounded" />
+                <div>
+                  <div class="font-bold text-white text-xs sm:text-sm">Meta inteligente: 7.000 a 8.000 pasos</div>
+                  <div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Acumular pasos durante el día sin obsesionarse con el mito publicitario de los 10.000.</div>
+                </div>
+              </label>
+
+              <label class="p-3.5 sm:p-4 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-emerald-500/50 flex items-start gap-3.5 cursor-pointer transition-all">
+                <input type="checkbox" checked class="mt-1 w-5 h-5 accent-emerald-500 rounded" />
+                <div>
+                  <div class="font-bold text-white text-xs sm:text-sm">Vista al horizonte y luz de mañana</div>
+                  <div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Descansar los ojos de las pantallas, calmar la amígdala cerebral y mejorar el sueño nocturno.</div>
+                </div>
+              </label>
+
+              <label class="p-3.5 sm:p-4 rounded-2xl bg-slate-800/80 border border-slate-700 hover:border-emerald-500/50 flex items-start gap-3.5 cursor-pointer transition-all">
+                <input type="checkbox" checked class="mt-1 w-5 h-5 accent-emerald-500 rounded" />
+                <div>
+                  <div class="font-bold text-white text-xs sm:text-sm">Caminata de 45 min el fin de semana</div>
+                  <div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Buscar un parque o sendero con algo de inclinación para llegar al estado de flujo biológico completo.</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-2">
+              <button onclick="downloadPPTX()" class="px-4 sm:px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 transition-all">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                Descargar Presentación en PowerPoint (.PPTX)
+              </button>
+              <button onclick="printGuide()" class="px-4 sm:px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition-all">
+                <i data-lucide="printer" class="w-4 h-4"></i>
+                Imprimir / Guardar Guía en PDF
+              </button>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    // Datos interactivos del viaje minuto a minuto (Diapositiva 5)
+    const timelineData = [
+      {
+        min: "3'",
+        tag: "Articulaciones",
+        title: "Minuto 3: Lubricación con Líquido Sinovial",
+        desc: "Tus tobillos, rodillas y caderas empiezan a liberar líquido sinovial, que actúa como aceite sintético de máxima calidad reduciendo la fricción entre los cartílagos y previniendo el desgaste. Tu pulso pasa suavemente de 60-70 a 90-100 pulsaciones por minuto sin estrés.",
+        benefit: "Protección articular inmediata y activación circulatoria suave."
+      },
+      {
+        min: "10'",
+        tag: "Cerebro (BDNF)",
+        title: "Minuto 10: Fertilizante de Alta Potencia para Tus Neuronas",
+        desc: "Las arterias cerebrales se dilatan llevando oxígeno a la corteza prefrontal. Se libera la proteína BDNF (factor neurotrófico derivado del cerebro), que estimula la creación de nuevas conexiones neuronales y despeja la niebla mental o la ansiedad.",
+        benefit: "Claridad mental, memoria, creatividad y reducción del bloqueo mental."
+      },
+      {
+        min: "20'",
+        tag: "Sist. Linfático",
+        title: "Minuto 20: Drenaje de Toxinas y Refuerzo Inmunitario",
+        desc: "El sistema linfático no tiene un corazón que lo bombee; depende al 100% de la contracción muscular, especialmente del bombeo mecánico de los gemelos al pisar. A los 20 minutos limpias desechos celulares y bajas la retención de líquidos.",
+        benefit: "Menos hinchazón en las piernas y fortalecimiento directo de tus defensas."
+      },
+      {
+        min: "30'",
+        tag: "Quema de Grasa",
+        title: "Minuto 30: Oxidación Masiva de Grasa y Óxido Nítrico",
+        desc: "Tu cuerpo agota la glucosa rápida en sangre y pasa a descomponer masivamente ácidos grasos acumulados. Además, suben las endorfinas, dopamina y serotonina, y tus arterias liberan óxido nítrico que dilata los vasos y reduce la presión arterial.",
+        benefit: "Pérdida de grasa visceral, mejora del ánimo y protección cardiovascular."
+      },
+      {
+        min: "45'+",
+        tag: "Flujo Total",
+        title: "Minuto 45 o más: Estado de Flujo Biológico Completo",
+        desc: "Has quemado calorías procedentes directamente de tus reservas de grasa, los marcadores inflamatorios en sangre bajan drásticamente y tu mente recibe un baño de serenidad. Terminas con más energía vital que cuando saliste de casa.",
+        benefit: "Desinflamación sistémica, serenidad profunda y recarga de energía vital."
+      }
+    ];
+
+    let currentSlideIndex = 0;
+    let activeTimelineIdx = 0;
+
+    function renderTimelineDetail(idx) {
+      const item = timelineData[idx];
+      return `
+        <div class="md:col-span-8 space-y-2">
+          <div class="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase">
+            <i data-lucide="clock" class="w-4 h-4"></i>
+            <span>Efecto Fisiológico Comprobado</span>
+          </div>
+          <h3 class="text-lg sm:text-2xl font-extrabold text-white">${item.title}</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${item.desc}</p>
+        </div>
+        <div class="md:col-span-4 p-3.5 sm:p-4 rounded-xl bg-emerald-950/50 border border-emerald-500/30 space-y-1.5">
+          <div class="text-[11px] sm:text-xs font-bold text-emerald-400 uppercase">Beneficio Clave</div>
+          <p class="text-xs sm:text-sm font-semibold text-white">${item.benefit}</p>
+        </div>
+      `;
+    }
+
+    function selectTimeline(idx) {
+      activeTimelineIdx = idx;
+      renderSlide();
+    }
+
+    function renderPills() {
+      const container = document.getElementById('slidePills');
+      container.innerHTML = slides.map((s, idx) => `
+        <button onclick="goToSlide(${idx})" class="px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${idx === currentSlideIndex ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'}">
+          ${s.shortTitle}
+        </button>
+      `).join('');
+    }
+
+    function renderSlide() {
+      const slide = slides[currentSlideIndex];
+      document.getElementById('slideContainer').innerHTML = slide.render();
+      document.getElementById('slideCounter').textContent = `Diapositiva ${currentSlideIndex + 1} de ${slides.length} • ${slide.badge}`;
+      document.getElementById('progressBar').style.width = `${((currentSlideIndex + 1) / slides.length) * 100}%`;
+      document.getElementById('speakerNoteText').textContent = slide.speakerTip;
+
+      document.getElementById('prevBtn').disabled = currentSlideIndex === 0;
+      const nextBtn = document.getElementById('nextBtn');
+      if (currentSlideIndex === slides.length - 1) {
+        nextBtn.innerHTML = `<span>Volver al Inicio</span><i data-lucide="rotate-ccw" class="w-4 h-4"></i>`;
+      } else {
+        nextBtn.innerHTML = `<span>Siguiente</span><i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+      }
+
+      renderPills();
+      lucide.createIcons();
+    }
+
+    function changeSlide(delta) {
+      if (currentSlideIndex + delta >= slides.length) {
+        currentSlideIndex = 0;
+      } else if (currentSlideIndex + delta >= 0) {
+        currentSlideIndex += delta;
+      }
+      renderSlide();
+    }
+
+    function goToSlide(idx) {
+      currentSlideIndex = idx;
+      renderSlide();
+    }
+
+    function switchView(mode) {
+      const slidesView = document.getElementById('slidesView');
+      const guideView = document.getElementById('guideView');
+      const btnSlides = document.getElementById('btnModeSlides');
+      const btnGuide = document.getElementById('btnModeGuide');
+
+      if (mode === 'slides') {
+        slidesView.classList.remove('hidden');
+        guideView.classList.add('hidden');
+        btnSlides.className = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1.5";
+        btnGuide.className = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5";
+      } else {
+        slidesView.classList.add('hidden');
+        guideView.classList.remove('hidden');
+        btnGuide.className = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1.5";
+        btnSlides.className = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1.5";
+      }
+      lucide.createIcons();
+    }
+
+    function printGuide() {
+      switchView('guide');
+      setTimeout(() => window.print(), 250);
+    }
+
+    // ================= NAVEGACIÓN CON TECLADO =================
+    window.addEventListener('keydown', (e) => {
+      if (document.getElementById('slidesView').classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+
+    // ================= GESTOS TÁCTILES (SWIPE EN PANTALLAS MÓVILES) =================
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    const slidesViewEl = document.getElementById('slidesView');
+
+    if (slidesViewEl) {
+      slidesViewEl.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      slidesViewEl.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleTouchSwipe();
+      }, { passive: true });
+    }
+
+    function handleTouchSwipe() {
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      // Umbral mínimo horizontal de 45px y comprobar que el movimiento sea principalmente horizontal
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.35) {
+        if (diffX < 0) {
+          // Gesto hacia la izquierda -> avanzar
+          changeSlide(1);
+        } else {
+          // Gesto hacia la derecha -> retroceder
+          changeSlide(-1);
+        }
+      }
+    }
+
+    // ================= MANEJO DE INSTALACIÓN PWA (ANDROID / PC / IOS) =================
+    let deferredInstallPrompt = null;
+    const btnInstallApp = document.getElementById('btnInstallApp');
+    const btnIosInstall = document.getElementById('btnIosInstall');
+    const iosInstallModal = document.getElementById('iosInstallModal');
+
+    // Escuchar el evento antes de instalar en Chrome/Edge/Android
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      if (btnInstallApp) {
+        btnInstallApp.classList.remove('hidden');
+        lucide.createIcons();
+      }
+    });
+
+    if (btnInstallApp) {
+      btnInstallApp.addEventListener('click', async () => {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        console.log('[PWA] Elección de instalación:', outcome);
+        deferredInstallPrompt = null;
+        btnInstallApp.classList.add('hidden');
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      console.log('[PWA] Aplicación instalada exitosamente');
+      if (btnInstallApp) btnInstallApp.classList.add('hidden');
+      if (btnIosInstall) btnIosInstall.classList.add('hidden');
+      showToast('¡App instalada con éxito en tu dispositivo!', 'check-circle-2');
+    });
+
+    // Detección de dispositivos iOS (iPhone X en adelante, iPads)
+    const isIosDevice = () => {
+      const ua = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(ua);
+    };
+
+    const isRunningStandalone = () => {
+      return ('standalone' in window.navigator && window.navigator.standalone) ||
+             window.matchMedia('(display-mode: standalone)').matches;
+    };
+
+    // Si es iOS y no está instalado en inicio, mostrar botón de ayuda de instalación
+    if (isIosDevice() && !isRunningStandalone() && btnIosInstall) {
+      btnIosInstall.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function showIosModal() {
+      if (iosInstallModal) {
+        iosInstallModal.classList.remove('hidden');
+        lucide.createIcons();
+      }
+    }
+
+    function closeIosModal() {
+      if (iosInstallModal) {
+        iosInstallModal.classList.add('hidden');
+      }
+    }
+
+    // ================= TOAST DE NOTIFICACIONES (ESTADO DE RED / ACCIONES) =================
+    let toastTimeout = null;
+    function showToast(message, iconName = 'wifi') {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+      if (!toast) return;
+
+      toastMsg.textContent = message;
+      toastIcon.setAttribute('data-lucide', iconName);
+      lucide.createIcons();
+
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-4');
+      }, 3500);
+    }
+
+    // Detección de conectividad en tiempo real (Offline / Online)
+    window.addEventListener('offline', () => {
+      showToast('Modo sin conexión activo • Guía disponible offline', 'wifi-off');
+    });
+
+    window.addEventListener('online', () => {
+      showToast('Conexión a internet restablecida', 'wifi');
+    });
+
+    // ================= REGISTRO DEL SERVICE WORKER (OFFLINE) =================
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((reg) => {
+            console.log('[PWA] Service Worker registrado con éxito. Alcance:', reg.scope);
+          })
+          .catch((err) => {
+            console.warn('[PWA] Registro de Service Worker omitido o fallido:', err);
+          });
+      });
+    }
+
+    // ================= SOPORTE DE ACCESOS DIRECTOS Y PARÁMETROS URL =================
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('view') === 'guide') {
+      switchView('guide');
+    }
+    const slideParam = parseInt(urlParams.get('slide'));
+    if (!isNaN(slideParam) && slideParam >= 1 && slideParam <= slides.length) {
+      goToSlide(slideParam - 1);
+    }
+
+    // ================= GENERADOR DE POWERPOINT (.PPTX) CON PPTXGENJS =================
+    async function downloadPPTX() {
+      const btn = document.getElementById('btnDownloadPptx');
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = `<span>Generando .PPTX...</span>`;
+      btn.disabled = true;
+
+      try {
+        const pptx = new PptxGenJS();
+        pptx.layout = 'LAYOUT_16x9';
+        pptx.author = 'Guía Familiar de Salud';
+        pptx.title = 'Caminar: El Único Ejercicio Para El Que Tu Cuerpo Fue Realmente Diseñado';
+
+        const bgDark = '0F172A';
+        const cardDark = '1E293B';
+        const emerald = '10B981';
+        const amber = 'F59E0B';
+        const rose = 'F43F5E';
+        const white = 'FFFFFF';
+        const slate = 'CBD5E1';
+
+        function addBaseSlide(badgeText, titleText) {
+          const s = pptx.addSlide();
+          s.background = { color: bgDark };
+          s.addText(badgeText, { x: 0.6, y: 0.4, w: 8.8, h: 0.3, fontSize: 10, bold: true, color: emerald });
+          s.addText(titleText, { x: 0.6, y: 0.75, w: 8.8, h: 0.6, fontSize: 22, bold: true, color: white });
+          return s;
+        }
+
+        // Slide 1: Portada
+        const s1 = pptx.addSlide();
+        s1.background = { color: bgDark };
+        s1.addText('GUÍA PRÁCTICA Y MOTIVACIONAL PARA FAMILIARES Y AMIGOS', { x: 0.6, y: 0.8, w: 8.8, h: 0.4, fontSize: 11, bold: true, color: emerald });
+        s1.addText('Caminar: El Único Ejercicio Para El Que Tu Cuerpo Fue Realmente Diseñado', { x: 0.6, y: 1.3, w: 8.8, h: 1.3, fontSize: 28, bold: true, color: white });
+        s1.addText('“No necesitas castigar tu cuerpo para cuidarlo. Caminar 7.000 u 8.000 pasos al día, especialmente después de comer y al aire libre, es una de las inversiones más simples y poderosas en tu salud física y mental.”', {
+          x: 0.6, y: 2.9, w: 8.8, h: 1.2, fontSize: 14, italic: true, color: slate, fill: { color: cardDark }, margin: 12
+        });
+        s1.addText('Basado en evidencia biomecánica, metabólica y neurocientífica', { x: 0.6, y: 4.5, w: 8.8, h: 0.4, fontSize: 11, color: amber });
+
+        // Slide 2: Paradoja
+        const s2 = addBaseSlide('1. TESIS CENTRAL', 'La Paradoja del Fitness Moderno vs. Tu Biología');
+        s2.addText([
+          { text: 'El mito del sufrimiento extremo:\n', options: { bold: true, color: rose, fontSize: 15 } },
+          { text: '• Nos vendieron que estar sanos exige terminar exhaustos (“sin dolor no hay victoria”).\n', options: { fontSize: 13, color: slate } },
+          { text: '• Intentamos compensar 8 a 12 horas de silla con 45 minutos de castigo físico extremo.\n', options: { fontSize: 13, color: slate } },
+          { text: '• Resultado: abandono a las 3 semanas, lesiones articulares y agotamiento nervioso.', options: { fontSize: 13, color: slate } }
+        ], { x: 0.6, y: 1.6, w: 4.2, h: 3.2, fill: { color: cardDark }, margin: 12 });
+
+        s2.addText([
+          { text: 'El diseño evolutivo humano:\n', options: { bold: true, color: emerald, fontSize: 15 } },
+          { text: '• Evolucionamos durante 6 millones de años para caminar con eficiencia matemática.\n', options: { fontSize: 13, color: slate } },
+          { text: '• Es una actividad de bajo impacto que no requiere 48 h de recuperación.\n', options: { fontSize: 13, color: slate } },
+          { text: '• Puedes practicarla hoy, mañana y dentro de 40 o 50 años.', options: { fontSize: 13, color: slate } }
+        ], { x: 5.1, y: 1.6, w: 4.3, h: 3.2, fill: { color: cardDark }, margin: 12 });
+
+        // Slide 3: Biomecánica
+        const s3 = addBaseSlide('2. INGENIERÍA BIOMECÁNICA', 'Una «Caída Controlada Hacia Adelante»');
+        s3.addText('1. El Arco del Pie\n26 huesos, 33 articulaciones y +100 músculos que actúan como un muelle reciclador de energía elástica gratuita.', { x: 0.6, y: 1.6, w: 2.8, h: 2.2, fontSize: 12, color: slate, fill: { color: cardDark }, margin: 10 });
+        s3.addText('2. El Glúteo Mayor\nEl músculo más grande y potente, diseñado para mantener tu tronco erguido paso tras paso sin caerte.', { x: 3.6, y: 1.6, w: 2.8, h: 2.2, fontSize: 12, color: slate, fill: { color: cardDark }, margin: 10 });
+        s3.addText('3. Tendón de Aquiles\nJunto a la fascia plantar, almacena energía al apoyar el talón y la libera en la siguiente zancada.', { x: 6.6, y: 1.6, w: 2.8, h: 2.2, fontSize: 12, color: slate, fill: { color: cardDark }, margin: 10 });
+        s3.addText('Impacto articular al caminar: apenas 1,2 veces tu peso corporal (frente a 3 o 4 veces al correr en asfalto).', { x: 0.6, y: 4.1, w: 8.8, h: 0.7, fontSize: 14, bold: true, color: amber, fill: { color: cardDark }, margin: 10 });
+
+        // Slide 4: Metabolismo
+        const s4 = addBaseSlide('3. METABOLISMO Y HORMONAS', 'Oxidación de Grasas vs. La Trampa del Cortisol');
+        s4.addText([
+          { text: 'Ejercicio Extremo (170-180 ppm):\n', options: { bold: true, color: rose, fontSize: 14 } },
+          { text: '• La amígdala interpreta peligro de muerte y libera cortisol y adrenalina.\n• Inhibe la movilización de grasa visceral y abdominal.\n• Dispara un apetito feroz por azúcares y harinas al terminar.\n• Favorece el catabolismo muscular y la inflamación.', options: { fontSize: 12, color: slate } }
+        ], { x: 0.6, y: 1.6, w: 4.2, h: 3.2, fill: { color: cardDark }, margin: 12 });
+        s4.addText([
+          { text: 'Caminata Moderada (Zona 1 - Zona 2):\n', options: { bold: true, color: emerald, fontSize: 14 } },
+          { text: '• Abundante oxígeno celular: usa la grasa almacenada como combustible prioritario.\n• Activa el sistema parasimpático y reduce el cortisol.\n• No produce agotamiento ni atracones posteriores.\n• Sostenible todos los días del año.', options: { fontSize: 12, color: slate } }
+        ], { x: 5.1, y: 1.6, w: 4.3, h: 3.2, fill: { color: cardDark }, margin: 12 });
+
+        // Slide 5: Minuto a minuto
+        const s5 = addBaseSlide('4. VIAJE CRONOLÓGICO', '¿Qué Ocurre en Tu Cuerpo Minuto a Minuto al Caminar?');
+        const mins = [
+          ['Minuto 3', 'Lubricación articular con líquido sinovial en tobillos, rodillas y caderas; pulso sube suave a 90-100 ppm.'],
+          ['Minuto 10', 'Mayor flujo sanguíneo cerebral y liberación de proteína BDNF (fertilizante neuronal y claridad mental).'],
+          ['Minuto 20', 'El bombeo de los gemelos activa el sistema linfático: limpia toxinas, baja hinchazón y refuerza defensas.'],
+          ['Minuto 30', 'Quema masiva de ácidos grasos; suben endorfinas/serotonina y el óxido nítrico baja la presión arterial.'],
+          ['Minuto 45+', 'Reducción drástica de estrés e inflamación sistémica; terminas con más energía vital que al empezar.']
+        ];
+        mins.forEach((m, i) => {
+          s5.addText(`${m[0]}: ${m[1]}`, { x: 0.6, y: 1.5 + (i * 0.72), w: 8.8, h: 0.6, fontSize: 12, color: white, fill: { color: cardDark }, margin: 8 });
+        });
+
+        // Slide 6: Cerebro y Mito 10.000 pasos
+        const s6 = addBaseSlide('5. NEUROCIENCIA Y EL MITO DE LOS 10.000 PASOS', 'Calma Mental y La Verdadera Cifra Científica');
+        s6.addText([
+          { text: 'Meditación en Movimiento:\n', options: { bold: true, color: emerald, fontSize: 14 } },
+          { text: '• Estimulación bilateral: sincroniza ambos hemisferios cerebrales (creatividad).\n• Escaneo óptico lateral (Stanford): mirar al horizonte desactiva la amígdala y apaga la ansiedad de las pantallas.', options: { fontSize: 12, color: slate } }
+        ], { x: 0.6, y: 1.6, w: 4.2, h: 3.1, fill: { color: cardDark }, margin: 12 });
+        s6.addText([
+          { text: '¿10.000 pasos o 7.000-8.000 pasos?\n', options: { bold: true, color: amber, fontSize: 14 } },
+          { text: '• Los 10.000 pasos nacieron en Japón (1965) como marketing del podómetro Manpo-kei.\n• The Lancet y JAMA demuestran que pasar de 3.000 a 7.000-8.000 pasos diarios reduce la mortalidad prematura en más de un 50%.', options: { fontSize: 12, color: slate } }
+        ], { x: 5.1, y: 1.6, w: 4.3, h: 3.1, fill: { color: cardDark }, margin: 12 });
+
+        // Slide 7: Walking 2.0
+        const s7 = addBaseSlide('6. MÉTODO WALKING 2.0', '4 Reglas Prácticas Para Multiplicar Tus Resultados');
+        s7.addText('1. Camina 10-15 min tras las comidas\nTus músculos absorben glucosa directamente y reducen los picos de azúcar en sangre hasta en un 30%.', { x: 0.6, y: 1.6, w: 4.2, h: 1.5, fontSize: 12, color: slate, fill: { color: cardDark }, margin: 10 });
+        s7.addText('2. Aprovecha la luz solar matutina\nSincroniza tu reloj circadiano, eleva la energía diurna y programa la melatonina para dormir profundo.', { x: 5.1, y: 1.6, w: 4.3, h: 1.5, fontSize: 12, color: slate, fill: { color: cardDark }, margin: 10 });
+        s7.addText('3. Varía el terreno e incluye cuestas\nCaminar por tierra, césped o pendientes activa músculos estabilizadores y quema hasta un 40% más de calorías.', { x: 0.6, y: 3.3, w: 4.2, h: 1.5, fontSize: 12, color: slate, fill: { color: cardDark }, margin: 10 });
+        s7.addText('4. Practica el «Rucking» (mochila 4-8 kg)\nDuplica la quema calórica, fortalece espalda y piernas, mejora la postura y aumenta la densidad ósea.', { x: 5.1, y: 3.3, w: 4.3, h: 1.5, fontSize: 12, color: slate, fill: { color: cardDark }, margin: 10 });
+
+        await pptx.writeFile({ fileName: 'El_Poder_De_Caminar_Presentacion.pptx' });
+        showToast('Archivo .PPTX generado con éxito', 'check-circle-2');
+      } catch (err) {
+        console.error('Error al generar PPTX:', err);
+        showToast('Error al generar PowerPoint', 'alert-circle');
+      } finally {
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    // Inicializar primera diapositiva al cargar
+    renderSlide();
+  </script>
+</body>
+</html>

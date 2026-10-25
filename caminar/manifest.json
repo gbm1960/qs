@@ -1,0 +1,110 @@
+{
+  "id": "./caminar-pwa",
+  "name": "El Poder de Caminar - El Diseño Perfecto de Tu Cuerpo",
+  "short_name": "Caminar",
+  "description": "Presentación interactiva y guía práctica de salud basada en evidencia sobre biomecánica, metabolismo, neurociencia y longevidad al caminar.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "orientation": "any",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "lang": "es",
+  "dir": "ltr",
+  "categories": [
+    "health",
+    "fitness",
+    "lifestyle",
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/apple-touch-icon-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Presentación interactiva en pantalla de escritorio y monitor"
+    },
+    {
+      "src": "screenshots/mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vista móvil vertical responsiva para teléfonos inteligentes"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Diapositivas Interactivas",
+      "short_name": "Diapositivas",
+      "description": "Abrir la presentación interactiva de 9 diapositivas",
+      "url": "./index.html?view=slides",
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Guía Práctica de Salud",
+      "short_name": "Guía PDF",
+      "description": "Leer y consultar la guía completa imprimible",
+      "url": "./index.html?view=guide",
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}
