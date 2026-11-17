@@ -1,8 +1,8 @@
 {
   "id": "./caminar-pwa",
-  "name": "El Poder de Caminar - El Diseño Perfecto de Tu Cuerpo",
-  "short_name": "Caminar",
-  "description": "Presentación interactiva y guía práctica de salud basada en evidencia sobre biomecánica, metabolismo, neurociencia y longevidad al caminar.",
+  "name": "Caminar es Salud 2.0: El Diseño Perfecto",
+  "short_name": "Caminar 2.0",
+  "description": "Aplicación Web Progresiva (PWA) interactiva con 12 unidades clínicas sobre biomecánica, metabolismo, neurociencia y longevidad del hábito de caminar.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -82,9 +82,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Diapositivas Interactivas",
-      "short_name": "Diapositivas",
-      "description": "Abrir la presentación interactiva de 9 diapositivas",
+      "name": "12 Unidades Interactivas",
+      "short_name": "12 Unidades",
+      "description": "Abrir la presentación interactiva de 12 unidades científicas",
       "url": "./index.html?view=slides",
       "icons": [
         {
@@ -94,9 +94,21 @@
       ]
     },
     {
-      "name": "Guía Práctica de Salud",
+      "name": "Artículo Científico (Paper PDF)",
+      "short_name": "Paper 2.0",
+      "description": "Leer el artículo de revisión científica integrado",
+      "url": "./index.html?view=paper",
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Guía Clínica y Familiar",
       "short_name": "Guía PDF",
-      "description": "Leer y consultar la guía completa imprimible",
+      "description": "Consultar y descargar la guía completa",
       "url": "./index.html?view=guide",
       "icons": [
         {

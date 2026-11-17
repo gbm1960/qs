@@ -3,14 +3,15 @@
  * Proporciona soporte offline completo, sincronización y caché inteligente
  */
 
-const CACHE_NAME = 'caminar-pwa-v1.1';
-const DYNAMIC_CACHE = 'caminar-dynamic-v1.1';
+const CACHE_NAME = 'caminar-pwa-v2.2';
+const DYNAMIC_CACHE = 'caminar-dynamic-v2.2';
 
 // Recursos críticos locales para funcionamiento offline
 const STATIC_ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './data/20261102_Artículo_Caminar_es_Salud_2.0.pdf',
   './icons/favicon.svg',
   './icons/favicon-32x32.png',
   './icons/favicon-16x16.png',
@@ -28,6 +29,7 @@ const STATIC_ASSETS = [
 const CDN_ASSETS = [
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/lucide@latest',
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
   'https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js',
   'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap'
 ];
@@ -38,8 +40,19 @@ self.addEventListener('install', (event) => {
     (async () => {
       const cache = await caches.open(CACHE_NAME);
       
-      // 1. Guardar recursos estáticos locales
-      await cache.addAll(STATIC_ASSETS);
+      // 1. Guardar recursos estáticos locales evitando caché HTTP obsoleta
+      await Promise.allSettled(
+        STATIC_ASSETS.map(async (assetUrl) => {
+          try {
+            const res = await fetch(assetUrl, { cache: 'reload' });
+            if (res && res.status === 200) {
+              await cache.put(assetUrl, res);
+            }
+          } catch (e) {
+            console.warn('[PWA SW] Fallo al cachear recurso local:', assetUrl, e);
+          }
+        })
+      );
 
       // 2. Guardar CDNs de forma segura (sin que un fallo en un CDN bloquee el install)
       await Promise.allSettled(
@@ -91,7 +104,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       (async () => {
         try {
-          const networkResponse = await fetch(request);
+          const networkResponse = await fetch(request, { cache: 'no-cache' });
           if (networkResponse && networkResponse.status === 200) {
             const cache = await caches.open(CACHE_NAME);
             cache.put(request, networkResponse.clone());
@@ -118,6 +131,7 @@ self.addEventListener('fetch', (event) => {
       url.origin.includes('fonts.googleapis.com') ||
       url.origin.includes('tailwindcss.com') ||
       url.origin.includes('unpkg.com') ||
+      url.origin.includes('cdnjs.cloudflare.com') ||
       url.origin.includes('jsdelivr.net')) {
     event.respondWith(
       (async () => {
@@ -134,7 +148,7 @@ self.addEventListener('fetch', (event) => {
         }
 
         try {
-          const networkResponse = await fetch(request);
+          const networkResponse = await fetch(request, { cache: 'no-cache' });
           if (networkResponse && networkResponse.status === 200) {
             const dynamicCache = await caches.open(DYNAMIC_CACHE);
             dynamicCache.put(request, networkResponse.clone());
