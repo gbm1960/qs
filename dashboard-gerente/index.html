@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <title>Dashboard Gerente | Quadratic Solutions</title>
+  <meta name="description" content="Panel gerencial interactivo con control operativo en tiempo real, tesorería, activos industriales y agente IA de cotizaciones B2B." />
+
+  <!-- Configuración PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#020617" />
+  <meta name="application-name" content="Dashboard Gerente" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- Soporte Apple iOS (iPhone X en adelante, iPads) -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dashboard Gerente" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180x180.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png" />
+
+  <!-- Dependencias Externas (Cacheadas por sw.js para uso offline) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #020617;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      padding-top: var(--sat);
+      padding-bottom: var(--sab);
+      padding-left: var(--sal);
+      padding-right: var(--sar);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    h1, h2, h3, .font-urbanist {
+      font-family: 'Urbanist', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      border-radius: 1.25rem;
+    }
+
+    .accent-glow {
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.16);
+    }
+
+    .status-pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.45; }
+      100% { opacity: 1; }
+    }
+
+    /* Modales */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 60;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: #0f172a;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 1.25rem;
+      transform: translateY(14px);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .loader {
+      border: 4px solid rgba(16, 185, 129, 0.18);
+      border-top: 4px solid #10b981;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      animation: spin 0.9s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Toggle Switch */
+    .toggle-checkbox:checked {
+      right: 0;
+      border-color: #10b981;
+    }
+    .toggle-checkbox:checked + .toggle-label {
+      background-color: #10b981;
+    }
+    .toggle-checkbox {
+      right: 0;
+      z-index: 1;
+      border-color: #475569;
+      transition: all 0.25s;
+    }
+    .toggle-label {
+      width: 2.5rem;
+      height: 1.25rem;
+      background-color: #1e293b;
+      border-radius: 9999px;
+      transition: all 0.25s;
+    }
+
+    /* Scrollbars */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(51, 65, 85, 0.85); border-radius: 9999px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.65); }
+  </style>
+</head>
+
+<body class="p-3.5 sm:p-6 lg:p-8 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-slate-950">
+
+  <div class="max-w-[1440px] w-full mx-auto flex-1">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-7 gap-4" style="padding-top: max(0.25rem, env(safe-area-inset-top));">
+      <div>
+        <p class="text-emerald-400 font-urbanist tracking-widest text-xs sm:text-sm uppercase font-bold">
+          Quadratic Solutions | Sistema Operativo B2B
+        </p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold mt-1 text-white">
+          Hola, <span class="text-emerald-400">Gerente</span>
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base mt-0.5">Estado operativo y financiero de Tu Empresa</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full md:w-auto">
+        <a href="../" class="text-xs font-bold uppercase tracking-wider bg-slate-900 hover:bg-slate-800 text-emerald-400 py-2.5 px-4 rounded-xl transition-colors border border-emerald-500/35 flex items-center gap-2 min-h-[42px]">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Volver a la Web</span>
+        </a>
+
+        <!-- Botón Instalar PWA (Android / PC) -->
+        <button id="btnInstallApp" class="hidden text-xs font-extrabold uppercase tracking-wider bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 py-2.5 px-4 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/25 min-h-[42px]">
+          <i class="fa-solid fa-download"></i>
+          <span>Instalar App</span>
+        </button>
+
+        <!-- Botón Ayuda Instalar en iOS (iPhone X+) -->
+        <button id="btnIosInstall" onclick="openIosModal()" class="hidden text-xs font-bold uppercase tracking-wider bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 py-2.5 px-3.5 rounded-xl border border-emerald-500/35 transition-all flex items-center gap-2 min-h-[42px]">
+          <i class="fa-solid fa-mobile-screen-button text-emerald-400"></i>
+          <span>Instalar en iPhone</span>
+        </button>
+
+        <div class="hidden lg:block text-right ml-1">
+          <p class="text-[11px] text-slate-500 uppercase tracking-wider">Servidores Cloud</p>
+          <p class="text-xs text-emerald-400 font-bold flex items-center justify-end gap-1.5">
+            <span class="w-2 h-2 bg-emerald-400 rounded-full status-pulse"></span> Activos
+          </p>
+        </div>
+
+        <div class="hidden sm:flex w-11 h-11 glass-card items-center justify-center rounded-full border-emerald-500/35 shrink-0">
+          <i class="fa-solid fa-user-tie text-emerald-400"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- KPI Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-7">
+      <button onclick="openAssetsModal('all')" class="text-left glass-card p-5 sm:p-6 accent-glow hover:border-emerald-400/60 transition-all group cursor-pointer">
+        <div class="flex justify-between items-start mb-4">
+          <div class="p-3 bg-emerald-500/15 rounded-xl text-emerald-400 border border-emerald-500/25">
+            <i class="fa-solid fa-cubes text-2xl"></i>
+          </div>
+          <span class="text-emerald-400 text-xs sm:text-sm font-bold">+2 este mes</span>
+        </div>
+        <p class="text-slate-400 text-xs sm:text-sm uppercase font-bold tracking-wider">Activos Totales</p>
+        <div class="flex items-baseline justify-between mt-1">
+          <h3 class="text-3xl sm:text-4xl font-extrabold text-white">160</h3>
+          <span class="text-xs text-emerald-400 font-bold group-hover:underline">Explorar →</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">Equipos bajo supervisión continua</p>
+      </button>
+
+      <div class="glass-card p-5 sm:p-6 border-rose-500/30">
+        <div class="flex justify-between items-start mb-4">
+          <div class="p-3 bg-rose-500/15 rounded-xl text-rose-400 border border-rose-500/25">
+            <i class="fa-solid fa-triangle-exclamation text-2xl status-pulse"></i>
+          </div>
+          <span class="text-rose-400 text-xs sm:text-sm font-bold">Prioridad IA</span>
+        </div>
+        <p class="text-slate-400 text-xs sm:text-sm uppercase font-bold tracking-wider">Alertas Hoy</p>
+        <h3 id="kpiAlertCount" class="text-3xl sm:text-4xl font-extrabold text-rose-400 mt-1">2</h3>
+        <p id="kpiAlertSubtitle" class="text-xs text-rose-300/80 mt-2">1 atendida • 1 en ruta técnica</p>
+      </div>
+
+      <div class="glass-card p-5 sm:p-6 border-amber-500/25">
+        <div class="flex justify-between items-start mb-4">
+          <div class="p-3 bg-amber-500/15 rounded-xl text-amber-400 border border-amber-500/25">
+            <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
+          </div>
+          <span class="text-amber-400 text-xs sm:text-sm font-bold">En Mora</span>
+        </div>
+        <p class="text-slate-400 text-xs sm:text-sm uppercase font-bold tracking-wider">Cartera Pendiente</p>
+        <h3 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">$12.5M</h3>
+        <p class="text-xs text-slate-400 mt-2">14 clientes con aviso automático</p>
+      </div>
+
+      <div class="glass-card p-5 sm:p-6 border-teal-400/25">
+        <div class="flex justify-between items-start mb-4">
+          <div class="p-3 bg-teal-500/15 rounded-xl text-teal-300 border border-teal-500/25">
+            <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+          </div>
+          <span class="text-teal-300 text-xs sm:text-sm font-bold">Automatizado</span>
+        </div>
+        <p class="text-slate-400 text-xs sm:text-sm uppercase font-bold tracking-wider">Propuestas IA</p>
+        <h3 id="kpiProposalCount" class="text-3xl sm:text-4xl font-extrabold text-white mt-1">24</h3>
+        <p class="text-xs text-slate-400 mt-2">Generadas este mes con IA</p>
+      </div>
+    </div>
+
+    <!-- Módulo de Tesorería (Bancos) -->
+    <div class="mb-8">
+      <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2 text-white">
+        <i class="fa-solid fa-vault text-emerald-400"></i>
+        <span>Consolidado Financiero en Tiempo Real</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card p-5 relative overflow-hidden">
+          <div class="relative z-10">
+            <p class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Banco Nacional</p>
+            <p class="text-xs text-slate-500 mb-2">Cuenta Corriente ****4589</p>
+            <h3 class="text-2xl font-extrabold text-white">$84.250.000</h3>
+            <p class="text-xs text-emerald-400 mt-2 flex items-center gap-1 font-semibold">
+              <i class="fa-solid fa-arrow-trend-up"></i> +5.2% este mes
+            </p>
+          </div>
+          <svg class="absolute bottom-0 left-0 w-full h-16 opacity-20" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <path d="M0,30 L0,20 L20,25 L40,15 L60,22 L80,5 L100,10 L100,30 Z" fill="#10b981"></path>
+          </svg>
+        </div>
+
+        <div class="glass-card p-5 relative overflow-hidden">
+          <div class="relative z-10">
+            <p class="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">Banco Fiduciario</p>
+            <p class="text-xs text-slate-500 mb-2">Fondo Reserva ****1102</p>
+            <h3 class="text-2xl font-extrabold text-white">$32.100.000</h3>
+            <p class="text-xs text-slate-400 mt-2">Capital protegido</p>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 border-amber-500/25">
+          <p class="text-amber-400 text-xs uppercase font-bold tracking-wider mb-1">Caja Menor Operativa</p>
+          <p class="text-xs text-slate-400 mb-2">Efectivo para despachos</p>
+          <h3 class="text-2xl font-extrabold text-amber-400">$850.000</h3>
+          <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+            <div class="bg-amber-400 h-full w-1/3 rounded-full"></div>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1.5">Aviso de reposición sugerida</p>
+        </div>
+
+        <div class="glass-card p-5 border-emerald-400/45 relative overflow-hidden bg-emerald-950/25">
+          <div class="absolute -top-4 -right-4 w-20 h-20 bg-emerald-500/20 rounded-full blur-xl"></div>
+          <div class="relative z-10">
+            <p class="text-emerald-300 text-xs uppercase font-bold tracking-wider mb-2">Liquidez Total Disponible</p>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white inline-block">$117.200.000</h3>
+            <div class="mt-3 inline-flex items-center gap-2 px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 rounded text-[11px] text-emerald-300 font-bold uppercase tracking-wider">
+              <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full status-pulse"></span> Sincronizado hace 2 min.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área Principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+
+      <!-- Columna Izquierda: Operaciones y Activos -->
+      <div class="lg:col-span-2 space-y-6 sm:space-y-8">
+        <!-- Control de Operaciones -->
+        <div class="glass-card p-5 sm:p-7">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-3">
+              <i class="fa-solid fa-bolt-lightning text-emerald-400"></i>
+              <span>Control de Operaciones (IA en Tiempo Real)</span>
+            </h3>
+            <span class="text-xs text-slate-400">Toca una tarjeta para gestionar estado</span>
+          </div>
+
+          <div id="operationsList" class="space-y-3.5">
+            <!-- Renderizado por JS -->
+          </div>
+        </div>
+
+        <!-- Tabla / Tarjetas de Estado de Mantenimientos -->
+        <div class="glass-card overflow-hidden">
+          <div class="p-5 sm:p-7 pb-3 flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-xl sm:text-2xl font-bold text-white">Estado de Mantenimientos</h3>
+            <span class="text-xs text-slate-400">Resumen de activos prioritarios</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead class="bg-emerald-500/10 text-emerald-300 text-xs uppercase font-urbanist">
+                <tr>
+                  <th class="p-3.5 sm:px-6">Cliente / Sitio</th>
+                  <th class="p-3.5">Último Preventivo</th>
+                  <th class="p-3.5">Próximo</th>
+                  <th class="p-3.5">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="maintenanceTableBody" class="text-xs sm:text-sm divide-y divide-slate-800/80">
+                <!-- Renderizado por JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="p-4 bg-emerald-500/5 text-center border-t border-emerald-500/15">
+            <button onclick="openAssetsModal('all')" class="text-emerald-400 hover:text-emerald-300 text-sm font-bold hover:underline inline-flex items-center gap-2 py-1 px-3">
+              <span>Ver los 160 activos</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Agente IA y Centro Logístico -->
+      <div class="space-y-6 sm:space-y-8">
+        <!-- Agente IA de Cotizaciones -->
+        <div class="glass-card p-5 sm:p-6 border-emerald-400/40 relative overflow-hidden">
+          <div class="absolute -top-4 -right-4 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
+          <h3 class="text-xl font-bold mb-1.5 flex items-center gap-2 relative z-10 text-white">
+            <i class="fa-solid fa-microchip text-emerald-400"></i>
+            <span>Agente IA de Cotizaciones</span>
+          </h3>
+          <p class="text-slate-400 text-xs mb-4 relative z-10">
+            Motor de Inteligencia Artificial listo para procesar requerimientos y redactar propuestas comerciales B2B en PDF.
+          </p>
+
+          <div class="space-y-4 relative z-10">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="fieldContext" class="text-xs text-emerald-300 uppercase font-bold tracking-wider">Contexto de Campo</label>
+                <button type="button" onclick="fillSampleContext()" class="text-[11px] text-teal-300 hover:underline font-semibold">Cargar ejemplo</button>
+              </div>
+              <textarea id="fieldContext" class="w-full bg-slate-950/80 border border-slate-700 p-3 rounded-xl text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-400 transition-colors" rows="3" placeholder="Ej.: Mantenimiento preventivo de 12 unidades industriales en Planta Norte con reemplazo de sensores ópticos..."></textarea>
+            </div>
+
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
+              <p class="text-[11px] text-slate-400 uppercase font-bold tracking-widest border-b border-slate-800 pb-1.5">Parámetros del Agente</p>
+
+              <div class="flex items-center justify-between">
+                <label for="toggleLegal" class="text-xs text-slate-200 cursor-pointer">Incluir marco jurídico B2B</label>
+                <div class="relative inline-block w-10 align-middle select-none">
+                  <input type="checkbox" id="toggleLegal" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" checked />
+                  <label for="toggleLegal" class="toggle-label block overflow-hidden h-5 rounded-full cursor-pointer"></label>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <label for="toggleInventory" class="text-xs text-slate-200 cursor-pointer">Cotizar repuestos en bodega</label>
+                <div class="relative inline-block w-10 align-middle select-none">
+                  <input type="checkbox" id="toggleInventory" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" checked />
+                  <label for="toggleInventory" class="toggle-label block overflow-hidden h-5 rounded-full cursor-pointer"></label>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="generateTechnicalProposal()" class="w-full bg-emerald-500 hover:bg-emerald-400 active:scale-[0.99] transition-all py-3 px-4 rounded-xl font-extrabold flex items-center justify-center gap-2 text-slate-950 shadow-lg shadow-emerald-500/20 min-h-[46px]">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Generar Documento Técnico</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Centro Logístico Interactivo -->
+        <div class="glass-card p-5 sm:p-6">
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-bold flex items-center gap-2 text-white">
+              <i class="fa-solid fa-boxes-stacked text-emerald-400"></i>
+              <span>Centro Logístico</span>
+            </h3>
+            <div class="text-right">
+              <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Capital Inmovilizado</p>
+              <p class="text-sm font-extrabold text-emerald-300">$45.2M</p>
+            </div>
+          </div>
+
+          <div class="relative mb-4">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
+            <input type="text" id="inventorySearch" oninput="renderInventory()" placeholder="Buscar SKU o repuesto industrial..." class="w-full bg-slate-950/80 border border-slate-700 py-2.5 pl-9 pr-3 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-400" />
+          </div>
+
+          <div id="inventoryList" class="space-y-3">
+            <!-- Renderizado dinámicamente por JS -->
+          </div>
+
+          <button id="btnToggleInventory" onclick="toggleInventoryExpand()" class="w-full mt-4 p-2.5 border border-emerald-500/30 rounded-xl text-xs font-bold text-emerald-400 hover:bg-emerald-500/10 transition-all flex items-center justify-center gap-2 min-h-[42px]">
+            <span>Desplegar Inventario Completo</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-10 pb-4 text-center text-slate-500 text-xs">
+      <p>© 2026 Quadratic Solutions | Panel Gerencial Demo Interactivo</p>
+      <p class="mt-1 uppercase tracking-widest text-slate-600">Ingeniería Inteligente para Crecimiento Industrial</p>
+    </footer>
+  </div>
+
+  <!-- ================= MODAL IA SIMULACIÓN + DESCARGA REAL PDF ================= -->
+  <div id="ai-modal" class="modal-overlay">
+    <div class="modal-content p-6 sm:p-7 max-w-md w-full text-center shadow-2xl">
+      <div id="ai-loader">
+        <div class="loader"></div>
+        <h3 class="text-xl font-bold text-white mb-2">Motor IA Analizando...</h3>
+        <p class="text-sm text-slate-400">Estructurando propuesta comercial B2B basada en el contexto de campo e inventario actual.</p>
+      </div>
+
+      <div id="ai-success" class="hidden space-y-4">
+        <div class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto border border-emerald-500/50 text-emerald-400 text-3xl">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+          <span id="proposalCodeBadge" class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-bold mb-1">COT-2026-084</span>
+          <h3 class="text-xl font-bold text-white">Propuesta Generada</h3>
+          <p id="proposalSummaryText" class="text-xs sm:text-sm text-slate-300 mt-1.5 leading-relaxed"></p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2.5 pt-2">
+          <button onclick="closeProposalModal()" class="flex-1 py-2.5 px-4 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 text-sm font-bold">
+            Cerrar
+          </button>
+          <button onclick="downloadProposalPDF()" class="flex-1 py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-sm font-extrabold shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span>Descargar PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL EXPLORADOR DE LOS 160 ACTIVOS ================= -->
+  <div id="assetsModal" class="modal-overlay">
+    <div class="modal-content p-5 sm:p-6 max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl">
+      <div class="flex items-start justify-between gap-3 pb-4 border-b border-slate-800">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Trazabilidad Digital con Hojas de Vida QR</span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white">Explorador de Activos Industriales (160 Supervisados)</h3>
+        </div>
+        <button onclick="closeAssetsModal()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white" aria-label="Cerrar explorador">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="py-3.5 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+        <div class="relative flex-1">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
+          <input type="text" id="assetsSearchInput" oninput="renderAssetsModalTable()" placeholder="Filtrar por código, cliente o tipo de equipo..." class="w-full bg-slate-950 border border-slate-700 py-2 pl-9 pr-3 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400" />
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="setAssetFilter('all')" id="filter-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500 text-slate-950">Todos</button>
+          <button onclick="setAssetFilter('Al día')" id="filter-Al día" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:text-white">Al día</button>
+          <button onclick="setAssetFilter('Próximo')" id="filter-Próximo" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:text-white">Próximos</button>
+          <button onclick="setAssetFilter('Vencido')" id="filter-Vencido" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:text-white">Vencidos</button>
+        </div>
+      </div>
+
+      <div class="flex-1 overflow-y-auto custom-scrollbar border border-slate-800 rounded-xl">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead class="bg-slate-950 text-emerald-400 uppercase text-xs sticky top-0">
+            <tr>
+              <th class="p-3">Código</th>
+              <th class="p-3">Cliente / Sitio</th>
+              <th class="p-3">Equipo Industrial</th>
+              <th class="p-3">Próximo Prev.</th>
+              <th class="p-3">Estado / Acción</th>
+            </tr>
+          </thead>
+          <tbody id="assetsModalBody" class="divide-y divide-slate-800/80 text-slate-200">
+            <!-- Poblado por JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL INSTALACIÓN EN IPHONE (iOS) ================= -->
+  <div id="iosInstallModal" class="modal-overlay">
+    <div class="modal-content p-5 sm:p-6 max-w-md w-full space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2 text-emerald-400 font-bold text-base">
+          <i class="fa-solid fa-mobile-screen-button text-lg"></i>
+          <span>Instalar Dashboard en tu iPhone</span>
+        </div>
+        <button onclick="closeIosModal()" class="text-slate-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        Agrega el <strong>Dashboard Gerente</strong> a tu pantalla de inicio para abrirlo como aplicación independiente:
+      </p>
+      <div class="space-y-2 text-xs text-slate-200">
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-3">
+          <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">1</span>
+          <span>Pulsa el botón <strong>Compartir</strong> en la barra inferior de Safari.</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-3">
+          <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">2</span>
+          <span>Selecciona <strong>«Agregar a pantalla de inicio»</strong>.</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center gap-3">
+          <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">3</span>
+          <span>Toca <strong>«Agregar»</strong> en la esquina superior derecha.</span>
+        </div>
+      </div>
+      <button onclick="closeIosModal()" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs">
+        Entendido
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= NOTIFICACIÓN TOAST ================= -->
+  <div id="toastNotification" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[70] pointer-events-none transition-all duration-300 opacity-0 translate-y-4 px-4 py-2.5 rounded-2xl bg-slate-900/95 border border-emerald-500/40 text-xs sm:text-sm font-semibold text-white shadow-2xl flex items-center gap-2 backdrop-blur-md">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMsg">Acción completada</span>
+  </div>
+
+  <script>
+    // ================= DATOS INTERACTIVOS DEL DASHBOARD =================
+    const operationsData = [
+      {
+        id: 1,
+        title: "Alerta Crítica - Planta Sur",
+        detail: 'Detectado por IA: "Falla de energía en módulo sector B"',
+        status: "Atendido",
+        time: "Hace 18 min."
+      },
+      {
+        id: 2,
+        title: "Revisión Técnica - Zona Norte",
+        detail: 'Detectado por IA: "Anomalía térmica reportada en tablero 4"',
+        status: "En Camino",
+        time: "Hace 6 min."
+      }
+    ];
+
+    const assetsData = [
+      { code: "ACT-001", site: "Complejo Industrial A", equipment: "Sistema Hidráulico de Carga", lastPrev: "15 Oct 2026", nextPrev: "15 Nov 2026", status: "Al día" },
+      { code: "ACT-002", site: "Centro Logístico Central", equipment: "Compresor Rotativo 40HP", lastPrev: "10 Oct 2026", nextPrev: "10 Nov 2026", status: "Al día" },
+      { code: "ACT-003", site: "Almacenes Generales", equipment: "Unidad de Climatización Industrial", lastPrev: "02 Sep 2026", nextPrev: "VENCIDO", status: "Vencido" },
+      { code: "ACT-004", site: "Planta Sur - Sector B", equipment: "Subestación Eléctrica Secundaria", lastPrev: "18 Oct 2026", nextPrev: "18 Nov 2026", status: "Próximo" },
+      { code: "ACT-005", site: "Parque Empresarial Norte", equipment: "Bomba Centrífuga de Presión", lastPrev: "20 Oct 2026", nextPrev: "20 Nov 2026", status: "Al día" },
+      { code: "ACT-006", site: "Bodega Fría Occidente", equipment: "Chiller Modular 60TR", lastPrev: "25 Ago 2026", nextPrev: "VENCIDO", status: "Vencido" },
+      { code: "ACT-007", site: "Terminal de Empaque", equipment: "Banda Transportadora Línea 3", lastPrev: "28 Oct 2026", nextPrev: "28 Nov 2026", status: "Al día" },
+      { code: "ACT-008", site: "Sede Administrativa", equipment: "Generador de Respaldo 150kVA", lastPrev: "12 Oct 2026", nextPrev: "22 Nov 2026", status: "Próximo" },
+      { code: "ACT-009", site: "Planta Química Este", equipment: "Reactor Mezclador Automatizado", lastPrev: "05 Nov 2026", nextPrev: "05 Dic 2026", status: "Al día" },
+      { code: "ACT-010", site: "Centro de Distribución 2", equipment: "Puente Grúa Industrial 5T", lastPrev: "01 Sep 2026", nextPrev: "VENCIDO", status: "Vencido" }
+    ];
+
+    const inventoryData = [
+      { sku: "SKU-MTR-402", name: "Motores Industriales de Alta Eficiencia", stock: 12, max: 16, status: "Óptimo", price: "$4.850.000", ordered: false },
+      { sku: "SKU-SNS-118", name: "Sensores Ópticos de Precisión", stock: 2, max: 15, status: "Crítico", price: "$620.000", ordered: false },
+      { sku: "SKU-VDF-205", name: "Variadores de Frecuencia 20HP", stock: 7, max: 10, status: "Óptimo", price: "$2.940.000", ordered: false },
+      { sku: "SKU-VLV-309", name: "Válvulas Solenoide de Control", stock: 4, max: 12, status: "Bajo", price: "$480.000", ordered: false },
+      { sku: "SKU-PLC-510", name: "Módulos PLC de Telemetría", stock: 9, max: 12, status: "Óptimo", price: "$1.750.000", ordered: false },
+      { sku: "SKU-BAT-088", name: "Baterías de Respaldo Industrial", stock: 3, max: 10, status: "Bajo", price: "$890.000", ordered: false }
+    ];
+
+    let inventoryExpanded = false;
+    let activeAssetFilter = "all";
+    let proposalCounter = 24;
+    let lastProposalPayload = null;
+
+    // ================= RENDER DE OPERACIONES =================
+    function renderOperations() {
+      const container = document.getElementById('operationsList');
+      if (!container) return;
+
+      container.innerHTML = operationsData.map(op => {
+        const isCriticalPending = op.status !== 'Atendido';
+        return `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl border transition-all ${isCriticalPending ? 'bg-slate-900/90 border-amber-500/35' : 'bg-emerald-500/5 border-emerald-500/25'}">
+            <div class="flex items-start sm:items-center gap-3.5">
+              <div class="text-xl mt-0.5 sm:mt-0 ${isCriticalPending ? 'text-amber-400' : 'text-emerald-400'}">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div>
+                <p class="font-bold text-sm sm:text-base text-white">${op.title}</p>
+                <p class="text-xs text-slate-400 mt-0.5">${op.detail} • <span class="text-slate-500">${op.time}</span></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 self-end sm:self-center">
+              ${isCriticalPending ? `
+                <button onclick="resolveOperation(${op.id})" class="px-3 py-1.5 bg-amber-500/20 hover:bg-emerald-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 hover:border-emerald-400 text-xs rounded-xl font-bold transition-all">
+                  En Camino • Marcar Atendido
+                </button>
+              ` : `
+                <span class="px-3 py-1.5 bg-emerald-500/20 text-emerald-300 text-xs rounded-full uppercase font-bold">
+                  <i class="fa-solid fa-check mr-1"></i> Atendido
+                </span>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const pending = operationsData.filter(o => o.status !== 'Atendido').length;
+      const kpiCount = document.getElementById('kpiAlertCount');
+      const kpiSub = document.getElementById('kpiAlertSubtitle');
+      if (kpiCount) kpiCount.textContent = operationsData.length;
+      if (kpiSub) {
+        kpiSub.textContent = pending === 0
+          ? 'Todas las alertas han sido atendidas'
+          : `${operationsData.length - pending} atendida • ${pending} en ruta técnica`;
+      }
+    }
+
+    function resolveOperation(id) {
+      const op = operationsData.find(o => o.id === id);
+      if (!op) return;
+      op.status = 'Atendido';
+      renderOperations();
+      showToast(`Incidencia "${op.title}" marcada como atendida`);
+    }
+
+    // ================= TABLA PRINCIPAL Y EXPLORADOR DE ACTIVOS =================
+    function renderMainMaintenanceTable() {
+      const tbody = document.getElementById('maintenanceTableBody');
+      if (!tbody) return;
+      const preview = assetsData.slice(0, 3);
+      tbody.innerHTML = preview.map(a => {
+        const badge = a.status === 'Vencido'
+          ? `<span class="text-rose-400 font-bold flex items-center gap-1.5"><i class="fa-solid fa-clock"></i> Pendiente</span>`
+          : a.status === 'Programado'
+            ? `<span class="text-teal-300 font-bold flex items-center gap-1.5"><i class="fa-solid fa-calendar-check"></i> Programado</span>`
+            : `<span class="text-emerald-400 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> Al día</span>`;
+
+        return `
+          <tr class="hover:bg-slate-900/60 transition-colors">
+            <td class="p-3.5 sm:px-6 font-bold text-slate-200">
+              <div>${a.site}</div>
+              <div class="text-[11px] text-slate-500 font-normal">${a.equipment}</div>
+            </td>
+            <td class="p-3.5 text-slate-300">${a.lastPrev}</td>
+            <td class="p-3.5 ${a.nextPrev === 'VENCIDO' ? 'text-rose-400 font-extrabold' : 'text-slate-300'}">${a.nextPrev}</td>
+            <td class="p-3.5">${badge}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openAssetsModal(filter = 'all') {
+      activeAssetFilter = filter;
+      document.getElementById('assetsModal').classList.add('active');
+      updateFilterButtons();
+      renderAssetsModalTable();
+    }
+
+    function closeAssetsModal() {
+      document.getElementById('assetsModal').classList.remove('active');
+    }
+
+    function setAssetFilter(filter) {
+      activeAssetFilter = filter;
+      updateFilterButtons();
+      renderAssetsModalTable();
+    }
+
+    function updateFilterButtons() {
+      ['all', 'Al día', 'Próximo', 'Vencido'].forEach(f => {
+        const btn = document.getElementById(`filter-${f}`);
+        if (!btn) return;
+        btn.className = f === activeAssetFilter
+          ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500 text-slate-950'
+          : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:text-white';
+      });
+    }
+
+    function renderAssetsModalTable() {
+      const tbody = document.getElementById('assetsModalBody');
+      const query = (document.getElementById('assetsSearchInput')?.value || '').trim().toLowerCase();
+      if (!tbody) return;
+
+      const filtered = assetsData.filter(a => {
+        const matchStatus = activeAssetFilter === 'all' || a.status === activeAssetFilter;
+        const matchQuery = !query || a.code.toLowerCase().includes(query) || a.site.toLowerCase().includes(query) || a.equipment.toLowerCase().includes(query);
+        return matchStatus && matchQuery;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">No hay activos que coincidan con el filtro actual.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(a => `
+        <tr class="hover:bg-slate-900/70">
+          <td class="p-3 font-mono text-xs text-emerald-300 font-bold">${a.code}</td>
+          <td class="p-3 font-bold text-white">${a.site}</td>
+          <td class="p-3 text-slate-300">${a.equipment}</td>
+          <td class="p-3 ${a.nextPrev === 'VENCIDO' ? 'text-rose-400 font-bold' : 'text-slate-300'}">${a.nextPrev}</td>
+          <td class="p-3">
+            ${a.status === 'Vencido'
+              ? `<button onclick="scheduleAsset('${a.code}')" class="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-emerald-500 text-rose-300 hover:text-slate-950 border border-rose-500/40 text-xs font-bold transition-all">Programar Hoy</button>`
+              : `<span class="px-2.5 py-1 rounded-full text-xs font-bold ${a.status === 'Al día' || a.status === 'Programado' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-amber-500/15 text-amber-300'}">${a.status}</span>`
+            }
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function scheduleAsset(code) {
+      const asset = assetsData.find(a => a.code === code);
+      if (!asset) return;
+      asset.status = 'Programado';
+      asset.nextPrev = 'Hoy (Agendado)';
+      renderAssetsModalTable();
+      renderMainMaintenanceTable();
+      showToast(`Mantenimiento agendado para ${asset.code} (${asset.site})`);
+    }
+
+    // ================= CENTRO LOGÍSTICO INTERACTIVO =================
+    function renderInventory() {
+      const container = document.getElementById('inventoryList');
+      const searchVal = (document.getElementById('inventorySearch')?.value || '').trim().toLowerCase();
+      if (!container) return;
+
+      let items = inventoryData.filter(item =>
+        !searchVal || item.name.toLowerCase().includes(searchVal) || item.sku.toLowerCase().includes(searchVal)
+      );
+
+      if (!inventoryExpanded && !searchVal) {
+        items = items.slice(0, 2);
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 bg-slate-900/50 rounded-xl border border-slate-800">Sin coincidencias para "${searchVal}".</div>`;
+        return;
+      }
+
+      container.innerHTML = items.map(item => {
+        const pct = Math.min(100, Math.round((item.stock / item.max) * 100));
+        const isCritical = item.status === 'Crítico';
+        const isLow = item.status === 'Bajo';
+        const barColor = isCritical ? 'bg-rose-500' : isLow ? 'bg-amber-400' : 'bg-emerald-400';
+        const textColor = isCritical ? 'text-rose-400' : isLow ? 'text-amber-300' : 'text-emerald-400';
+
+        return `
+          <div class="p-3 rounded-xl border ${isCritical ? 'bg-rose-500/5 border-rose-500/30' : 'bg-slate-900/60 border-slate-800'} space-y-2">
+            <div class="flex justify-between items-start gap-2 text-xs">
+              <div>
+                <div class="font-bold ${isCritical ? 'text-rose-200' : 'text-slate-200'}">${item.name}</div>
+                <div class="text-[11px] text-slate-500">${item.sku} • ${item.price}</div>
+              </div>
+              <span class="font-bold shrink-0 ${textColor}">${item.status} (${item.stock})</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="${barColor} h-full rounded-full" style="width: ${pct}%"></div>
+            </div>
+            ${isCritical ? (
+              item.ordered ? `
+                <div class="w-full py-1.5 px-2.5 bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 rounded-lg text-[11px] font-bold text-center">
+                  <i class="fa-solid fa-check mr-1"></i> Orden #OC-IA-2026 enviada al proveedor
+                </div>
+              ` : `
+                <button onclick="orderCriticalItem('${item.sku}')" class="w-full py-2 bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/35 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors">
+                  <i class="fa-solid fa-cart-plus mr-1"></i> Generar Orden Compra (IA)
+                </button>
+              `
+            ) : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleInventoryExpand() {
+      inventoryExpanded = !inventoryExpanded;
+      const btn = document.getElementById('btnToggleInventory');
+      if (btn) {
+        btn.innerHTML = inventoryExpanded
+          ? `<span>Contraer Inventario</span><i class="fa-solid fa-chevron-up"></i>`
+          : `<span>Desplegar Inventario Completo</span><i class="fa-solid fa-chevron-down"></i>`;
+      }
+      renderInventory();
+    }
+
+    function orderCriticalItem(sku) {
+      const item = inventoryData.find(i => i.sku === sku);
+      if (!item) return;
+      item.ordered = true;
+      renderInventory();
+      showToast(`Orden de compra generada para ${item.name} (${item.sku})`);
+    }
+
+    // ================= AGENTE IA DE COTIZACIONES Y PDF REAL (JSPDF) =================
+    function fillSampleContext() {
+      const input = document.getElementById('fieldContext');
+      if (input) {
+        input.value = "Diagnóstico preventivo en Planta Norte y Centro Logístico: se requiere suministro de sensores ópticos de precisión, ajuste de variadores de frecuencia y contrato de mantenimiento B2B por 12 meses.";
+        showToast("Ejemplo de contexto técnico cargado");
+      }
+    }
+
+    function generateTechnicalProposal() {
+      const contextText = (document.getElementById('fieldContext')?.value || '').trim() ||
+        "Mantenimiento preventivo integral de infraestructura industrial, monitoreo continuo de telemetría y reposición programada de componentes críticos.";
+      const includeLegal = document.getElementById('toggleLegal')?.checked ?? true;
+      const includeInventory = document.getElementById('toggleInventory')?.checked ?? true;
+
+      proposalCounter += 1;
+      const code = `COT-2026-${String(proposalCounter).padStart(3, '0')}`;
+      lastProposalPayload = {
+        code,
+        contextText,
+        includeLegal,
+        includeInventory,
+        dateStr: new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })
+      };
+
+      const kpiProp = document.getElementById('kpiProposalCount');
+      if (kpiProp) kpiProp.textContent = proposalCounter;
+
+      const modal = document.getElementById('ai-modal');
+      const loader = document.getElementById('ai-loader');
+      const success = document.getElementById('ai-success');
+      loader.classList.remove('hidden');
+      success.classList.add('hidden');
+      modal.classList.add('active');
+
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        success.classList.remove('hidden');
+        document.getElementById('proposalCodeBadge').textContent = code;
+        document.getElementById('proposalSummaryText').textContent =
+          `Propuesta B2B lista (${includeLegal ? 'con marco jurídico' : 'sin cláusulas legales'} y ${includeInventory ? 'con repuestos de bodega' : 'solo mano de obra'}). Haz clic en Descargar PDF para obtener el documento oficial.`;
+      }, 1400);
+    }
+
+    function closeProposalModal() {
+      document.getElementById('ai-modal').classList.remove('active');
+    }
+
+    function downloadProposalPDF() {
+      if (!lastProposalPayload) return;
+      try {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          throw new Error("jsPDF no está cargado");
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageW = doc.internal.pageSize.getWidth();
+        const margin = 16;
+        const maxW = pageW - margin * 2;
+        let y = 18;
+
+        // Encabezado corporativo Slate + Emerald
+        doc.setFillColor(2, 6, 23);
+        doc.rect(0, 0, pageW, 38, 'F');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.setTextColor(16, 185, 129);
+        doc.text('QUADRATIC SOLUTIONS | PROPUESTA COMERCIAL B2B', margin, 16);
+        doc.setFontSize(10);
+        doc.setTextColor(255, 255, 255);
+        doc.text(`Documento Técnico Generado por Agente IA • Referencia: ${lastProposalPayload.code}`, margin, 24);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(203, 213, 225);
+        doc.text(`Fecha de emisión: ${lastProposalPayload.dateStr}`, margin, 31);
+
+        y = 48;
+
+        // 1. Alcance técnico
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(15, 23, 42);
+        doc.text('1. ALCANCE TÉCNICO Y HALLAZGOS DE CAMPO', margin, y);
+        y += 6;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(51, 65, 85);
+        const contextLines = doc.splitTextToSize(lastProposalPayload.contextText, maxW);
+        doc.text(contextLines, margin, y);
+        y += contextLines.length * 5 + 6;
+
+        // 2. Repuestos en bodega
+        if (lastProposalPayload.includeInventory) {
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(12);
+          doc.setTextColor(15, 23, 42);
+          doc.text('2. REPUESTOS Y SUMINISTROS DISPONIBLES EN BODEGA', margin, y);
+          y += 6;
+
+          inventoryData.slice(0, 4).forEach((item, idx) => {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(30, 41, 59);
+            const line = `${idx + 1}. [${item.sku}] ${item.name} — Disponibilidad: ${item.stock} unidades — Valor unitario ref.: ${item.price}`;
+            const wrapped = doc.splitTextToSize(line, maxW);
+            doc.text(wrapped, margin, y);
+            y += wrapped.length * 4.8 + 2;
+          });
+          y += 4;
+        }
+
+        // 3. Marco jurídico
+        if (lastProposalPayload.includeLegal) {
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(12);
+          doc.setTextColor(15, 23, 42);
+          doc.text('3. MARCO JURÍDICO Y ACUERDOS DE NIVEL DE SERVICIO (SLA)', margin, y);
+          y += 6;
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9.5);
+          doc.setTextColor(51, 65, 85);
+          const legalText = 'Garantía técnica de 12 meses sobre repuestos instalados. Respuesta prioritaria en menos de 4 horas para incidentes críticos reportados mediante canal automatizado IA. Soberanía total de datos operativos para el cliente.';
+          const legalLines = doc.splitTextToSize(legalText, maxW);
+          doc.text(legalLines, margin, y);
+          y += legalLines.length * 4.8 + 8;
+        }
+
+        doc.setDrawColor(16, 185, 129);
+        doc.line(margin, 272, pageW - margin, 272);
+        doc.setFontSize(8.5);
+        doc.setTextColor(100, 116, 139);
+        doc.text('Quadratic Solutions | Ingeniería Inteligente B2B • quadraticsolutions@proton.me • Bogotá D.C., Colombia', margin, 278);
+
+        doc.save(`Propuesta_Comercial_B2B_Quadratic_${lastProposalPayload.code}.pdf`);
+        closeProposalModal();
+        showToast(`PDF ${lastProposalPayload.code} descargado con éxito`);
+      } catch (err) {
+        console.error('Error al generar PDF:', err);
+        showToast('No se pudo generar el PDF en este momento');
+      }
+    }
+
+    // ================= UTILIDADES PWA Y TOAST =================
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const txt = document.getElementById('toastMsg');
+      if (!toast || !txt) return;
+      txt.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-4');
+      }, 3200);
+    }
+
+    let deferredInstallPrompt = null;
+    const btnInstallApp = document.getElementById('btnInstallApp');
+    const btnIosInstall = document.getElementById('btnIosInstall');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      if (btnInstallApp) btnInstallApp.classList.remove('hidden');
+    });
+
+    if (btnInstallApp) {
+      btnInstallApp.addEventListener('click', async () => {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        btnInstallApp.classList.add('hidden');
+      });
+    }
+
+    const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    const isStandalone = () => ('standalone' in window.navigator && window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches;
+    if (isIos() && !isStandalone() && btnIosInstall) {
+      btnIosInstall.classList.remove('hidden');
+    }
+
+    function openIosModal() {
+      document.getElementById('iosInstallModal').classList.add('active');
+    }
+    function closeIosModal() {
+      document.getElementById('iosInstallModal').classList.remove('active');
+    }
+
+    // Registro Service Worker
+    if ('serviceWorker' in navigator) {
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
+      });
+
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js?v=1.0', { updateViaCache: 'none' })
+          .then((reg) => {
+            reg.update();
+            if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+          })
+          .catch((err) => console.warn('[PWA Dashboard] SW omitido:', err));
+      });
+    }
+
+    // Inicializar UI
+    renderOperations();
+    renderMainMaintenanceTable();
+    renderInventory();
+  </script>
+</body>
+
+</html>

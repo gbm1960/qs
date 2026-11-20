@@ -3,8 +3,8 @@
  * Proporciona soporte offline completo, sincronización y caché inteligente
  */
 
-const CACHE_NAME = 'caminar-pwa-v2.2';
-const DYNAMIC_CACHE = 'caminar-dynamic-v2.2';
+const CACHE_NAME = 'caminar-pwa-v2.4';
+const DYNAMIC_CACHE = 'caminar-dynamic-v2.4';
 
 // Recursos críticos locales para funcionamiento offline
 const STATIC_ASSETS = [

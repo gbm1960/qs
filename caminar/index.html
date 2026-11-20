@@ -43,6 +43,13 @@
       --sar: env(safe-area-inset-right, 0px);
     }
 
+    html,
+    body,
+    #slidesView,
+    #slidesView main {
+      overflow-anchor: none;
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       padding-top: var(--sat);
@@ -69,61 +76,318 @@
       }
     }
 
+    /* Tipografía base cómoda para adultos mayores desde el inicio */
+    #slideContainer,
+    #speakerNote,
+    #paperWebReader {
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    #slideContainer .text-xs,
+    #speakerNote .text-xs,
+    #paperWebReader .text-xs {
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    #slideContainer .text-\[11px\],
+    #slideContainer .text-\[10px\] {
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
     /* Accesibilidad Avanzada Senior-Friendly: Escalado Tipográfico (body.senior-font) */
     body.senior-font #slideContainer,
     body.senior-font #guideView,
     body.senior-font #paperWebReader,
     body.senior-font #speakerNote {
-      font-size: 1.18rem !important;
-      line-height: 1.75 !important;
+      font-size: 1.24rem !important;
+      line-height: 1.8 !important;
     }
 
     body.senior-font #slideContainer .text-xs,
     body.senior-font #guideView .text-xs,
     body.senior-font #paperWebReader .text-xs,
-    body.senior-font #speakerNote {
-      font-size: 1.02rem !important;
-      line-height: 1.65 !important;
+    body.senior-font #speakerNote,
+    body.senior-font #speakerNote .text-xs {
+      font-size: 1.12rem !important;
+      line-height: 1.72 !important;
     }
 
     body.senior-font #slideContainer .text-\[11px\],
     body.senior-font #slideContainer .text-\[10px\] {
-      font-size: 0.95rem !important;
-      line-height: 1.55 !important;
+      font-size: 1.02rem !important;
+      line-height: 1.6 !important;
     }
 
     body.senior-font #slideContainer .text-sm,
     body.senior-font #guideView .text-sm,
     body.senior-font #paperWebReader .text-sm {
-      font-size: 1.14rem !important;
-      line-height: 1.7 !important;
+      font-size: 1.2rem !important;
+      line-height: 1.75 !important;
     }
 
     body.senior-font #slideContainer .text-base,
     body.senior-font #guideView .text-base,
     body.senior-font #paperWebReader .text-base {
-      font-size: 1.26rem !important;
-      line-height: 1.75 !important;
+      font-size: 1.32rem !important;
+      line-height: 1.78 !important;
     }
 
     body.senior-font #slideContainer .text-lg {
-      font-size: 1.38rem !important;
+      font-size: 1.44rem !important;
       line-height: 1.6 !important;
     }
 
     body.senior-font #slideContainer h2 {
-      font-size: clamp(1.65rem, 3.2vw, 2.5rem) !important;
+      font-size: clamp(1.7rem, 3.4vw, 2.55rem) !important;
       line-height: 1.25 !important;
     }
 
     body.senior-font #slideContainer h3 {
-      font-size: 1.32rem !important;
+      font-size: 1.36rem !important;
       line-height: 1.35 !important;
     }
 
     body.senior-font #desktopSidebar button .sidebar-title,
     body.senior-font #mobileDrawer button .sidebar-title {
-      font-size: 0.98rem !important;
+      font-size: 1.02rem !important;
+    }
+
+    /* ================= MODO CLARO / LECTURA TIPO PAPEL (WCAG AAA SENIOR) ================= */
+    body.light-mode {
+      background-color: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+
+    body.light-mode header {
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    body.light-mode header h1,
+    body.light-mode #mobileDrawer h2 {
+      color: #0f172a !important;
+    }
+
+    body.light-mode header p,
+    body.light-mode #mobileDrawer p {
+      color: #475569 !important;
+    }
+
+    body.light-mode #desktopSidebar,
+    body.light-mode #mobileDrawer {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    body.light-mode #desktopSidebar .border-slate-800\/80,
+    body.light-mode #mobileDrawer .border-slate-800 {
+      border-color: #e2e8f0 !important;
+    }
+
+    body.light-mode #desktopSidebar .bg-slate-900\/90,
+    body.light-mode #desktopSidebar .bg-slate-900\/70,
+    body.light-mode #mobileDrawer .bg-slate-900\/70 {
+      background-color: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    body.light-mode #slideContainer,
+    body.light-mode #paperView > div {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08) !important;
+    }
+
+    body.light-mode #speakerNote {
+      background-color: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #064e3b !important;
+    }
+
+    body.light-mode #speakerNote strong {
+      color: #065f46 !important;
+    }
+
+    body.light-mode .plain-summary-box {
+      background-color: #ecfdf5 !important;
+      border-color: #059669 !important;
+    }
+
+    body.light-mode .plain-summary-box .text-emerald-300 {
+      color: #065f46 !important;
+    }
+
+    body.light-mode .plain-summary-box p {
+      color: #0f172a !important;
+    }
+
+    /* Remapeo de contenedores oscuros dentro de tarjetas en Modo Claro */
+    body.light-mode #slideContainer .bg-slate-800\/85,
+    body.light-mode #slideContainer .bg-slate-800\/80,
+    body.light-mode #slideContainer .bg-slate-800\/90,
+    body.light-mode #slideContainer .bg-slate-800,
+    body.light-mode #slideContainer .bg-slate-900\/90,
+    body.light-mode #slideContainer .bg-slate-900\/95,
+    body.light-mode #slideContainer .bg-slate-900,
+    body.light-mode #slideContainer .bg-slate-950,
+    body.light-mode #paperWebReader .bg-slate-950,
+    body.light-mode #paperWebReader .bg-slate-950\/90 {
+      background-color: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    body.light-mode #slideContainer .bg-emerald-950\/30,
+    body.light-mode #slideContainer .bg-emerald-950\/40 {
+      background-color: #ecfdf5 !important;
+      border-color: #6ee7b7 !important;
+    }
+
+    body.light-mode #slideContainer .bg-rose-950\/30,
+    body.light-mode #slideContainer .bg-rose-950\/40 {
+      background-color: #fff1f2 !important;
+      border-color: #fda4af !important;
+    }
+
+    body.light-mode #slideContainer .bg-purple-950\/30 {
+      background-color: #faf5ff !important;
+      border-color: #d8b4fe !important;
+    }
+
+    body.light-mode #slideContainer .bg-amber-950\/40 {
+      background-color: #fffbeb !important;
+      border-color: #fcd34d !important;
+    }
+
+    body.light-mode #slideContainer .from-emerald-500\/20,
+    body.light-mode #slideContainer .from-teal-500\/20,
+    body.light-mode #slideContainer .from-amber-500\/20,
+    body.light-mode #slideContainer .from-amber-500\/15,
+    body.light-mode #slideContainer .from-purple-500\/20 {
+      background-image: none !important;
+      background-color: #f8fafc !important;
+    }
+
+    /* Remapeo de textos claros a oscuros de alto contraste */
+    body.light-mode #slideContainer .text-white,
+    body.light-mode #paperView .text-white,
+    body.light-mode #desktopSidebar .text-white,
+    body.light-mode #mobileDrawer .text-white {
+      color: #0f172a !important;
+    }
+
+    body.light-mode #slideContainer .text-slate-100,
+    body.light-mode #slideContainer .text-slate-200,
+    body.light-mode #slideContainer .text-slate-300,
+    body.light-mode #paperWebReader .text-slate-200,
+    body.light-mode #paperWebReader .text-slate-300,
+    body.light-mode #desktopSidebar .text-slate-200,
+    body.light-mode #desktopSidebar .text-slate-300,
+    body.light-mode #mobileDrawer .text-slate-200,
+    body.light-mode #mobileDrawer .text-slate-300 {
+      color: #1e293b !important;
+    }
+
+    body.light-mode #slideContainer .text-slate-400,
+    body.light-mode #desktopSidebar .text-slate-400,
+    body.light-mode #mobileDrawer .text-slate-400,
+    body.light-mode #paperView .text-slate-400,
+    body.light-mode main .text-slate-400 {
+      color: #475569 !important;
+    }
+
+    body.light-mode #slideContainer .text-emerald-300,
+    body.light-mode #slideContainer .text-emerald-400,
+    body.light-mode #slideContainer .text-emerald-200,
+    body.light-mode #slideContainer .text-emerald-100,
+    body.light-mode #desktopSidebar .text-emerald-300,
+    body.light-mode main .text-emerald-400 {
+      color: #065f46 !important;
+    }
+
+    body.light-mode #slideContainer .text-teal-300,
+    body.light-mode #slideContainer .text-teal-400,
+    body.light-mode #slideContainer .text-cyan-300,
+    body.light-mode #slideContainer .text-cyan-400,
+    body.light-mode #slideContainer .text-cyan-200 {
+      color: #0f766e !important;
+    }
+
+    body.light-mode #slideContainer .text-amber-300,
+    body.light-mode #slideContainer .text-amber-400,
+    body.light-mode #slideContainer .text-amber-200 {
+      color: #92400e !important;
+    }
+
+    body.light-mode #slideContainer .text-rose-300,
+    body.light-mode #slideContainer .text-rose-400,
+    body.light-mode #slideContainer .text-rose-200 {
+      color: #9f1239 !important;
+    }
+
+    body.light-mode #slideContainer .text-purple-300,
+    body.light-mode #slideContainer .text-purple-400,
+    body.light-mode #slideContainer .text-purple-200,
+    body.light-mode #paperWebReader .text-purple-300,
+    body.light-mode #paperWebReader .text-purple-400 {
+      color: #6b21a8 !important;
+    }
+
+    /* Preservar botones activos con fondo sólido en Modo Claro */
+    body.light-mode button.bg-emerald-500,
+    body.light-mode button.bg-amber-500,
+    body.light-mode button.bg-purple-600,
+    body.light-mode #slideContainer button.bg-emerald-500,
+    body.light-mode #slideContainer button.bg-amber-500,
+    body.light-mode #slideContainer button.bg-purple-600 {
+      color: #020617 !important;
+    }
+
+    body.light-mode button.bg-purple-600,
+    body.light-mode a.bg-purple-600 {
+      color: #ffffff !important;
+    }
+
+    body.light-mode header .bg-slate-800\/90,
+    body.light-mode header .bg-slate-800,
+    body.light-mode header .bg-slate-900 {
+      background-color: #e2e8f0 !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+
+    body.light-mode header .text-slate-300 {
+      color: #1e293b !important;
+    }
+
+    body.light-mode #btnBackToWeb {
+      background-color: #ecfdf5 !important;
+      border-color: #059669 !important;
+      color: #065f46 !important;
+    }
+
+    body.light-mode #btnBackToWeb svg {
+      color: #065f46 !important;
+    }
+
+    body.light-mode #prevBtn {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #64748b !important;
+    }
+
+    body.light-mode #downloadDropdownMenu {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.light-mode #downloadDropdownMenu .text-white {
+      color: #0f172a !important;
+    }
+    body.light-mode #downloadDropdownMenu .hover\:bg-slate-800:hover {
+      background-color: #f1f5f9 !important;
     }
 
     /* Scrollbar estilizada y discreta para contenedores verticales */
@@ -167,149 +431,167 @@
 
   <!-- ================= BARRA SUPERIOR DE NAVEGACIÓN, ACCESIBILIDAD Y DESCARGAS ================= -->
   <header
-    class="no-print border-b border-slate-800/90 bg-slate-900/95 backdrop-blur-md sticky top-0 z-40 px-2.5 sm:px-4 py-2 sm:py-2.5"
+    class="no-print border-b border-slate-800/90 bg-slate-900/95 backdrop-blur-md lg:sticky lg:top-0 z-40 px-2.5 sm:px-4 py-2 sm:py-2.5"
     style="padding-top: max(0.5rem, env(safe-area-inset-top));">
     <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-2">
 
-      <!-- Izquierda: Botón Drawer Móvil («Temas 1-12»), Colapsar Sidebar PC y Marca -->
-      <div class="flex items-center gap-2 sm:gap-2.5">
-        <!-- Botón Móvil (< lg): Abre Drawer Vertical -->
-        <button id="btnMobileTopics" onclick="toggleMobileDrawer(true)"
-          class="lg:hidden px-2.5 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center gap-1.5 active:scale-95 transition-all shadow-sm"
-          aria-label="Abrir índice de 12 temas">
-          <i data-lucide="list-ordered" class="w-4 h-4 text-emerald-400"></i>
-          <span>Temas (1-12)</span>
-        </button>
+      <!-- Izquierda: Botón Drawer Móvil («Temas 1-12»), Colapsar Sidebar PC, Marca y Volver a la Web -->
+      <div class="flex flex-wrap items-center justify-between lg:justify-start gap-2 sm:gap-2.5 w-full lg:w-auto">
+        <div class="flex items-center gap-2 sm:gap-2.5">
+          <!-- Botón Móvil (< lg): Abre Drawer Vertical -->
+          <button id="btnMobileTopics" onclick="toggleMobileDrawer(true)"
+            class="lg:hidden px-2.5 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center gap-1.5 active:scale-95 transition-all shadow-sm min-h-[38px]"
+            aria-label="Abrir índice de 12 temas">
+            <i data-lucide="list-ordered" class="w-4 h-4 text-emerald-400"></i>
+            <span>Temas (1-12)</span>
+          </button>
 
-        <!-- Botón Escritorio (lg+): Colapsar / Expandir Barra Lateral -->
-        <button id="btnHeaderToggleSidebar" onclick="toggleDesktopSidebar()"
-          class="hidden lg:flex items-center justify-center w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-all"
-          title="Mostrar u ocultar barra lateral de temas">
-          <i data-lucide="panel-left-close" id="headerSidebarIcon" class="w-4 h-4"></i>
-        </button>
+          <!-- Botón Escritorio (lg+): Colapsar / Expandir Barra Lateral -->
+          <button id="btnHeaderToggleSidebar" onclick="toggleDesktopSidebar()"
+            class="hidden lg:flex items-center justify-center w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-all"
+            title="Mostrar u ocultar barra lateral de temas">
+            <i data-lucide="panel-left-close" id="headerSidebarIcon" class="w-4 h-4"></i>
+          </button>
 
-        <a href="../"
-          class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0"
-          title="Volver al Portal Principal">
-          <i data-lucide="footprints" class="w-5 h-5 text-slate-950"></i>
-        </a>
+          <a href="../"
+            class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0"
+            title="Volver al Portal Principal">
+            <i data-lucide="footprints" class="w-5 h-5 text-slate-950"></i>
+          </a>
 
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="font-extrabold text-xs sm:text-sm md:text-base text-white leading-tight">Caminar es Salud 2.0
-            </h1>
-            <span
-              class="hidden xl:inline-block px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">El
-              Diseño Perfecto</span>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-extrabold text-xs sm:text-sm md:text-base text-white leading-tight">Caminar es Salud 2.0
+              </h1>
+              <span
+                class="hidden xl:inline-block px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">El
+                Diseño Perfecto</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 hidden sm:block">Evidencia Biomecánica, Metabólica,
+              Neurobiológica y Epidemiológica</p>
           </div>
-          <p class="text-[10px] sm:text-[11px] text-slate-400 hidden sm:block">Evidencia Biomecánica, Metabólica,
-            Neurobiológica y Epidemiológica</p>
         </div>
+
+        <a id="btnBackToWeb" href="../"
+          class="px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/40 transition-all flex items-center gap-1.5 active:scale-95 min-h-[38px] shrink-0"
+          title="Volver a la página principal de Quadratic Solutions">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Volver a la Web</span>
+        </a>
       </div>
 
       <!-- Derecha: Accesibilidad Senior, Vistas y Recursos Oficiales -->
-      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 w-full lg:w-auto justify-between lg:justify-end">
 
         <!-- Utilidades Ergonómicas de Accesibilidad Senior -->
-        <div class="flex items-center gap-1 bg-slate-800/90 p-1 rounded-xl border border-slate-700/80">
+        <div class="flex flex-wrap items-center gap-1 bg-slate-800/90 p-1 rounded-xl border border-slate-700/80">
           <!-- Botón Tipografía Adaptativa (Letra A+ / Letra A-) -->
           <button id="btnSeniorFont" onclick="toggleSeniorFont()"
-            class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-amber-300 border border-amber-500/30 flex items-center gap-1 active:scale-95"
+            class="px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-amber-300 border border-amber-500/30 flex items-center gap-1 active:scale-95 min-h-[38px]"
             title="Aumentar o reducir tamaño de letra para lectura cómoda">
             <i data-lucide="type" class="w-3.5 h-3.5 text-amber-400"></i>
             <span id="seniorFontLabel">Letra A+</span>
           </button>
 
+          <!-- Botón Modo Claro / Lectura Tipo Papel -->
+          <button id="btnThemeToggle" onclick="toggleLightMode()"
+            class="px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 active:scale-95 min-h-[38px]"
+            title="Cambiar entre Modo Claro tipo papel y Modo Oscuro">
+            <span id="themeToggleLabel">Modo Claro ☀️</span>
+          </button>
+
           <!-- Asistente de Lectura en Voz Alta (Escuchar 🔊 / Detener) -->
           <button id="btnSpeech" onclick="toggleSpeech()"
-            class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 flex items-center gap-1 active:scale-95"
+            class="px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 flex items-center gap-1 active:scale-95 min-h-[38px]"
             title="Escuchar narración en voz alta de esta unidad">
             <i data-lucide="volume-2" id="speechIcon" class="w-3.5 h-3.5 text-cyan-400"></i>
             <span id="speechLabel">Escuchar 🔊</span>
           </button>
         </div>
 
-        <!-- Selector de Modo de Visualización en Pantalla -->
-        <div class="bg-slate-800/90 p-1 rounded-xl flex items-center border border-slate-700/80">
+        <!-- Selector de Modo de Visualización en Pantalla (Siempre con texto claro en Smartphone) -->
+        <div class="bg-slate-800/90 p-1 rounded-xl flex items-center gap-0.5 border border-slate-700/80">
           <button id="btnModeSlides" onclick="switchView('slides')"
-            class="px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1">
+            class="px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1 min-h-[38px]">
             <i data-lucide="presentation" class="w-3.5 h-3.5"></i>
-            <span class="hidden md:inline">Diapositivas</span>
+            <span>Temas</span>
           </button>
           <button id="btnModeGuide" onclick="switchView('guide')"
-            class="px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1"
+            class="px-2.5 py-2 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1 min-h-[38px]"
             title="Ver Guía Práctica en pantalla">
             <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-            <span class="hidden md:inline">Ver Guía</span>
+            <span>Guía</span>
           </button>
           <button id="btnModePaper" onclick="switchView('paper')"
-            class="px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-purple-300 hover:text-white flex items-center gap-1"
+            class="px-2.5 py-2 rounded-lg text-xs font-semibold transition-all text-purple-300 hover:text-white flex items-center gap-1 min-h-[38px]"
             title="Leer Artículo Científico (Paper) dentro de la página">
             <i data-lucide="microscope" class="w-3.5 h-3.5 text-purple-400"></i>
-            <span class="hidden md:inline">Ver Paper</span>
+            <span>Paper</span>
           </button>
         </div>
 
-        <!-- Botón Instalar PWA (Android / PC Chrome & Edge) -->
-        <button id="btnInstallApp"
-          class="hidden px-2.5 py-1.5 sm:py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-400 to-teal-300 text-slate-950 transition-all flex items-center gap-1 shadow-lg">
-          <i data-lucide="download-cloud" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Instalar</span>
-        </button>
-
-        <!-- Botón Ayuda Instalar en iOS (iPhone X+) -->
-        <button id="btnIosInstall" onclick="showIosModal()"
-          class="hidden px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 transition-all flex items-center gap-1">
-          <i data-lucide="smartphone" class="w-3.5 h-3.5 text-emerald-400"></i>
-          <span class="hidden sm:inline">iPhone</span>
-        </button>
-
-        <!-- Botón Único Desplegable de Descargas al Final -->
-        <div class="relative" id="downloadDropdownWrapper">
-          <button id="btnDownloadsDropdown" onclick="toggleDownloadMenu(event)"
-            class="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-95 text-slate-950 transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/25 border border-emerald-300/60"
-            title="Opciones de descarga">
-            <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-            <span>Descargar</span>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+        <div class="flex items-center gap-1.5">
+          <!-- Botón Instalar PWA (Android / PC Chrome & Edge) -->
+          <button id="btnInstallApp"
+            class="hidden px-2.5 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-400 to-teal-300 text-slate-950 transition-all flex items-center gap-1 shadow-lg min-h-[38px]">
+            <i data-lucide="download-cloud" class="w-3.5 h-3.5"></i>
+            <span>Instalar</span>
           </button>
 
-          <!-- Menú Desplegable con las 3 Opciones de Descarga -->
-          <div id="downloadDropdownMenu"
-            class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-2xl py-2 z-50 divide-y divide-slate-800/80 backdrop-blur-xl">
-            <button onclick="closeDownloadMenu(); downloadGuidePDF();" id="btnDownloadGuidePdf"
-              class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-100 hover:bg-slate-800 flex items-center gap-3 transition-colors">
-              <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
-              </div>
-              <div>
-                <div class="text-white font-extrabold">Descarga Guía PDF</div>
-                <div class="text-[10px] text-slate-400">Resumen práctico de las 12 unidades</div>
-              </div>
+          <!-- Botón Ayuda Instalar en iOS (iPhone X+) -->
+          <button id="btnIosInstall" onclick="showIosModal()"
+            class="hidden px-2.5 py-2 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 transition-all flex items-center gap-1 min-h-[38px]">
+            <i data-lucide="smartphone" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>iPhone</span>
+          </button>
+
+          <!-- Botón Único Desplegable de Descargas al Final -->
+          <div class="relative" id="downloadDropdownWrapper">
+            <button id="btnDownloadsDropdown" onclick="toggleDownloadMenu(event)"
+              class="px-3 sm:px-3.5 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-95 text-slate-950 transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/25 border border-emerald-300/60 min-h-[38px]"
+              title="Opciones de descarga">
+              <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+              <span>Descargar</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
             </button>
 
-            <button onclick="closeDownloadMenu(); downloadPPTX();" id="btnDownloadPptx"
-              class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-100 hover:bg-slate-800 flex items-center gap-3 transition-colors">
-              <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                <i data-lucide="presentation" class="w-4 h-4"></i>
-              </div>
-              <div>
-                <div class="text-white font-extrabold">Descarga Presentación PPTX</div>
-                <div class="text-[10px] text-slate-400">12 diapositivas editables (PowerPoint)</div>
-              </div>
-            </button>
+            <!-- Menú Desplegable con las 3 Opciones de Descarga -->
+            <div id="downloadDropdownMenu"
+              class="hidden absolute right-0 mt-2 w-64 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-2xl py-2 z-50 divide-y divide-slate-800/80 backdrop-blur-xl">
+              <button onclick="closeDownloadMenu(); downloadGuidePDF();" id="btnDownloadGuidePdf"
+                class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-100 hover:bg-slate-800 flex items-center gap-3 transition-colors">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="text-white font-extrabold">Descarga Guía PDF</div>
+                  <div class="text-[11px] text-slate-400">Resumen práctico de las 12 unidades</div>
+                </div>
+              </button>
 
-            <a href="data/20261102_Artículo_Caminar_es_Salud_2.0.pdf" download="20261102_Artículo_Caminar_es_Salud_2.0.pdf"
-              onclick="closeDownloadMenu();"
-              class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-100 hover:bg-slate-800 flex items-center gap-3 transition-colors">
-              <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
-                <i data-lucide="file-down" class="w-4 h-4"></i>
-              </div>
-              <div>
-                <div class="text-white font-extrabold">Descarga Paper PDF</div>
-                <div class="text-[10px] text-slate-400">Artículo científico completo (26 págs.)</div>
-              </div>
-            </a>
+              <button onclick="closeDownloadMenu(); downloadPPTX();" id="btnDownloadPptx"
+                class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-100 hover:bg-slate-800 flex items-center gap-3 transition-colors">
+                <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="presentation" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="text-white font-extrabold">Descarga Presentación PPTX</div>
+                  <div class="text-[11px] text-slate-400">12 diapositivas editables (PowerPoint)</div>
+                </div>
+              </button>
+
+              <a href="data/20261102_Artículo_Caminar_es_Salud_2.0.pdf" download="20261102_Artículo_Caminar_es_Salud_2.0.pdf"
+                onclick="closeDownloadMenu();"
+                class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-100 hover:bg-slate-800 flex items-center gap-3 transition-colors">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="file-down" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="text-white font-extrabold">Descarga Paper PDF</div>
+                  <div class="text-[11px] text-slate-400">Artículo científico completo (26 páginas)</div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -342,7 +624,9 @@
       <!-- Lista vertical 1-12 inyectada dinámicamente -->
     </div>
     <div class="px-4 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-      <span>Caminar es Salud 2.0</span>
+      <a href="../" class="text-emerald-400 font-bold hover:underline flex items-center gap-1">
+        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Volver a la Web
+      </a>
       <button onclick="toggleMobileDrawer(false); switchView('paper');"
         class="text-purple-400 font-bold hover:underline flex items-center gap-1">
         <i data-lucide="microscope" class="w-3.5 h-3.5"></i> Ver Paper
@@ -351,7 +635,7 @@
   </aside>
 
   <!-- ================= MODO 1: PRESENTACIÓN CON BARRA LATERAL VERTICAL ADAPTATIVA ================= -->
-  <div id="slidesView" class="no-print flex-1 flex max-w-[1600px] w-full mx-auto overflow-hidden">
+  <div id="slidesView" class="no-print flex-1 flex max-w-[1600px] w-full mx-auto lg:overflow-hidden">
 
     <!-- BARRA VERTICAL LATERAL IZQUIERDA FIJA EN ESCRITORIO (lg:flex, w-72 / w-80) -->
     <aside id="desktopSidebar"
@@ -383,7 +667,9 @@
             style="width: 8.33%"></div>
         </div>
         <div class="flex items-center justify-between text-[11px] text-slate-400">
-          <span>Usa ⬅️ ➡️ o clic directo</span>
+          <a href="../" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Volver a la Web
+          </a>
           <button onclick="switchView('paper')"
             class="text-purple-300 hover:text-purple-200 font-bold flex items-center gap-1">
             <i data-lucide="book-open-check" class="w-3.5 h-3.5"></i> Paper 2.0
@@ -396,7 +682,7 @@
     <main class="flex-1 flex flex-col justify-between px-3 sm:px-6 py-3 sm:py-5 overflow-y-auto custom-scrollbar">
 
       <!-- Barra de Estado de la Diapositiva Activa -->
-      <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
+      <div id="slideTopAnchor" class="mb-3 flex flex-wrap items-center justify-between gap-2" style="scroll-margin-top: 12px;">
         <div class="flex items-center gap-2">
           <!-- Botón flotante para expandir sidebar cuando está colapsada en PC -->
           <button id="btnExpandSidebarFloating" onclick="toggleDesktopSidebar()"
@@ -419,7 +705,7 @@
 
       <!-- Tarjeta Principal de la Diapositiva -->
       <div id="slideContainer"
-        class="flex-1 flex flex-col justify-center bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-7 md:p-9 shadow-2xl relative overflow-hidden min-h-[460px]">
+        class="flex-1 flex flex-col justify-start bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-7 md:p-9 shadow-2xl relative overflow-hidden min-h-[460px]">
         <!-- Contenido inyectado dinámicamente por JS -->
       </div>
 
@@ -492,7 +778,7 @@
       <!-- Cita Principal Fundacional -->
       <div class="p-4 rounded-xl bg-emerald-50 border-l-4 border-emerald-600">
         <p class="text-xs sm:text-sm font-semibold text-emerald-950 italic">
-          “No necesitas castigar tu cuerpo para cuidarlo. Caminar entre 7.000 y 8.000 pasos al día, especialmente después de comer y al aire libre, es la intervención médica preventiva de mayor adherencia, seguridad articular (1,2x peso) e impacto multisistémico para la longevidad humana.”
+          “No necesitas castigar tu cuerpo para cuidarlo. Caminar entre 7.000 y 8.000 pasos al día, especialmente después de comer y al aire libre, es la intervención médica preventiva de mayor adherencia, seguridad articular (1,2 veces tu peso corporal) e impacto multisistémico para la longevidad humana.”
         </p>
       </div>
 
@@ -505,14 +791,14 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
           <div class="p-3 rounded-lg bg-white border border-emerald-200">
             <span class="font-extrabold text-emerald-700 text-base block">-50% a -70%</span>
-            <strong>Mortalidad prematura:</strong> Al pasar de 3.000 a 7.000–8.000 pasos/día (<em>Paluch et al., 2021, 2022 — JAMA / The Lancet</em>).
+            <strong>Mortalidad prematura:</strong> Al pasar de 3.000 a 7.000–8.000 pasos por día (<em>Paluch et al., 2021, 2022 — JAMA / The Lancet</em>).
           </div>
           <div class="p-3 rounded-lg bg-white border border-teal-200">
             <span class="font-extrabold text-teal-700 text-base block">65% Reciclaje</span>
             <strong>Péndulo invertido:</strong> Energía mecánica reciclada en cada paso; el músculo aporta solo el 35% (<em>Cavagna et al., 1977</em>).
           </div>
           <div class="p-3 rounded-lg bg-white border border-amber-200">
-            <span class="font-extrabold text-amber-700 text-base block">6x Glucosa</span>
+            <span class="font-extrabold text-amber-700 text-base block">6 veces mejor en glucosa</span>
             <strong>Protección pancreática:</strong> Mejora casi 6 veces superior a correr en tolerancia a la glucosa (<em>Slentz et al., 2016 — Duke</em>).
           </div>
           <div class="p-3 rounded-lg bg-white border border-purple-200">
@@ -535,34 +821,34 @@
           <h2 class="font-bold text-base text-slate-900 mb-2">3. Física del Péndulo y Resortes</h2>
           <ul class="text-xs text-slate-700 space-y-1.5">
             <li>• <strong>Péndulo invertido (65%):</strong> Caída controlada hacia adelante que recicla energía gravitatoria (<em>Cavagna, 1977</em>).</li>
-            <li>• <strong>Arco del pie (17%) y Aquiles (35%):</strong> 26 huesos, 33 articulaciones y +100 músculos/tendones que devuelven energía elástica gratuita (<em>Ker et al., 1987 — Nature</em>).</li>
-            <li>• <strong>Impacto articular mínimo:</strong> Apenas <strong>1,2 veces tu peso</strong> frente a <strong>3x–4x al correr</strong>, con recuperación inmediata (0 h).</li>
+            <li>• <strong>Arco del pie (17%) y Aquiles (35%):</strong> 26 huesos, 33 articulaciones y más de 100 músculos/tendones que devuelven energía elástica gratuita (<em>Ker et al., 1987 — Nature</em>).</li>
+            <li>• <strong>Impacto articular mínimo:</strong> Apenas <strong>1,2 veces tu peso</strong> frente a <strong>3 a 4 veces al correr</strong>, con recuperación inmediata (0 horas).</li>
           </ul>
         </div>
 
         <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
           <h2 class="font-bold text-base text-slate-900 mb-2">4. Tus Dos «Corazones Ocultos»</h2>
           <ul class="text-xs text-slate-700 space-y-1.5">
-            <li>• <strong>Bomba Venosa Plantar (60–70 bombeos/min):</strong> El plexo venoso de la planta del pie se comprime con cada pisada e impulsa la sangre hacia el corazón mediante válvulas unidireccionales (<em>Gardner & Fox, 1983</em>).</li>
+            <li>• <strong>Bomba Venosa Plantar (60 a 70 bombeos por minuto):</strong> El plexo venoso de la planta del pie se comprime con cada pisada e impulsa la sangre hacia el corazón mediante válvulas unidireccionales (<em>Gardner & Fox, 1983</em>).</li>
             <li>• <strong>La Pantorrilla («Segundo Corazón»):</strong> El sistema linfático carece de corazón central; depende de los gemelos y el sóleo para drenar líquidos, toxinas y mover defensas inmunitarias.</li>
           </ul>
         </div>
       </div>
 
-      <!-- UNIDAD 5: Metabolismo, Cortisol y Páncreas (Duke 6x) -->
+      <!-- UNIDAD 5: Metabolismo, Cortisol y Páncreas (Duke) -->
       <div class="p-4 sm:p-5 rounded-xl border border-slate-200 bg-white">
         <h2 class="font-bold text-base text-slate-900 mb-3">5. Metabolismo en Zona 2, Trampa del Cortisol y el Estudio del Páncreas (Universidad de Duke)</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
           <div class="p-3.5 rounded-lg bg-rose-50 border border-rose-200">
-            <h3 class="font-bold text-rose-900 mb-1">Ejercicio Extremo (170–180 ppm)</h3>
+            <h3 class="font-bold text-rose-900 mb-1">Ejercicio Extremo (170 a 180 latidos por minuto)</h3>
             <p class="text-rose-800">La amígdala cerebral detecta peligro de muerte y libera <strong>cortisol y adrenalina</strong>: 1) bloquea la lipólisis visceral abdominal, 2) agota el glucógeno disparando hambre reactiva por azúcares y 3) causa catabolismo muscular e inflamación.</p>
           </div>
           <div class="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200">
             <h3 class="font-bold text-emerald-900 mb-1">Caminata Moderada (Zona 1 – Zona 2)</h3>
-            <p class="text-emerald-800">A paso conversacional (90–115 ppm) abunda el oxígeno celular para la <strong>beta-oxidación de ácidos grasos</strong> como combustible primario. Activa el sistema parasimpático, baja el cortisol y evita atracones.</p>
+            <p class="text-emerald-800">A paso conversacional (90 a 115 latidos por minuto) abunda el oxígeno celular para la <strong>beta-oxidación de ácidos grasos</strong> como combustible primario. Activa el sistema parasimpático, baja el cortisol y evita atracones.</p>
           </div>
           <div class="p-3.5 rounded-lg bg-amber-50 border border-amber-200">
-            <h3 class="font-bold text-amber-900 mb-1">Ensayo STRRIDE-PD (Duke, 6x Glucosa)</h3>
+            <h3 class="font-bold text-amber-900 mb-1">Ensayo STRRIDE-PD (Duke, 6 veces más en Glucosa)</h3>
             <p class="text-amber-900">En 6 meses de seguimiento (<em>Slentz et al., 2016 — Diabetologia</em>), caminar logró una mejora <strong>casi 6 veces superior a correr vigorosamente en la tolerancia oral a la glucosa</strong>, ahorrando insulina y protegiendo las células beta del páncreas.</p>
           </div>
         </div>
@@ -577,7 +863,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs">
             <div class="p-3 rounded-lg border border-slate-200 bg-white">
               <span class="font-extrabold text-emerald-700 block text-sm">Minuto 3</span>
-              <strong>Líquido sinovial:</strong> Lubricación de tobillos, rodillas y caderas; pulso sube suave a 90–100 ppm.
+              <strong>Líquido sinovial:</strong> Lubricación de tobillos, rodillas y caderas; pulso sube suave a 90–100 latidos por minuto.
             </div>
             <div class="p-3 rounded-lg border border-slate-200 bg-white">
               <span class="font-extrabold text-emerald-700 block text-sm">Minuto 10</span>
@@ -603,7 +889,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs">
             <div class="p-3 rounded-lg border border-amber-200 bg-amber-50/50">
               <span class="font-extrabold text-amber-800 block text-sm">Día 1</span>
-              <strong>Bombas activas:</strong> 60–70 bombeos/min plantares; menor pesadez e hinchazón de tobillos por la tarde.
+              <strong>Bombas activas:</strong> 60 a 70 bombeos por minuto en la planta del pie; menor pesadez e hinchazón de tobillos por la tarde.
             </div>
             <div class="p-3 rounded-lg border border-amber-200 bg-amber-50/50">
               <span class="font-extrabold text-amber-800 block text-sm">Semana 1</span>
@@ -619,7 +905,7 @@
             </div>
             <div class="p-3 rounded-lg border border-amber-200 bg-amber-50/50">
               <span class="font-extrabold text-amber-800 block text-sm">Año 1</span>
-              <strong>Hueso y Cerebro:</strong> Densidad ósea piezoeléctrica (Ley de Wolff) y +2% en hipocampo (-1 a 2 años de edad cerebral).
+              <strong>Hueso y Cerebro:</strong> Densidad ósea piezoeléctrica (Ley de Wolff) y +2% en hipocampo (1 a 2 años menos de edad cerebral).
             </div>
           </div>
         </div>
@@ -630,10 +916,10 @@
         <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
           <h2 class="font-bold text-base text-slate-900">7. Cerebro (+2%), Memoria y Psiquiatría Clínica</h2>
           <ul class="text-xs text-slate-700 space-y-1.5 leading-relaxed">
-            <li>• <strong>Reversión de atrofia (+2% hipocampo):</strong> En 120 adultos mayores (<em>Erickson et al., 2011 — Univ. de Pittsburgh / PNAS</em>), caminar 40 min 3 veces/semana aumentó un 2% el hipocampo vía BDNF, revirtiendo 1–2 años de envejecimiento y previniendo Alzheimer (<em>Univ. de Kansas</em>).</li>
+            <li>• <strong>Reversión de atrofia (+2% hipocampo):</strong> En 120 adultos mayores (<em>Erickson et al., 2011 — Univ. de Pittsburgh / PNAS</em>), caminar 40 min. 3 veces por semana aumentó un 2% el hipocampo vía BDNF, revirtiendo 1–2 años de envejecimiento y previniendo Alzheimer (<em>Univ. de Kansas</em>).</li>
             <li>• <strong>Estimulación bilateral:</strong> Sincroniza ambos hemisferios por el cuerpo calloso (Darwin, Kant, Nietzsche, Beethoven, Jobs).</li>
             <li>• <strong>Escaneo óptico lateral (Stanford):</strong> Mirar al horizonte genera flujo óptico que desactiva la amígdala y apaga la ansiedad (<em>Salay et al., 2018</em>).</li>
-            <li>• <strong>Depresión Mayor (TDM) y Ánimo:</strong> Caminar 30–45 min, 5 días/semana mejora clínicamente la depresión resistente (<em>Mota-Pereira et al., 2011</em>) y eleva el afecto positivo (<em>Univ. de Iowa</em>).</li>
+            <li>• <strong>Depresión Mayor (TDM) y Ánimo:</strong> Caminar 30 a 45 min., 5 días por semana mejora clínicamente la depresión resistente (<em>Mota-Pereira et al., 2011</em>) y eleva el afecto positivo (<em>Univ. de Iowa</em>).</li>
           </ul>
         </div>
 
@@ -654,10 +940,10 @@
         <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
           <h2 class="font-bold text-base text-slate-900">9. Comparativa Deportiva y Test de los 4 Metros (JAMA)</h2>
           <p class="text-xs text-slate-700 leading-relaxed">
-            Nadar o ir en bicicleta son excelentes ejercicios aeróbicos, pero al eliminar la gravedad o ir sentado con el antepié en el pedal, <strong>no activan la piezoelectricidad ósea del talón, no comprimen la bomba venosa plantar ni hidratan por difusión los discos lumbares</strong>; correr los activa pero con 3x–4x de impacto articular.
+            Nadar o ir en bicicleta son excelentes ejercicios aeróbicos, pero al eliminar la gravedad o ir sentado con el antepié en el pedal, <strong>no activan la piezoelectricidad ósea del talón, no comprimen la bomba venosa plantar ni hidratan por difusión los discos lumbares</strong>; correr los activa pero con 3 a 4 veces tu peso de impacto articular.
           </p>
           <p class="text-xs text-slate-700 leading-relaxed">
-            <strong>Prueba de los 4 Metros (<em>Studenski et al., 2011 — JAMA</em>):</strong> En 34.485 mayores de 65 años, la velocidad al caminar 4 metros en llano predijo la supervivencia mejor que edad, tensión arterial, IMC o tabaquismo (óptimo <strong>≥ 1,0 m/s</strong>, es decir, ≤ 4 segundos).
+            <strong>Prueba de los 4 Metros (<em>Studenski et al., 2011 — JAMA</em>):</strong> En 34.485 mayores de 65 años, la velocidad al caminar 4 metros en llano predijo la supervivencia mejor que edad, tensión arterial, IMC o tabaquismo (óptimo <strong>≥ 1,0 metros por segundo (m/s)</strong>, es decir, 4 segundos o menos).
           </p>
         </div>
 
@@ -667,7 +953,7 @@
             Los 10.000 pasos nacieron como campaña publicitaria en Japón (1965) para vender el podómetro <em>Manpo-kei</em>. La ciencia moderna (<em>The Lancet, JAMA</em> en 47.471 adultos) demuestra que la meseta óptima ocurre entre <strong>7.000 y 8.000 pasos diarios</strong> (-50% a -70% mortalidad).
           </p>
           <p class="text-xs text-slate-700 leading-relaxed">
-            <strong>Fórmula FIT (cambiar 1 variable a la vez):</strong> <strong>F</strong>recuencia (3–5 días/sem), <strong>I</strong>ntensidad (3–5 km/h con <em>Test del Habla</em>) y <strong>T</strong>iempo (30–45 min). <strong>Postura:</strong> columna erguida, mirada al horizonte y <strong>codos a 90°</strong>.
+            <strong>Fórmula FIT (cambiar 1 variable a la vez):</strong> <strong>F</strong>recuencia (3 a 5 días por semana), <strong>I</strong>ntensidad (3 a 5 kilómetros por hora con <em>Test del Habla</em>) y <strong>T</strong>iempo (30 a 45 minutos). <strong>Postura:</strong> columna erguida, mirada al horizonte y <strong>codos a 90 grados</strong>.
           </p>
         </div>
       </div>
@@ -678,19 +964,19 @@
           <h2 class="font-bold text-base text-emerald-400 mb-3">Protocolo «Walking 2.0»: 4 Reglas Multiplicadoras + Compromiso Familiar (Unidades 10 a 12)</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
             <div class="p-3 rounded-lg bg-slate-800 border border-slate-700">
-              <strong class="text-emerald-300 block mb-1">1. Camina 10–15 min tras comer</strong>
+              <strong class="text-emerald-300 block mb-1">1. Camina 10 a 15 min. tras comer</strong>
               Tus músculos captan glucosa directamente y reducen los picos de azúcar en sangre hasta en un 30% (<em>DiPietro et al., 2013</em>).
             </div>
             <div class="p-3 rounded-lg bg-slate-800 border border-slate-700">
               <strong class="text-amber-300 block mb-1">2. Toma luz solar matutina</strong>
-              Sincroniza tu reloj circadiano central, eleva tu energía diurna y programa la melatonina 10–12 h después para dormir profundo.
+              Sincroniza tu reloj circadiano central, eleva tu energía diurna y programa la melatonina 10 a 12 horas después para dormir profundo.
             </div>
             <div class="p-3 rounded-lg bg-slate-800 border border-slate-700">
               <strong class="text-teal-300 block mb-1">3. Varía terreno e incluye cuestas</strong>
               Caminar por tierra, césped o pendientes activa músculos estabilizadores, recalibra propiocepción y quema hasta +40% calorías.
             </div>
             <div class="p-3 rounded-lg bg-slate-800 border border-slate-700">
-              <strong class="text-purple-300 block mb-1">4. Practica «Rucking» (4–8 kg)</strong>
+              <strong class="text-purple-300 block mb-1">4. Practica «Rucking» (4 a 8 kg)</strong>
               Llevar una mochila ajustada duplica el gasto calórico, corrige la postura y multiplica la señal piezoeléctrica contra la osteoporosis.
             </div>
           </div>
@@ -858,7 +1144,7 @@
         step: "Minuto 3",
         short: "Líquido sinovial",
         system: "Líquido sinovial y ajuste cardíaco",
-        mechanism: "Las cápsulas articulares de tobillos, rodillas y caderas liberan líquido sinovial; el pulso pasa suavemente de 60–70 a 90–100 ppm sin estrés simpático.",
+        mechanism: "Las cápsulas articulares de tobillos, rodillas y caderas liberan líquido sinovial; el pulso pasa suavemente de 60–70 a 90–100 latidos por minuto sin estrés simpático.",
         benefit: "Lubricación inmediata del cartílago articular que reduce la fricción, la rigidez y el desgaste mecánico."
       },
       {
@@ -870,7 +1156,7 @@
       },
       {
         step: "Minuto 20",
-        short: "Sist. Linfático",
+        short: "Sistema Linfático",
         system: "Sistema linfático y gemelos",
         mechanism: "El bombeo mecánico de la pantorrilla («segundo corazón») impulsa la linfa a través de vasos y ganglios linfáticos mediante válvulas unidireccionales.",
         benefit: "Limpieza activa de residuos celulares, menor retención de líquidos y refuerzo directo del sistema inmunitario."
@@ -945,6 +1231,7 @@
         shortTitle: "Portada y Resumen",
         category: "FUNDAMENTOS E HITOS",
         badge: "UNIDAD 1 • SÍNTESIS CLÍNICA INTEGRADA",
+        plainSummary: "Caminar todos los días a buen ritmo protege tu corazón, tu páncreas, tus huesos y tu memoria mejor y con menos desgaste que cualquier entrenamiento agotador.",
         title: "De la Medicina Hipocrática a los Cuatro Hitos Cuantitativos de la Ciencia Moderna",
         speakerTip: "Hace 2.400 años Hipócrates afirmó que «caminar es la mejor medicina para el ser humano». Hoy la neuroimagen y estudios en decenas de miles de personas lo confirman con cuatro cifras exactas.",
         narrationText: "Unidad 1: Portada y Resumen General. Hace 2.400 años, Hipócrates de Cos postuló que caminar constituye la mejor medicina para el ser humano. Hoy la medicina basada en la evidencia confirma este axioma con cuatro indicadores cuantitativos clave: 1. Menos 50 a 70 por ciento de mortalidad prematura al pasar de 3.000 a 7.000 u 8.000 pasos diarios según Paluch y colaboradores en JAMA y The Lancet. 2. 65 por ciento de energía mecánica reciclada en cada paso gracias al modelo físico del péndulo invertido demostrado por Cavagna. 3. Mejora casi 6 veces superior a correr en la tolerancia a la glucosa y protección del páncreas según el estudio STRRIDE-PD de la Universidad de Duke. 4. Más 2 por ciento de crecimiento en el volumen del hipocampo cerebral, revirtiendo de 1 a 2 años de envejecimiento según la Universidad de Pittsburgh.",
@@ -960,52 +1247,52 @@
                   La locomoción bípeda como <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">intervención fisiológica multisistémica</span>
                 </h2>
                 <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  Hace <strong>2.400 años</strong>, el médico griego <strong>Hipócrates de Cos</strong> postuló que caminar es la mejor medicina para el ser humano. En las últimas dos décadas, ensayos controlados con resonancia magnética, dinamometría y cohortes multicéntricas han validado este axioma.
+                  Hace <strong>2.400 años</strong>, el médico griego <strong>Hipócrates de Cos</strong> postuló que caminar es la mejor medicina para el ser humano. En las últimas dos décadas, ensayos controlados con resonancia magnética, dinamometría y estudios en miles de personas han validado este principio.
                 </p>
                 <div class="p-3.5 rounded-2xl bg-slate-800/80 border border-emerald-500/30 flex items-start gap-3">
                   <i data-lucide="quote" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
                   <p class="text-xs sm:text-sm text-slate-200 italic">
-                    “La evidencia empírica confirma que caminar no es una alternativa menor al entrenamiento de gimnasio, sino la intervención médica preventiva de mayor adherencia, seguridad articular e impacto multisistémico para la longevidad humana.”
+                    “La evidencia científica confirma que caminar no es un ejercicio menor frente al gimnasio, sino la medicina preventiva más segura para tus articulaciones, más fácil de sostener y más completa para vivir más y mejor.”
                   </p>
                 </div>
               </div>
 
               <!-- Los 4 Indicadores Cuantitativos Fundacionales -->
-              <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+              <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-slate-800/80 border border-emerald-500/40">
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="text-[10px] font-bold uppercase text-emerald-300">Longevidad</span>
+                    <span class="text-xs font-bold uppercase text-emerald-300">Longevidad</span>
                     <i data-lucide="heart-pulse" class="w-5 h-5 text-emerald-400"></i>
                   </div>
                   <div class="text-2xl sm:text-3xl font-extrabold text-white">-50% a -70%</div>
-                  <p class="text-[11px] text-slate-300 mt-1">Reducción de mortalidad prematura (7.000–8.000 pasos/día, <em>The Lancet / JAMA</em>).</p>
+                  <p class="text-xs text-slate-300 mt-1">Reducción de mortalidad prematura (7.000 a 8.000 pasos por día, <em>The Lancet / JAMA</em>).</p>
                 </div>
 
                 <div class="p-4 rounded-2xl bg-gradient-to-br from-teal-500/20 to-slate-800/80 border border-teal-500/40">
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="text-[10px] font-bold uppercase text-teal-300">Biomecánica</span>
+                    <span class="text-xs font-bold uppercase text-teal-300">Biomecánica</span>
                     <i data-lucide="refresh-cw" class="w-5 h-5 text-teal-400"></i>
                   </div>
                   <div class="text-2xl sm:text-3xl font-extrabold text-white">65%</div>
-                  <p class="text-[11px] text-slate-300 mt-1">Energía mecánica reciclada por paso mediante péndulo invertido (<em>Cavagna, 1977</em>).</p>
+                  <p class="text-xs text-slate-300 mt-1">Energía mecánica reciclada por paso mediante péndulo invertido (<em>Cavagna, 1977</em>).</p>
                 </div>
 
                 <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-500/20 to-slate-800/80 border border-amber-500/40">
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="text-[10px] font-bold uppercase text-amber-300">Páncreas / Duke</span>
+                    <span class="text-xs font-bold uppercase text-amber-300">Páncreas / Duke</span>
                     <i data-lucide="flame" class="w-5 h-5 text-amber-400"></i>
                   </div>
-                  <div class="text-2xl sm:text-3xl font-extrabold text-white">6x Glucosa</div>
-                  <p class="text-[11px] text-slate-300 mt-1">Mejora en tolerancia oral a la glucosa casi 6 veces superior a correr (<em>STRRIDE-PD</em>).</p>
+                  <div class="text-2xl font-extrabold text-white">6 veces mejor</div>
+                  <p class="text-xs text-slate-300 mt-1">Control del azúcar en sangre (glucosa) superior a correr (<em>STRRIDE-PD</em>).</p>
                 </div>
 
                 <div class="p-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-slate-800/80 border border-purple-500/40">
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="text-[10px] font-bold uppercase text-purple-300">Neurogénesis</span>
+                    <span class="text-xs font-bold uppercase text-purple-300">Neurogénesis</span>
                     <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
                   </div>
                   <div class="text-2xl sm:text-3xl font-extrabold text-white">+2%</div>
-                  <p class="text-[11px] text-slate-300 mt-1">Aumento de volumen del hipocampo vía BDNF; revierte 1–2 años de edad (<em>PNAS</em>).</p>
+                  <p class="text-xs text-slate-300 mt-1">Crecimiento del hipocampo cerebral vía BDNF; revierte 1 a 2 años de envejecimiento (<em>PNAS</em>).</p>
                 </div>
               </div>
             </div>
@@ -1013,10 +1300,32 @@
             <!-- Tabla 1 Sintética de las 4 Hipótesis Científicas -->
             <div class="rounded-2xl border border-slate-800 bg-slate-900/90 overflow-hidden">
               <div class="px-4 py-2.5 bg-slate-800/80 border-b border-slate-700 flex items-center justify-between">
-                <span class="text-xs font-extrabold text-emerald-400 uppercase tracking-wider">Tabla 1. Las 4 Hipótesis Fisiológicas Verificadas del Corpus Científico</span>
-                <span class="text-[11px] text-slate-400 hidden sm:inline">Evidencia revisada por pares</span>
+                <span class="text-xs font-extrabold text-emerald-400 uppercase tracking-wider">Tabla 1. Los 4 Beneficios Científicos Verificados</span>
+                <span class="text-xs text-slate-400 hidden sm:inline">Evidencia revisada por pares</span>
               </div>
-              <div class="overflow-x-auto">
+
+              <!-- Tarjetas verticales para Smartphone (< md) -->
+              <div class="md:hidden p-3 space-y-2.5 text-xs">
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                  <div class="font-extrabold text-emerald-300">1. Longevidad y supervivencia: -50% a -70% mortalidad</div>
+                  <div class="text-slate-200">Pasar de sedentarismo (3.000 pasos) a 7.000–8.000 pasos diarios (<em>Paluch et al., 2021, 2022</em>).</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                  <div class="font-extrabold text-teal-300">2. Eficiencia biomecánica: 65% reciclaje + 1,2 veces tu peso</div>
+                  <div class="text-slate-200">Péndulo invertido, arco plantar (17%), tendón de Aquiles (35%) y bombas venosa y linfática (<em>Cavagna, 1977; Ker, 1987</em>).</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                  <div class="font-extrabold text-amber-300">3. Protección pancreática: 6 veces superior a correr</div>
+                  <div class="text-slate-200">Quema de grasas en Zona 1–2 sin picos de estrés (cortisol) y ahorro de insulina (<em>Slentz et al., 2016 — Duke</em>).</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                  <div class="font-extrabold text-purple-300">4. Rejuvenecimiento cerebral: +2% volumen del hipocampo</div>
+                  <div class="text-slate-200">Liberación de proteína BDNF, calma en la amígdala y mejora en depresión mayor (<em>Erickson et al., 2011</em>).</div>
+                </div>
+              </div>
+
+              <!-- Tabla completa para Tablets y Escritorio (md+) -->
+              <div class="hidden md:block overflow-x-auto">
                 <table class="w-full text-left border-collapse text-xs">
                   <thead>
                     <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/50">
@@ -1030,12 +1339,12 @@
                     <tr>
                       <td class="py-2 px-3 font-bold text-emerald-300">1. Longevidad y supervivencia</td>
                       <td class="py-2 px-3 font-extrabold text-white">-50% a -70% mortalidad</td>
-                      <td class="py-2 px-3">Pasar de sedentarismo (3.000 pasos) a 7.000–8.000 pasos/día</td>
+                      <td class="py-2 px-3">Pasar de sedentarismo (3.000 pasos) a 7.000–8.000 pasos por día</td>
                       <td class="py-2 px-3 text-slate-400">Paluch et al. (2021, 2022) — <em>JAMA / Lancet</em></td>
                     </tr>
                     <tr>
                       <td class="py-2 px-3 font-bold text-teal-300">2. Eficiencia biomecánica</td>
-                      <td class="py-2 px-3 font-extrabold text-white">65% reciclaje + 1,2x peso</td>
+                      <td class="py-2 px-3 font-extrabold text-white">65% reciclaje + 1,2 veces tu peso</td>
                       <td class="py-2 px-3">Péndulo invertido, arco plantar (17%), Aquiles (35%) y bombas venosa/linfática</td>
                       <td class="py-2 px-3 text-slate-400">Cavagna et al. (1977); Ker et al. (1987) — <em>Nature</em></td>
                     </tr>
@@ -1048,7 +1357,7 @@
                     <tr>
                       <td class="py-2 px-3 font-bold text-purple-300">4. Rejuvenecimiento cerebral</td>
                       <td class="py-2 px-3 font-extrabold text-white">+2% volumen hipocampo</td>
-                      <td class="py-2 px-3">Expresión de BDNF, flujo óptico lateral (amígdala) y remisión en depresión (TDM)</td>
+                      <td class="py-2 px-3">Expresión de BDNF, flujo óptico lateral (amígdala) y mejora en depresión mayor</td>
                       <td class="py-2 px-3 text-slate-400">Erickson et al. (2011) — <em>Univ. Pittsburgh (PNAS)</em></td>
                     </tr>
                   </tbody>
@@ -1063,6 +1372,7 @@
         shortTitle: "Paradoja y Harvard",
         category: "EVOLUCIÓN BÍPEDA",
         badge: "UNIDAD 2 • UNIVERSIDAD DE HARVARD",
+        plainSummary: "No fuimos diseñados para sufrir en un gimnasio tras estar 10 horas sentados. Nuestro cuerpo evolucionó para caminar suavemente y refrescarse mediante el sudor sin fatigarse.",
         title: "La Paradoja del Fitness Contemporáneo y la Evolución Bípeda (Harvard)",
         speakerTip: "El guepardo corre más rápido, pero se recalienta y debe parar a jadear. El ser humano evolucionó con millones de glándulas sudoríparas ecrinas para caminar largas distancias sin detenerse.",
         narrationText: "Unidad 2: La Paradoja del Fitness Contemporáneo y la Evolución Bípeda de la Universidad de Harvard. Pese a tener más gimnasios y monitores biométricos que nunca, las tasas de diabetes tipo 2, obesidad visceral, artrosis y depresión están en niveles máximos. El error radica en intentar compensar de 8 a 12 horas de silla con 45 minutos de castigo físico extremo. Hace 6 millones de años nuestros ancestros adoptaron la bipedestación para recorrer de 15 a 20 kilómetros diarios. Los estudios de Bramble y Lieberman en la Universidad de Harvard demostraron que, mientras los mamíferos cuadrúpedos se refrigeran mediante el jadeo y deben detenerse por hipertermia, el ser humano desarrolló millones de glándulas sudoríparas ecrinas para disipar el calor por evaporación mientras camina en la caza de persistencia.",
@@ -1070,7 +1380,7 @@
           <div class="slide-enter space-y-5">
             <div>
               <span class="text-xs font-extrabold uppercase tracking-wider text-rose-400">CRÍTICA FISIOLÓGICA AL «SIN DOLOR NO HAY VICTORIA»</span>
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Castigo Agudo en Gimnasio vs. Diseño Evolutivo de 6 Millones de Años</h2>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Castigo Agudo en Gimnasio frente a Diseño Evolutivo de 6 Millones de Años</h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -1081,18 +1391,18 @@
                     <i data-lucide="alert-triangle" class="w-5 h-5"></i>
                   </div>
                   <div>
-                    <span class="text-[10px] font-bold uppercase text-rose-300">2.1 Paradoja Sanitaria</span>
-                    <h3 class="font-bold text-base sm:text-lg text-white">El Fracaso de «10h de Silla + 45m de Pánico»</h3>
+                    <span class="text-xs font-bold uppercase text-rose-300">2.1 Paradoja Sanitaria</span>
+                    <h3 class="font-bold text-base sm:text-lg text-white">El Fracaso de «10 horas en Silla + 45 min. de Pánico»</h3>
                   </div>
                 </div>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Pese a la mayor proliferación histórica de gimnasios y apps de fitness, la <strong>diabetes tipo 2, obesidad visceral, lumbalgia crónica, artrosis y depresión</strong> alcanzan máximos históricos.
+                  Pese a la mayor proliferación histórica de gimnasios y aplicaciones de ejercicio, la <strong>diabetes tipo 2, obesidad visceral, dolor lumbar crónico, artrosis y depresión</strong> alcanzan máximos históricos.
                 </p>
                 <div class="p-3 rounded-xl bg-slate-900/80 border border-rose-500/20 text-xs text-rose-200 space-y-1.5">
                   <div><strong>Modelo Moderno de Castigo Físico:</strong></div>
-                  <div>• <strong>10 a 12 h en Silla:</strong> Bombas venosa plantar y linfática apagadas (letargo vascular).</div>
-                  <div>• <strong>+ 45 min de Ejercicio Extremo (170–180 ppm):</strong> Pico de cortisol y alarma en la amígdala.</div>
-                  <div>• <strong>= Resultado:</strong> Inflamación sistémica + hambre reactiva + abandono a las 3 semanas.</div>
+                  <div>• <strong>10 a 12 horas en Silla:</strong> Bombas venosa plantar y linfática apagadas (circulación lenta).</div>
+                  <div>• <strong>Más 45 minutos de Ejercicio Extremo (170 a 180 latidos por minuto):</strong> Pico de estrés (cortisol) y alarma cerebral.</div>
+                  <div>• <strong>Resultado:</strong> Inflamación general, hambre repentina de dulces y abandono a las 3 semanas.</div>
                 </div>
               </div>
 
@@ -1103,16 +1413,16 @@
                     <i data-lucide="flame" class="w-5 h-5"></i>
                   </div>
                   <div>
-                    <span class="text-[10px] font-bold uppercase text-emerald-300">2.2 Universidad de Harvard (Bramble & Lieberman, 2004)</span>
+                    <span class="text-xs font-bold uppercase text-emerald-300">2.2 Universidad de Harvard (Bramble & Lieberman, 2004)</span>
                     <h3 class="font-bold text-base sm:text-lg text-white">Bipedestación y Sudoración Ecrina</h3>
                   </div>
                 </div>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Hace <strong>6 millones de años</strong>, el retroceso de las selvas africanas obligó a adoptar la <strong>bipedestación</strong> para recorrer de 15 a 20 km diarios con gasto calórico mínimo. En la <strong>caza de persistencia</strong>:
+                  Hace <strong>6 millones de años</strong>, el retroceso de las selvas africanas obligó a adoptar la <strong>marcha sobre dos piernas</strong> para recorrer de 15 a 20 kilómetros diarios con gasto calórico mínimo. En la <strong>caza de persistencia</strong>:
                 </p>
                 <ul class="space-y-2 text-xs text-emerald-100">
                   <li class="p-2.5 rounded-xl bg-slate-900/80 border border-emerald-500/20">
-                    <strong class="text-amber-300">Mamíferos cuadrúpedos (guepardos, antílopes):</strong> Superan al humano en velocidad corta, pero se refrigeran mediante el <strong>jadeo</strong>, obligándolos a detenerse para no colapsar por hipertermia.
+                    <strong class="text-amber-300">Mamíferos cuadrúpedos (guepardos, antílopes):</strong> Superan al humano en velocidad corta, pero se refrigeran mediante el <strong>jadeo</strong>, obligándolos a detenerse para no colapsar por calor extremo.
                   </li>
                   <li class="p-2.5 rounded-xl bg-slate-900/80 border border-emerald-500/20">
                     <strong class="text-emerald-300">Termorregulación humana única:</strong> Perdimos el pelaje denso y desarrollamos millones de <strong>glándulas sudoríparas ecrinas</strong> que disipan el calor por evaporación mientras caminamos sin detenernos.
@@ -1128,6 +1438,7 @@
         shortTitle: "Péndulo y Resortes",
         category: "FÍSICA BIOMECÁNICA",
         badge: "UNIDAD 3 • REVISTA NATURE & CAVAGNA",
+        plainSummary: "Tu cuerpo ahorra la mayor parte del esfuerzo gracias a la gravedad y a los tendones del pie, protegiendo rodillas, tobillos y caderas mucho mejor que correr.",
         title: "Física Exacta del Péndulo Invertido (65%) y los Resortes Anatómicos Pasivos",
         speakerTip: "Caminar es una «caída controlada hacia adelante»: tu cuerpo recicla el 65% de la energía con la gravedad, el arco del pie ahorra un 17% y el tendón de Aquiles devuelve un 35% gratis.",
         narrationText: "Unidad 3: Física del Péndulo Invertido y Resortes Anatómicos. Desde la ingeniería biomecánica, caminar es una caída controlada hacia adelante donde siempre hay un pie en contacto con el suelo. Cuatro mecanismos explican su eficiencia: 1. El péndulo invertido descrito por Cavagna recicla el 65 por ciento de la energía mecánica en cada paso; tus músculos solo aportan el 35 por ciento. 2. El arco longitudinal del pie, con 26 huesos y 33 articulaciones, ahorra un 17 por ciento de energía según Ker y colaboradores en la revista Nature. 3. El tendón de Aquiles y la fascia plantar devuelven un 35 por ciento de energía elástica gratuita. 4. El glúteo mayor mantiene el tronco erguido. Además, el impacto articular al caminar es de apenas 1,2 veces tu peso corporal, frente a 3 o 4 veces al correr.",
@@ -1139,7 +1450,7 @@
                 <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-0.5">Los 4 Mecanismos de Ahorro Energético en Cada Paso</h2>
               </div>
               <span class="px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-xs font-bold text-emerald-300">
-                Impacto: 1,2x al caminar vs. 3x–4x al correr
+                Impacto: 1,2 veces tu peso al caminar frente a 3 a 4 veces al correr
               </span>
             </div>
 
@@ -1148,11 +1459,11 @@
               <div class="p-4 rounded-2xl bg-slate-800/80 border border-emerald-500/40 space-y-2">
                 <div class="flex items-center justify-between">
                   <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-extrabold">65% RECICLADO</span>
-                  <i data-lucide="Compass" class="w-4 h-4 text-emerald-400"></i>
+                  <i data-lucide="compass" class="w-4 h-4 text-emerald-400"></i>
                 </div>
                 <h3 class="font-bold text-white text-sm sm:text-base">1. Péndulo Invertido</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  El centro de masa se eleva y pivota sobre la pierna apoyada (<em>Cavagna et al., 1977</em>). Transfiere energía potencial y cinética; <strong>los músculos solo aportan el 35%</strong>.
+                  El centro de masa se eleva y pivota sobre la pierna apoyada (<em>Cavagna et al., 1977</em>). Transfiere gravedad y movimiento; <strong>los músculos solo aportan el 35%</strong>.
                 </p>
               </div>
 
@@ -1163,7 +1474,7 @@
                 </div>
                 <h3 class="font-bold text-white text-sm sm:text-base">2. Arco Longitudinal</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  <strong>26 huesos, 33 articulaciones y +100 músculos y tendones</strong> tensados como un puente que ahorra un <strong>17% de energía</strong> por paso (<em>Ker et al., 1987 - Nature</em>).
+                  <strong>26 huesos, 33 articulaciones y más de 100 músculos y tendones</strong> tensados como un puente que ahorra un <strong>17% de energía</strong> por paso (<em>Ker et al., 1987 - Nature</em>).
                 </p>
               </div>
 
@@ -1185,7 +1496,7 @@
                 </div>
                 <h3 class="font-bold text-white text-sm sm:text-base">4. Glúteo Mayor</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  El músculo más grande y potente de la anatomía humana (<em>Bramble & Lieberman, 2004</em>). Mantiene el <strong>tronco erguido paso tras paso</strong> evitando la caída anterior.
+                  El músculo más grande y potente de la anatomía humana (<em>Bramble & Lieberman, 2004</em>). Mantiene el <strong>tronco erguido paso tras paso</strong> evitando caídas.
                 </p>
               </div>
             </div>
@@ -1193,14 +1504,32 @@
             <!-- Tabla 2 Comparativa Biomecánica -->
             <div class="rounded-2xl border border-slate-800 bg-slate-900/90 overflow-hidden">
               <div class="px-4 py-2 bg-slate-800/80 border-b border-slate-700 text-xs font-extrabold text-teal-300 uppercase">
-                Tabla 2. Comparativa Biomecánica Cuantitativa: Caminata Fluida vs. Carrera sobre Asfalto
+                Tabla 2. Comparativa Biomecánica: Caminata Fluida frente a Carrera sobre Asfalto
               </div>
-              <div class="overflow-x-auto">
+
+              <!-- Tarjetas verticales para Smartphone (< md) -->
+              <div class="md:hidden p-3 space-y-2.5 text-xs">
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                  <div class="font-extrabold text-emerald-300">Principio físico: Péndulo invertido (65% reciclaje)</div>
+                  <div class="text-slate-200">Caminar permite desplazarse horas sin fatiga; correr exige rebote balístico con fase de vuelo.</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                  <div class="font-extrabold text-emerald-300">Impacto articular: 1,2 veces tu peso frente a 3 a 4 veces al correr</div>
+                  <div class="text-slate-200">Caminar protege el cartílago de tobillos, rodillas y caderas durante toda la vida.</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                  <div class="font-extrabold text-emerald-300">Recuperación: Inmediata (0 horas) frente a 24 a 48 horas al correr</div>
+                  <div class="text-slate-200">Permite caminar los 365 días del año incluso a edades avanzadas.</div>
+                </div>
+              </div>
+
+              <!-- Tabla completa para Tablets y Escritorio (md+) -->
+              <div class="hidden md:block overflow-x-auto">
                 <table class="w-full text-left border-collapse text-xs">
                   <thead>
                     <tr class="border-b border-slate-800 text-slate-400">
                       <th class="py-2 px-3">Variable Biomecánica</th>
-                      <th class="py-2 px-3 text-emerald-400">Caminata Fluida (3 a 5 km/h)</th>
+                      <th class="py-2 px-3 text-emerald-400">Caminata Fluida (3 a 5 kilómetros por hora)</th>
                       <th class="py-2 px-3 text-rose-400">Carrera / Trote sobre Asfalto</th>
                       <th class="py-2 px-3">Relevancia Clínica Familiar</th>
                     </tr>
@@ -1215,7 +1544,7 @@
                     <tr>
                       <td class="py-2 px-3 font-semibold">Impacto articular por paso</td>
                       <td class="py-2 px-3 font-bold text-emerald-300">1,2 veces el peso corporal</td>
-                      <td class="py-2 px-3 text-rose-300">3,0 a 4,0 veces el peso corporal</td>
+                      <td class="py-2 px-3 text-rose-300">3 a 4 veces el peso corporal</td>
                       <td class="py-2 px-3">Preserva el cartílago de tobillos, rodillas y caderas durante décadas.</td>
                     </tr>
                     <tr>
@@ -1242,13 +1571,14 @@
         shortTitle: "Dos Corazones Ocultos",
         category: "HEMODINÁMICA Y LINFA",
         badge: "UNIDAD 4 • BOMBA VENOSA PLANTAR Y PANTORRILLA",
+        plainSummary: "Al pisar y mover tus pantorrillas activas dos bombas naturales que devuelven la sangre al corazón y limpian líquidos retenidos, evitando piernas cansadas y tobillos hinchados.",
         title: "Tus Dos «Corazones Ocultos»: Bomba Venosa Plantar y Sistema Linfático",
         speakerTip: "La hinchazón de tobillos por la tarde tras estar sentado no suele ser una enfermedad primaria: ocurre porque mantuviste apagadas las bombas de la planta del pie y la pantorrilla.",
         narrationText: "Unidad 4: Tus Dos Corazones Ocultos. El retorno de la sangre venosa y la circulación de la linfa en contra de la gravedad dependen de dos bombas mecánicas que solo se activan caminando: 1. La Bomba Venosa Plantar descrita por Gardner y Fox: en la planta del pie existe un plexo venoso con válvulas unidireccionales que al pisar genera entre 60 y 70 compresiones hidráulicas por minuto en cada pie, impulsando la sangre hacia el corazón. 2. La Pantorrilla o Segundo Corazón: el sistema linfático, encargado de transportar defensas inmunitarias y drenar líquidos y toxinas, carece de un corazón central; solo se mueve cuando los gemelos y el sóleo se contraen al caminar.",
         render: () => `
           <div class="slide-enter space-y-5">
             <div>
-              <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-400">HEMODINÁMICA PERIFÉRICA E INMUNOLOGÍA MECÁNICA</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-400">CIRCULACIÓN DE RETORNO Y DEFENSAS NATURALES</span>
               <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Por Qué la Sangre y la Linfa Necesitan Tus Pasos Para Subir</h2>
             </div>
 
@@ -1256,15 +1586,15 @@
               <!-- 1. Bomba Venosa Plantar -->
               <div class="p-5 rounded-2xl bg-slate-800/85 border border-cyan-500/40 space-y-3">
                 <div class="flex items-center justify-between">
-                  <span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 text-xs font-extrabold">60 A 70 BOMBEOS / MINUTO</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 text-xs font-extrabold">60 A 70 BOMBEOS POR MINUTO</span>
                   <i data-lucide="footprints" class="w-5 h-5 text-cyan-400"></i>
                 </div>
                 <h3 class="text-lg font-extrabold text-white">1. La Bomba Venosa Plantar (Gardner & Fox, 1983)</h3>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  En la planta del pie existe un denso plexo venoso dotado de <strong>válvulas unidireccionales</strong>. Cada vez que el pie pisa y soporta el peso del cuerpo, esta red vascular se comprime mecánicamente e impulsa la sangre hacia arriba en dirección a la aurícula derecha del corazón.
+                  En la planta del pie existe una red densa de venas con <strong>válvulas de un solo sentido</strong>. Cada vez que el pie pisa y soporta tu peso, esta red se comprime como una esponja e impulsa la sangre hacia arriba en dirección al corazón.
                 </p>
                 <div class="p-3 rounded-xl bg-slate-900/90 border border-cyan-500/20 text-xs text-cyan-200">
-                  <strong>Dato Clínico:</strong> Este mecanismo no funciona sentado ni permaneciendo de pie inmóvil. La sensación de «piernas pesadas» al final del día es sangre venosa estancada por falta de pisada.
+                  <strong>Dato Clínico:</strong> Este mecanismo no funciona sentado ni de pie quieto. La sensación de «piernas pesadas» al final del día es sangre venosa estancada por falta de pisada.
                 </div>
               </div>
 
@@ -1276,29 +1606,29 @@
                 </div>
                 <h3 class="text-lg font-extrabold text-white">2. La Pantorrilla y el Sistema Linfático</h3>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  El <strong>sistema linfático</strong> —encargado de transportar células inmunitarias, drenar el exceso de líquido intersticial y evacuar desechos celulares— <strong>carece de un corazón central</strong>. La linfa únicamente avanza cuando los músculos de la pantorrilla (<strong>gemelos y sóleo</strong>) se contraen al caminar.
+                  El <strong>sistema linfático</strong> —encargado de transportar nuestras defensas, drenar el exceso de líquidos y evacuar desechos celulares— <strong>no tiene un corazón propio</strong>. La linfa únicamente avanza cuando los músculos de la pantorrilla (<strong>gemelos y sóleo</strong>) se contraen al caminar.
                 </p>
                 <div class="p-3 rounded-xl bg-slate-900/90 border border-emerald-500/20 text-xs text-emerald-200">
-                  <strong>Edema Postural Benigno:</strong> La hinchazón de tobillos al atardecer tras pasar horas sentado es el efecto mecánico directo de haber mantenido apagada esta bomba muscular.
+                  <strong>Hinchazón de Tobillos:</strong> La retención de líquidos al atardecer tras pasar horas sentado es el efecto directo de haber mantenido apagada esta bomba muscular.
                 </div>
               </div>
             </div>
 
             <!-- Diagrama 3 Circuito Hidráulico -->
             <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700/80">
-              <div class="text-xs font-extrabold text-emerald-400 uppercase mb-3">Diagrama 3: Circuito Hidráulico de Retorno Venoso y Linfático al Caminar</div>
+              <div class="text-xs font-extrabold text-emerald-400 uppercase mb-3">Circuito de Retorno Venoso y Linfático al Caminar</div>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                 <div class="p-3 rounded-xl bg-slate-800/90 border border-slate-700 flex items-center gap-3">
                   <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 font-extrabold flex items-center justify-center shrink-0">1</div>
-                  <div><strong>Pisada con Peso Corporal:</strong> Comprime el plexo venoso plantar (60–70 bombeos/min por válvulas unidireccionales).</div>
+                  <div><strong>Pisada con Peso Corporal:</strong> Comprime la red venosa de la planta del pie (60 a 70 bombeos por minuto).</div>
                 </div>
                 <div class="p-3 rounded-xl bg-slate-800/90 border border-slate-700 flex items-center gap-3">
                   <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 font-extrabold flex items-center justify-center shrink-0">2</div>
-                  <div><strong>Contracción de Gemelos y Sóleo:</strong> Activa el «Segundo Corazón» en la pantorrilla, moviendo linfa y células de defensa.</div>
+                  <div><strong>Contracción de Pantorrillas:</strong> Activa el «Segundo Corazón», moviendo la linfa y tus defensas.</div>
                 </div>
                 <div class="p-3 rounded-xl bg-slate-800/90 border border-emerald-500/40 flex items-center gap-3">
                   <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 font-extrabold flex items-center justify-center shrink-0">3</div>
-                  <div><strong>Resultado Clínico Directo:</strong> Retorno sanguíneo óptimo al corazón + cero hinchazón de tobillos + depuración celular.</div>
+                  <div><strong>Resultado Directo:</strong> Buen retorno de sangre al corazón, menos hinchazón de tobillos y limpieza celular.</div>
                 </div>
               </div>
             </div>
@@ -1307,41 +1637,42 @@
       },
       {
         id: 5,
-        shortTitle: "Metabolismo y Páncreas (6x)",
+        shortTitle: "Metabolismo y Páncreas",
         category: "ENDOCRINOLOGÍA Y DUKE",
         badge: "UNIDAD 5 • ESTUDIO STRRIDE-PD (UNIVERSIDAD DE DUKE)",
-        title: "Bioquímica en Zona 2, Trampa del Cortisol y el Estudio del Páncreas (6x)",
+        plainSummary: "Caminar a un paso vivo pero cómodo (que te permita hablar sin ahogarte) quema grasa sin disparar el estrés y controla el azúcar casi 6 veces mejor que correr fuerte.",
+        title: "Bioquímica en Zona 2, Trampa del Cortisol y el Estudio del Páncreas (Universidad de Duke)",
         speakerTip: "El estudio clínico STRRIDE-PD de la Universidad de Duke demostró que caminar a paso moderado mejora la tolerancia a la glucosa casi 6 veces más que correr vigorosamente, protegiendo al páncreas.",
-        narrationText: "Unidad 5: Metabolismo y Páncreas. Cuando realizas ejercicio extenuante a 170 o 180 pulsaciones, la amígdala cerebral detecta peligro de muerte y libera cortisol y adrenalina, lo cual bloquea la quema de grasa visceral, agota el glucógeno provocando hambre reactiva por azúcares y destruye músculo. En cambio, al caminar en Zona 1 y Zona 2 con paso conversacional, el cuerpo oxida ácidos grasos y baja el cortisol. Además, el ensayo clínico controlado STRRIDE-PD de la Universidad de Duke demostró tras 6 meses que caminar a intensidad moderada logra una mejora casi 6 veces superior en la tolerancia oral a la glucosa frente a correr vigorosamente, ahorrando insulina y protegiendo a las células beta del páncreas contra la diabetes tipo 2.",
+        narrationText: "Unidad 5: Metabolismo y Páncreas. Cuando realizas ejercicio extenuante a 170 o 180 latidos por minuto, la amígdala cerebral detecta peligro de muerte y libera cortisol y adrenalina, lo cual bloquea la quema de grasa visceral, agota el glucógeno provocando hambre reactiva por azúcares y destruye músculo. En cambio, al caminar en Zona 1 y Zona 2 con paso conversacional, el cuerpo oxida ácidos grasos y baja el cortisol. Además, el ensayo clínico controlado STRRIDE-PD de la Universidad de Duke demostró tras 6 meses que caminar a intensidad moderada logra una mejora casi 6 veces superior en la tolerancia oral a la glucosa frente a correr vigorosamente, ahorrando insulina y protegiendo a las células beta del páncreas contra la diabetes tipo 2.",
         render: () => `
           <div class="slide-enter space-y-4">
             <div>
               <span class="text-xs font-extrabold uppercase tracking-wider text-amber-400">ENDOCRINOLOGÍA METABÓLICA Y FUNCIÓN PANCREÁTICA</span>
-              <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-0.5">Por Qué Caminar Supera Casi 6 Veces a Correr en el Control de la Glucosa</h2>
+              <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-0.5">Por Qué Caminar Supera Casi 6 Veces a Correr en el Control del Azúcar</h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
               <!-- Comparativa Cortisol vs Zona 2 -->
               <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div class="p-4 rounded-2xl bg-rose-950/30 border border-rose-500/40 space-y-2.5">
-                  <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[11px] font-extrabold">EJERCICIO EXTREMO (170–180 PPM)</span>
-                  <h3 class="font-bold text-white text-sm sm:text-base">Alarma Amigdalina y Pico de Cortisol</h3>
-                  <p class="text-xs text-slate-300">La amígdala detecta <strong>peligro inminente de muerte</strong> y las suprarrenales secretan cortisol y adrenalina:</p>
+                  <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-xs font-extrabold">EJERCICIO EXTREMO (170 a 180 latidos por minuto)</span>
+                  <h3 class="font-bold text-white text-sm sm:text-base">Alarma Cerebral y Pico de Cortisol</h3>
+                  <p class="text-xs text-slate-300">La amígdala cerebral detecta <strong>peligro inminente</strong> y las suprarrenales secretan cortisol y adrenalina:</p>
                   <ul class="space-y-1.5 text-xs text-rose-200">
-                    <li>• <strong>1. Bloqueo de lipólisis visceral:</strong> Inhibe movilizar grasa abdominal profunda.</li>
-                    <li>• <strong>2. Hambre reactiva:</strong> Agota glucógeno y dispara apetito por carbohidratos refinados.</li>
-                    <li>• <strong>3. Catabolismo muscular:</strong> Degrada proteína muscular y eleva citoquinas inflamatorias.</li>
+                    <li>• <strong>1. Bloqueo de quema de grasa abdominal:</strong> El cuerpo guarda reservas ante la señal de alarma.</li>
+                    <li>• <strong>2. Hambre repentina:</strong> Agota reservas rápidas y dispara apetito por dulces y harinas.</li>
+                    <li>• <strong>3. Desgaste muscular:</strong> Degrada proteína muscular y eleva la inflamación interna.</li>
                   </ul>
                 </div>
 
                 <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 space-y-2.5">
-                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[11px] font-extrabold">CAMINATA EN ZONA 1–2 (90–115 PPM)</span>
-                  <h3 class="font-bold text-white text-sm sm:text-base">Beta-Oxidación de Grasas y Calma Vagal</h3>
-                  <p class="text-xs text-slate-300">Paso vivo pero conversacional con abundante oxígeno mitocondrial:</p>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-extrabold">CAMINATA EN ZONA 1 Y 2 (90 a 115 latidos por minuto)</span>
+                  <h3 class="font-bold text-white text-sm sm:text-base">Quema de Grasas y Calma Nerviosa</h3>
+                  <p class="text-xs text-slate-300">Paso vivo pero cómodo para conversar con abundante oxígeno celular:</p>
                   <ul class="space-y-1.5 text-xs text-emerald-200">
-                    <li>• <strong>1. Vía oxidativa de grasas:</strong> Usa ácidos grasos almacenados como combustible primario.</li>
-                    <li>• <strong>2. Equilibrio parasimpático:</strong> Reduce el cortisol plasmático y el estrés crónico.</li>
-                    <li>• <strong>3. Cero atracones:</strong> Preserva el glucógeno y evita la ansiedad alimentaria posterior.</li>
+                    <li>• <strong>1. Combustible de grasas:</strong> Usa las grasas almacenadas como fuente principal de energía.</li>
+                    <li>• <strong>2. Equilibrio calmante:</strong> Reduce la hormona del estrés (cortisol) y relaja el sistema nervioso.</li>
+                    <li>• <strong>3. Sin atracones:</strong> Terminas la caminata sin ansiedad alimentaria posterior.</li>
                   </ul>
                 </div>
               </div>
@@ -1355,7 +1686,7 @@
                   </div>
                   <h3 class="text-lg sm:text-xl font-extrabold text-white">6 Veces Superior a Correr en Tolerancia a la Glucosa</h3>
                   <p class="text-xs text-slate-300 leading-relaxed">
-                    En el ensayo controlado de 6 meses de la <strong>Universidad de Duke</strong> en adultos con prediabetes (<em>Slentz et al., 2016 — Diabetologia</em>), el grupo que caminó a intensidad moderada logró una <strong>mejora casi 6 veces mayor en la tolerancia oral a la glucosa</strong> frente al grupo que realizó carrera vigorosa.
+                    En un estudio de 6 meses de la <strong>Universidad de Duke</strong> en adultos con prediabetes (<em>Slentz et al., 2016 — Diabetologia</em>), quienes caminaron a paso moderado lograron una <strong>mejora casi 6 veces mayor para regular el azúcar en sangre</strong> frente a quienes corrieron con fuerza.
                   </p>
                 </div>
 
@@ -1363,21 +1694,21 @@
                   <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-700">
                     <div class="flex justify-between text-xs font-bold mb-1">
                       <span class="text-emerald-300">Caminata Moderada (STRRIDE-PD)</span>
-                      <span class="text-emerald-400">Mejora Casi 6x</span>
+                      <span class="text-emerald-400">Casi 6 veces mejor</span>
                     </div>
                     <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
                       <div class="h-full bg-gradient-to-r from-emerald-500 to-amber-400 w-11/12"></div>
                     </div>
                     <div class="flex justify-between text-xs font-bold mt-2 mb-1">
                       <span class="text-slate-400">Carrera Vigorosa</span>
-                      <span class="text-rose-400">1x Base</span>
+                      <span class="text-rose-400">1 vez (Base)</span>
                     </div>
                     <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
                       <div class="h-full bg-rose-500 w-2/12"></div>
                     </div>
                   </div>
-                  <p class="text-[11px] text-amber-200">
-                    <strong>Protección Pancreática:</strong> Al absorber la glucosa con mayor eficiencia periférica, el páncreas secreta mucha menos <strong>insulina</strong>, protegiendo a sus <strong>células beta</strong> del agotamiento.
+                  <p class="text-xs text-amber-200">
+                    <strong>Protección Pancreática:</strong> Al absorber mejor el azúcar en los músculos, el páncreas produce mucha menos <strong>insulina</strong> y evita el agotamiento que lleva a la diabetes tipo 2.
                   </p>
                 </div>
               </div>
@@ -1390,6 +1721,7 @@
         shortTitle: "Simulador Cronológico",
         category: "DOBLE ESCALA TEMPORAL",
         badge: "UNIDAD 6 • RESPUESTA AGUDA Y ADAPTACIÓN ACUMULATIVA",
+        plainSummary: "Desde el minuto 3 ya lubricas tus articulaciones, a los 10 minutos despejas la mente y con el paso de las semanas fortaleces tu corazón, equilibrio, huesos y memoria.",
         title: "Simulador Cronológico Doble: «En 1 Paseo» y «En Tu Vida»",
         speakerTip: "Usa el conmutador superior para mostrar a tu familia qué ocurre hoy mismo desde el minuto 3 de paseo y qué se transforma desde el Día 1 hasta cumplir 1 Año caminando.",
         narrationText: "Unidad 6: Simulador Cronológico Doble. Tu cuerpo experimenta dos secuencias fisiológicas complementarias: En un solo paseo, al minuto 3 se libera líquido sinovial que lubrica rodillas y caderas; al minuto 10 se libera la proteína BDNF que despeja la mente; al minuto 20 el bombeo de la pantorrilla drena el sistema linfático; al minuto 30 se oxidan ácidos grasos y el óxido nítrico baja la presión arterial; y al minuto 45 o más bajan los marcadores inflamatorios y el cortisol. En tu vida a largo plazo: el Día 1 se reactivan las bombas venosa y linfática bajando la hinchazón de tobillos; la Semana 1 se rehidratan los discos vertebrales y mejora la digestión; en las Semanas 2 a 3 bajan el pulso en reposo y la tensión arterial; al Mes 1 mejora el equilibrio propioceptivo previniendo caídas; y al Año 1 se densifican los huesos por piezoelectricidad y el hipocampo cerebral crece un 2 por ciento.",
@@ -1402,14 +1734,14 @@
               <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
                 <div>
                   <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">SIMULADOR INTERACTIVO DE DOBLE ESCALA</span>
-                  <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-0.5">Elige la escala temporal y haz clic en cada etapa:</h2>
+                  <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-0.5">Elige la escala de tiempo y toca cada etapa:</h2>
                 </div>
 
                 <!-- Botones del Conmutador: En 1 Paseo vs En Tu Vida -->
-                <div class="bg-slate-950 p-1.5 rounded-2xl border border-slate-700 flex items-center gap-1 self-start">
+                <div class="bg-slate-950 p-1.5 rounded-2xl border border-slate-700 flex flex-wrap items-center gap-1 self-start">
                   <button onclick="switchTimelineScale('acute')" class="px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 ${timelineScaleMode === 'acute' ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25' : 'text-slate-300 hover:text-white'}">
                     <i data-lucide="timer" class="w-4 h-4"></i>
-                    <span>En 1 Paseo (Min 3 al 45+)</span>
+                    <span>En 1 Paseo (Minuto 3 al 45+)</span>
                   </button>
                   <button onclick="switchTimelineScale('life')" class="px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 ${timelineScaleMode === 'life' ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/25' : 'text-slate-300 hover:text-white'}">
                     <i data-lucide="calendar-check" class="w-4 h-4"></i>
@@ -1422,9 +1754,9 @@
               <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
                 ${dataList.map((item, idx) => `
                   <button onclick="selectTimeline(${idx})" class="p-3 rounded-2xl border text-left transition-all ${idx === activeTimelineIdx ? (timelineScaleMode === 'acute' ? 'bg-emerald-500 text-slate-950 border-emerald-300 font-extrabold shadow-lg shadow-emerald-500/20' : 'bg-amber-500 text-slate-950 border-amber-300 font-extrabold shadow-lg shadow-amber-500/20') : 'bg-slate-800/85 text-slate-200 border-slate-700 hover:border-slate-500'} ${idx === 4 ? 'col-span-2 sm:col-span-1' : ''}">
-                    <div class="text-[10px] uppercase opacity-80 font-bold">${timelineScaleMode === 'acute' ? 'Paseo Agudo' : 'Efecto Acumulativo'}</div>
+                    <div class="text-xs uppercase opacity-80 font-bold">${timelineScaleMode === 'acute' ? 'Paseo de hoy' : 'Con constancia'}</div>
                     <div class="text-base sm:text-lg font-extrabold mt-0.5">${item.step}</div>
-                    <div class="text-[11px] truncate opacity-90">${item.short}</div>
+                    <div class="text-xs truncate opacity-90">${item.short}</div>
                   </button>
                 `).join('')}
               </div>
@@ -1438,11 +1770,11 @@
                   </div>
                   <h3 class="text-lg sm:text-2xl font-extrabold text-white">${activeItem.system}</h3>
                   <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-                    <strong>Mecanismo Fisiológico Exacto:</strong> ${activeItem.mechanism}
+                    <strong>Qué ocurre en tu cuerpo:</strong> ${activeItem.mechanism}
                   </p>
                 </div>
                 <div class="lg:col-span-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 space-y-1.5">
-                  <div class="text-xs font-extrabold uppercase ${timelineScaleMode === 'acute' ? 'text-emerald-400' : 'text-amber-400'}">Beneficio Clínico Percibido</div>
+                  <div class="text-xs font-extrabold uppercase ${timelineScaleMode === 'acute' ? 'text-emerald-400' : 'text-amber-400'}">Cómo lo sientes</div>
                   <p class="text-xs sm:text-sm font-semibold text-white leading-relaxed">${activeItem.benefit}</p>
                 </div>
               </div>
@@ -1455,14 +1787,15 @@
         shortTitle: "Cerebro (+2%) y Ánimo",
         category: "NEUROBIOLOGÍA Y PSIQUIATRÍA",
         badge: "UNIDAD 7 • PITTSBURGH (PNAS), STANFORD Y DEPRESIÓN MAYOR",
+        plainSummary: "Caminar 40 minutos tres veces por semana hace crecer la zona de la memoria en el cerebro, ayuda a prevenir el Alzheimer y apaga el estrés de las pantallas.",
         title: "Crecimiento del Hipocampo (+2%), Prevención de Alzheimer y Salud Mental",
         speakerTip: "Caminar 40 minutos 3 veces por semana hace crecer el hipocampo un 2%, revirtiendo de 1 a 2 años de envejecimiento cerebral, y mejora clínicamente la Depresión Mayor.",
         narrationText: "Unidad 7: Neurobiología, Crecimiento del Hipocampo y Psiquiatría Clínica. El ensayo controlado de la Universidad de Pittsburgh publicado en PNAS por Erickson y colaboradores demostró en 120 adultos mayores que caminar 40 minutos 3 veces por semana durante un año incrementa un 2 por ciento el volumen del hipocampo gracias a la proteína BDNF, revirtiendo de 1 a 2 años de envejecimiento cerebral, mientras el grupo sedentario perdió un 1,4 por ciento. Estudios de la Universidad de Kansas confirman la prevención de demencia y Alzheimer. Además, caminar activa la estimulación bilateral sincronizando ambos hemisferios por el cuerpo calloso, apaga la ansiedad en la amígdala mediante el escaneo óptico lateral demostrado por la Universidad de Stanford, y logra mejoras clínicas significativas en el Trastorno Depresivo Mayor resistente a medicamentos.",
         render: () => `
           <div class="slide-enter space-y-4">
             <div>
-              <span class="text-xs font-extrabold uppercase tracking-wider text-purple-400">NEUROCIENCIAS Y PSIQUIATRÍA CLÍNICA</span>
-              <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-0.5">Reversión de la Atrofia Cerebral (+2%) y Regulación Límbica</h2>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-purple-400">NEUROCIENCIAS Y SALUD EMOCIONAL</span>
+              <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-0.5">Reversión del Envejecimiento Cerebral (+2%) y Calma Mental</h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
@@ -1472,12 +1805,12 @@
                   <span class="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 text-xs font-extrabold">UNIVERSIDAD DE PITTSBURGH (PNAS, 2011)</span>
                   <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
                 </div>
-                <h3 class="text-lg font-extrabold text-white">+2% de Volumen en el Hipocampo</h3>
+                <h3 class="text-lg font-extrabold text-white">+2% de Volumen en el Hipocampo (Memoria)</h3>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  En un ensayo controlado de 1 año con <strong>120 adultos mayores</strong> (<em>Erickson et al., 2011</em>), mientras el grupo de estiramientos perdió un <strong>-1,4%</strong> de volumen hipocampal, el grupo que <strong>caminó 40 min, 3 veces por semana</strong> incrementó su hipocampo un <strong>+2,0%</strong> vía proteína <strong>BDNF</strong>, revirtiendo de <strong>1 a 2 años de envejecimiento cerebral</strong>.
+                  En un ensayo controlado de 1 año con <strong>120 adultos mayores</strong> (<em>Erickson et al., 2011</em>), mientras el grupo de estiramientos perdió un <strong>-1,4%</strong> en su centro de memoria, quienes <strong>caminaron 40 minutos, 3 veces por semana</strong> aumentaron su hipocampo un <strong>+2,0%</strong> vía proteína <strong>BDNF</strong>, revirtiendo de <strong>1 a 2 años de envejecimiento cerebral</strong>.
                 </p>
                 <div class="p-3 rounded-xl bg-slate-900/90 border border-purple-500/30 text-xs text-purple-200">
-                  <strong>Prevención de Alzheimer (Univ. de Kansas):</strong> Los estudios de <em>Burns et al. (2008)</em> confirmaron que caminar preserva el volumen cerebral y frena la demencia temprana.
+                  <strong>Prevención de Alzheimer (Universidad de Kansas):</strong> Los estudios de <em>Burns et al. (2008)</em> confirmaron que caminar preserva el cerebro y frena la demencia temprana.
                 </div>
               </div>
 
@@ -1486,24 +1819,24 @@
                 <div class="p-3.5 rounded-2xl bg-slate-800/85 border border-slate-700 flex items-start gap-3">
                   <div class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-300 font-extrabold flex items-center justify-center shrink-0">1</div>
                   <div class="text-xs">
-                    <strong class="text-white text-sm block">Estimulación Bilateral (Cuerpo Calloso)</strong>
-                    <span class="text-slate-300">El movimiento alternado de brazos y piernas sincroniza ambos hemisferios cerebrales. Por ello Darwin, Kant, Nietzsche, Beethoven, Kierkegaard y Steve Jobs caminaban a diario para resolver problemas complejos.</span>
+                    <strong class="text-white text-sm block">Estimulación Bilateral (Dos Hemisferios)</strong>
+                    <span class="text-slate-300">El movimiento alternado de brazos y piernas sincroniza ambos lados del cerebro. Por ello Darwin, Kant, Nietzsche, Beethoven, Kierkegaard y Steve Jobs caminaban a diario para pensar con claridad.</span>
                   </div>
                 </div>
 
                 <div class="p-3.5 rounded-2xl bg-slate-800/85 border border-slate-700 flex items-start gap-3">
                   <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 font-extrabold flex items-center justify-center shrink-0">2</div>
                   <div class="text-xs">
-                    <strong class="text-white text-sm block">Escaneo Óptico Lateral (Universidad de Stanford)</strong>
-                    <span class="text-slate-300">Mirar pantallas a 40 cm excita el sistema simpático. Al caminar mirando al horizonte, el <strong>flujo óptico lateral</strong> desactiva mecánicamente la <strong>amígdala cerebral</strong> y apaga la ansiedad (<em>Salay et al., 2018; de Voogd et al., 2018</em>).</span>
+                    <strong class="text-white text-sm block">Mirar el Horizonte (Universidad de Stanford)</strong>
+                    <span class="text-slate-300">Mirar el celular o pantallas a 40 centímetros excita el estrés. Al caminar al aire libre mirando a lo lejos, el <strong>flujo óptico lateral</strong> apaga el miedo y la ansiedad en la <strong>amígdala cerebral</strong> (<em>Salay et al., 2018; de Voogd et al., 2018</em>).</span>
                   </div>
                 </div>
 
                 <div class="p-3.5 rounded-2xl bg-slate-800/85 border border-emerald-500/30 flex items-start gap-3">
                   <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 font-extrabold flex items-center justify-center shrink-0">3</div>
                   <div class="text-xs">
-                    <strong class="text-white text-sm block">Trastorno Depresivo Mayor (TDM) y Ánimo (Iowa)</strong>
-                    <span class="text-slate-300">Caminar 30–45 min/día, 5 días/semana mejora significativamente la <strong>Depresión Mayor resistente a fármacos</strong> (<em>Mota-Pereira et al., 2011</em>) y eleva el afecto positivo de forma automática (<em>Miller & Krizan, 2016 - Univ. Estatal de Iowa</em>).</span>
+                    <strong class="text-white text-sm block">Trastorno Depresivo Mayor (TDM) y Ánimo</strong>
+                    <span class="text-slate-300">Caminar de 30 a 45 minutos al día, 5 días por semana mejora significativamente la <strong>Depresión Mayor</strong> (<em>Mota-Pereira et al., 2011</em>) y eleva el bienestar de forma automática (<em>Miller & Krizan, 2016 - Universidad Estatal de Iowa</em>).</span>
                   </div>
                 </div>
               </div>
@@ -1516,14 +1849,15 @@
         shortTitle: "5 Órganos que Rejuvenecen",
         category: "MEDICINA SISTÉMICA",
         badge: "UNIDAD 8 • HUESOS, COLUMNA, OJOS, CORAZÓN E INTESTINO",
+        plainSummary: "Cada pisada fortalece tus huesos contra la osteoporosis, hidrata la columna vertebral, cuida tus ojos del glaucoma, protege tu corazón y mejora la digestión.",
         title: "Medicina Sistémica para Cinco Órganos Diana que Rejuvenecen al Caminar",
         speakerTip: "Los discos de tu columna no tienen arterias: se hidratan como una esponja solo cuando caminas. Y tus huesos generan microcorrientes piezoeléctricas con cada pisada para no descalcificarse.",
         narrationText: "Unidad 8: Cinco Órganos que Rejuvenecen al Caminar. 1. Huesos piezoeléctricos y Ley de Wolff: Fukada y Yasuda descubrieron que el hueso genera microcorrientes eléctricas al recibir el impacto del talón, ordenando a los osteoblastos crear hueso nuevo; sin caminar se pierde de 1 a 2 por ciento de masa ósea mensual. 2. Columna vertebral: según Urban y colaboradores, los discos intervertebrales carecen de vasos sanguíneos y se nutren exclusivamente por difusión al caminar; la silla los seca. 3. Globo ocular: la Glaucoma Research Foundation destaca que caminar reduce la presión intraocular protegiendo el nervio óptico. 4. Corazón y pulmones: en más de 48.000 personas, la Asociación Estadounidense del Corazón demostró que caminar es igual o más efectivo que correr contra infartos, hipertensión y accidentes cerebrovasculares. 5. Intestino: el estudio de Chao en más de 151.000 personas probó que caminar estimula el peristaltismo y reduce el riesgo y mortalidad por cáncer de colon.",
         render: () => `
           <div class="slide-enter space-y-4">
             <div>
-              <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">IMPACTO TERAPÉUTICO MULTISISTÉMICO (DIAGRAMA 4)</span>
-              <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-0.5">Cinco Sistemas Orgánicos que Dependen Mecánicamente de Caminar</h2>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">IMPACTO TERAPÉUTICO EN CINCO SISTEMAS DEL CUERPO</span>
+              <h2 class="text-xl sm:text-3xl font-extrabold text-white mt-0.5">Cinco Órganos que Dependen Mecánicamente de Caminar</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
@@ -1535,7 +1869,7 @@
                 </div>
                 <h3 class="font-bold text-white text-sm sm:text-base">Huesos Piezoeléctricos y Ley de Wolff</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  Al pisar, los cristales óseos generan una carga eléctrica (<em>Fukada & Yasuda, 1957</em>) que activa a los osteoblastos (<strong>Ley de Wolff</strong>). Sin ella se pierde 1–2% de hueso mensual. La <em>Arthritis Foundation</em> recomienda 30 min/día contra osteoporosis y artrosis.
+                  Al apoyar el talón, los huesos generan una microcarga eléctrica (<em>Fukada & Yasuda, 1957</em>) que ordena crear hueso nuevo (<strong>Ley de Wolff</strong>). La <em>Arthritis Foundation</em> recomienda caminar 30 minutos diarios contra la osteoporosis y el dolor articular.
                 </p>
               </div>
 
@@ -1547,7 +1881,7 @@
                 </div>
                 <h3 class="font-bold text-white text-sm sm:text-base">Hidratación de Discos por Difusión</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  Los discos intervertebrales carecen de arterias propias; se nutren exclusivamente por <strong>difusión tipo esponja</strong> con la carga y descarga rítmica al caminar (<em>Urban et al., 2004</em>). <em>Caminar hidrata la columna; la silla la seca.</em>
+                  Los discos entre tus vértebras no tienen arterias; absorben agua y nutrientes como una <strong>esponja</strong> con el vaivén rítmico al caminar (<em>Urban et al., 2004</em>). <em>Caminar hidrata la columna; la silla la seca.</em>
                 </p>
               </div>
 
@@ -1559,7 +1893,7 @@
                 </div>
                 <h3 class="font-bold text-white text-sm sm:text-base">Prevención de Glaucoma y Vista</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  El glaucoma lesiona el nervio óptico por exceso de presión intraocular. La <em>Glaucoma Research Foundation</em> recomienda caminar regularmente porque <strong>disminuye la presión intraocular</strong> y estimula la corteza visual.
+                  El glaucoma daña el nervio óptico por exceso de presión en el ojo. La <em>Glaucoma Research Foundation</em> recomienda caminar regularmente porque <strong>reduce la presión intraocular</strong> y fortalece la visión.
                 </p>
               </div>
 
@@ -1569,21 +1903,21 @@
                   <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-xs font-extrabold">4. CORAZÓN Y PULMONES (AHA)</span>
                   <i data-lucide="heart" class="w-4 h-4 text-rose-400"></i>
                 </div>
-                <h3 class="font-bold text-white text-sm sm:text-base">American Heart Association (49.005 sujetos)</h3>
+                <h3 class="font-bold text-white text-sm sm:text-base">Asociación Estadounidense del Corazón (49.005 personas)</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  El estudio de <em>Williams & Thompson (2013)</em> demostró que caminar es <strong>igual o más efectivo que correr</strong> (a igual gasto calórico) para reducir hipertensión, colesterol alto, infartos coronarios y ACV, expandiendo la capacidad pulmonar.
+                  El estudio de <em>Williams & Thompson (2013)</em> demostró que caminar es <strong>igual o más efectivo que correr</strong> (a igual gasto energético) para reducir hipertensión, colesterol alto, infartos y derrames cerebrales, ampliando la capacidad pulmonar.
                 </p>
               </div>
 
               <!-- 5. Intestino -->
               <div class="p-4 rounded-2xl bg-slate-800/85 border border-emerald-500/40 space-y-2 md:col-span-1 lg:col-span-2">
                 <div class="flex items-center justify-between">
-                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-extrabold">5. INTESTINO Y ONCOLOGÍA PREVENTIVA (>151.343 PERSONAS)</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-extrabold">5. INTESTINO Y PREVENCIÓN DEL CÁNCER (>151.343 PERSONAS)</span>
                   <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
                 </div>
                 <h3 class="font-bold text-white text-sm sm:text-base">Peristaltismo y Protección contra el Cáncer de Colon</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  El movimiento rítmico pélvico estimula el <strong>peristaltismo</strong> corrigiendo el estreñimiento crónico. En <strong>151.343 adultos</strong> (<em>Chao et al., 2004</em>) y estudios de supervivencia oncológica (<em>Meyerhardt et al., 2006</em>), caminar 30 minutos diarios reduce significativamente la incidencia de cáncer colorrectal y disminuye casi a la mitad la mortalidad tras el diagnóstico.
+                  El movimiento natural de la cadera estimula las ondas digestivas (<strong>peristaltismo</strong>) corrigiendo el estreñimiento. En <strong>151.343 adultos</strong> (<em>Chao et al., 2004</em>) y estudios clínicos posteriores (<em>Meyerhardt et al., 2006</em>), caminar 30 minutos diarios reduce el riesgo de cáncer colorrectal y mejora notablemente la supervivencia.
                 </p>
               </div>
             </div>
@@ -1592,21 +1926,22 @@
       },
       {
         id: 9,
-        shortTitle: "Test 4m y Deportes",
+        shortTitle: "Test de 4 metros y Deportes",
         category: "COMPARATIVA Y LONGEVIDAD",
         badge: "UNIDAD 9 • COMPARATIVA FUNCIONAL Y TEST DE 4 METROS (JAMA)",
+        plainSummary: "Nadar o montar en bicicleta son buenos, pero solo caminar combina los 6 estímulos completos para huesos, columna y circulación. Además, medir cuánto tardas en caminar 4 metros refleja tu salud integral.",
         title: "Comparativa frente a Otros Deportes y la Prueba de Longevidad de 4 Metros",
         speakerTip: "En un pasillo llano de 4 metros puedes medir el predictor número 1 de longevidad validado por la revista JAMA en 34.485 adultos mayores. ¡Pruébalo aquí mismo con el simulador!",
         narrationText: "Unidad 9: Comparativa Deportiva y la Prueba de los 4 Metros en JAMA. Aunque correr, nadar y montar en bicicleta son excelentes ejercicios cardiorrespiratorios, ninguno reúne simultáneamente los seis efectos biomecánicos de caminar: en el agua o sentado en bicicleta desaparece el impacto del talón necesario para la piezoelectricidad ósea, no se aplasta el plexo venoso plantar y el tronco fijo en la bici anula la hidratación de los discos vertebrales. Además, el metaanálisis de Studenski y colaboradores en la revista JAMA con 34.485 adultos mayores demostró que el tiempo empleado en caminar 4 metros en línea recta predice cuántos años vivirá una persona mejor que su edad, sexo, presión arterial, colesterol o tabaquismo.",
         render: () => {
           const speed = (4 / Math.max(1, gaitSeconds)).toFixed(2);
-          let statusLabel = "Longevidad Óptima y Alta Reserva Funcional (≥ 1,0 m/s)";
+          let statusLabel = "Longevidad Óptima y Alta Reserva Funcional (1,0 metros por segundo o más)";
           let statusColor = "text-emerald-400 border-emerald-500/40 bg-emerald-950/40";
           if (speed < 0.8) {
-            statusLabel = "Alerta Clínica de Fragilidad (< 0,8 m/s) • Priorizar Fórmula FIT";
+            statusLabel = "Alerta de Fragilidad (menos de 0,8 metros por segundo) • Empezar suave con la Fórmula FIT";
             statusColor = "text-rose-300 border-rose-500/40 bg-rose-950/40";
           } else if (speed < 1.0) {
-            statusLabel = "Funcionalidad Promedio (0,8 a 0,99 m/s) • Margen de mejora con Walking 2.0";
+            statusLabel = "Funcionalidad Promedio (0,8 a 0,99 metros por segundo) • Margen de mejora con Walking 2.0";
             statusColor = "text-amber-300 border-amber-500/40 bg-amber-950/40";
           }
           return `
@@ -1615,9 +1950,31 @@
               <div class="rounded-2xl border border-slate-800 bg-slate-900/90 overflow-hidden">
                 <div class="px-4 py-2 bg-slate-800/80 border-b border-slate-700 flex items-center justify-between">
                   <span class="text-xs font-extrabold text-emerald-400 uppercase">Tabla 4. ¿Por Qué Correr, Nadar o Bicicleta No Reemplazan a Caminar?</span>
-                  <span class="text-[11px] text-slate-400 hidden sm:inline">6 Estímulos Biomecánicos Simultáneos</span>
+                  <span class="text-xs text-slate-400 hidden sm:inline">6 Estímulos Biomecánicos Simultáneos</span>
                 </div>
-                <div class="overflow-x-auto">
+
+                <!-- Tarjetas verticales para Smartphone (< md) -->
+                <div class="md:hidden p-3 space-y-2.5 text-xs">
+                  <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                    <div class="font-extrabold text-emerald-300">1. Fortalecimiento eléctrico del hueso: Caminar es Óptimo</div>
+                    <div class="text-slate-200">En la piscina (nula gravedad) o sentado en bicicleta (muy baja) falta la pisada suave del talón que fortalece los huesos.</div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                    <div class="font-extrabold text-emerald-300">2. Bombas venosa plantar y linfática: Caminar es 100% Activo</div>
+                    <div class="text-slate-200">La bicicleta apoya la punta del pie en el pedal sin aplastar el plexo venoso de la planta con tu peso.</div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                    <div class="font-extrabold text-emerald-300">3. Hidratación de discos lumbares: Caminar es Óptimo</div>
+                    <div class="text-slate-200">En la bicicleta el tronco permanece sentado e inmóvil; caminar nutre los discos como una esponja sin golpes bruscos.</div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700 space-y-1">
+                    <div class="font-extrabold text-emerald-300">4. Seguridad articular: Caminar 1,2 veces tu peso vs. Correr 3 a 4 veces</div>
+                    <div class="text-slate-200">Correr golpea rodillas y caderas con 3 a 4 veces tu peso; caminar protege las articulaciones a cualquier edad.</div>
+                  </div>
+                </div>
+
+                <!-- Tabla completa para Tablets y Escritorio (md+) -->
+                <div class="hidden md:block overflow-x-auto">
                   <table class="w-full text-left border-collapse text-xs">
                     <thead>
                       <tr class="border-b border-slate-800 text-slate-400">
@@ -1664,8 +2021,8 @@
                       </tr>
                       <tr>
                         <td class="py-1.5 px-2.5 font-semibold">5. Seguridad articular</td>
-                        <td class="py-1.5 px-2.5 font-bold text-emerald-300">1,2x peso</td>
-                        <td class="py-1.5 px-2.5 text-rose-300">3x a 4x peso</td>
+                        <td class="py-1.5 px-2.5 font-bold text-emerald-300">1,2 veces peso</td>
+                        <td class="py-1.5 px-2.5 text-rose-300">3 a 4 veces peso</td>
                         <td class="py-1.5 px-2.5">Sin impacto</td>
                         <td class="py-1.5 px-2.5">Bajo impacto</td>
                         <td class="py-1.5 px-2.5 text-slate-300">Correr genera un impacto que muchas rodillas y caderas no toleran con la edad.</td>
@@ -1676,7 +2033,7 @@
                         <td class="py-1.5 px-2.5">Variable</td>
                         <td class="py-1.5 px-2.5">Moderado</td>
                         <td class="py-1.5 px-2.5">Moderado</td>
-                        <td class="py-1.5 px-2.5 text-slate-300">Integra rotación pélvica digestiva y neurogénesis (+2%) en Zona 2 sin cortisol.</td>
+                        <td class="py-1.5 px-2.5 text-slate-300">Integra rotación pélvica digestiva y memoria (+2%) en Zona 2 sin estrés.</td>
                       </tr>
                     </tbody>
                   </table>
@@ -1691,7 +2048,7 @@
                     <span>9.2 La Prueba de los 4 Metros • Predictor N.º 1 en JAMA (Studenski et al., 2011)</span>
                   </div>
                   <p class="text-xs text-slate-200 leading-relaxed">
-                    Un metaanálisis en <em>JAMA</em> siguió entre 6 y 21 años a <strong>34.485 mayores de 65 años</strong>: el tiempo al caminar <strong>4 metros en línea recta sobre terreno llano</strong> predijo la supervivencia mejor que edad, sexo, presión arterial, IMC o tabaquismo, porque exige coordinar corazón, pulmones, arterias, cerebro, médula espinal y propiocepción en un solo número.
+                    Un estudio en <em>JAMA</em> siguió entre 6 y 21 años a <strong>34.485 mayores de 65 años</strong>: el tiempo al caminar <strong>4 metros en línea recta sobre terreno llano</strong> predijo los años de vida mejor que edad, presión arterial, peso o tabaquismo, porque resume en un número el estado del corazón, pulmones, cerebro y equilibrio.
                   </p>
                 </div>
 
@@ -1699,18 +2056,18 @@
                 <div class="lg:col-span-5 p-3.5 rounded-xl bg-slate-900 border border-slate-700 space-y-2.5">
                   <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-bold text-white">Simulador Clínico 4 Metros:</span>
-                    <button onclick="toggleGaitTimer()" id="btnGaitTimer" class="px-3 py-1 rounded-lg text-xs font-extrabold ${gaitTimerRunning ? 'bg-rose-500 text-white animate-pulse' : 'bg-amber-500 text-slate-950'}">
+                    <button onclick="toggleGaitTimer()" id="btnGaitTimer" class="px-3 py-1.5 rounded-lg text-xs font-extrabold ${gaitTimerRunning ? 'bg-rose-500 text-white animate-pulse' : 'bg-amber-500 text-slate-950'}">
                       ${gaitTimerRunning ? '⏹ Detener Cronómetro' : '⏱ Iniciar Cronómetro'}
                     </button>
                   </div>
                   <div class="flex items-center gap-3">
-                    <label class="text-xs text-slate-400 shrink-0">Segundos en 4m:</label>
+                    <label class="text-xs text-slate-400 shrink-0">Segundos en 4 metros:</label>
                     <input type="range" min="2.0" max="8.0" step="0.1" value="${gaitSeconds}" oninput="updateGaitSeconds(this.value)" class="w-full accent-emerald-500" />
-                    <span id="gaitSecDisplay" class="text-sm font-extrabold text-white w-14 text-right">${Number(gaitSeconds).toFixed(1)} s</span>
+                    <span id="gaitSecDisplay" class="text-sm font-extrabold text-white w-20 text-right">${Number(gaitSeconds).toFixed(1)} seg.</span>
                   </div>
                   <div id="gaitResultBox" class="p-2.5 rounded-lg border text-xs ${statusColor}">
-                    <div class="font-extrabold">Velocidad: <span id="gaitSpeedVal">${speed}</span> m/s</div>
-                    <div id="gaitStatusText" class="text-[11px] mt-0.5">${statusLabel}</div>
+                    <div class="font-extrabold">Velocidad: <span id="gaitSpeedVal">${speed}</span> metros por segundo (m/s)</div>
+                    <div id="gaitStatusText" class="text-xs mt-0.5">${statusLabel}</div>
                   </div>
                 </div>
               </div>
@@ -1723,6 +2080,7 @@
         shortTitle: "Walking 2.0 y Fórmula FIT",
         category: "PROTOCOLO Y POSTURA",
         badge: "UNIDAD 10 • MANPO-KEI VS. THE LANCET, WALKING 2.0 Y FÓRMULA FIT",
+        plainSummary: "No necesitas 10.000 pasos: entre 7.000 y 8.000 pasos al día obtienes el mayor beneficio de longevidad. Empieza paso a paso con la regla FIT y camina 10 a 15 minutos tras las comidas.",
         title: "Mito de los 10.000 Pasos, Protocolo «Walking 2.0», Fórmula FIT y Postura",
         speakerTip: "No hace falta obsesionarse con 10.000 pasos: entre 7.000 y 8.000 pasos diarios logras entre un 50% y un 70% menos de mortalidad prematura. Y para empezar sin lesiones, aplica la Fórmula FIT.",
         narrationText: "Unidad 10: Epidemiología de los Pasos, Walking 2.0 y Fórmula FIT. La meta de los 10.000 pasos nació en Japón en 1965 como campaña comercial del podómetro Manpo-kei. Los metaanálisis en JAMA y The Lancet Public Health con 47.471 adultos de 15 cohortes internacionales demostraron que la meseta óptima de longevidad se alcanza entre 7.000 y 8.000 pasos diarios, reduciendo la mortalidad prematura entre un 50 y un 70 por ciento, siendo 6.000 pasos un excelente primer escalón. El protocolo Walking 2.0 multiplica los beneficios con 4 reglas: 1. Caminar 10 a 15 minutos después de las comidas reduce un 30 por ciento el pico de glucosa. 2. Tomar luz solar matutina sincroniza el reloj circadiano y la melatonina nocturna. 3. Variar el terreno e incluir cuestas aumenta el gasto calórico un 40 por ciento. 4. Practicar Rucking con 4 a 8 kilos fortalece huesos y postura. Finalmente, la Fórmula FIT recomienda progresar cambiando un solo factor a la vez: Frecuencia de 3 a 5 días, Intensidad con el Test del Habla, y Tiempo de 30 a 45 minutos, manteniendo columna erguida, mirada al horizonte y codos a 90 grados.",
@@ -1732,31 +2090,31 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
               <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-800/90 border border-amber-500/30 space-y-2">
                 <div class="flex items-center justify-between">
-                  <span class="text-xs font-extrabold text-amber-400 uppercase">10.1 Mito 1965 vs. The Lancet (47.471 sujetos)</span>
+                  <span class="text-xs font-extrabold text-amber-400 uppercase">10.1 Mito de 1965 frente a The Lancet (47.471 adultos)</span>
                   <i data-lucide="footprints" class="w-4 h-4 text-amber-400"></i>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                  Los «10.000 pasos» nacieron como marketing en <strong>Japón (1965)</strong> para vender el podómetro <em>Manpo-kei</em> (el ideograma <strong>万</strong> parece un caminante). Los metaanálisis en <em>JAMA</em> y <em>The Lancet Public Health</em> (<em>Paluch et al., 2021, 2022</em>; 15 cohortes) probaron que pasar de <strong>3.000 a 7.000–8.000 pasos/día reduce la mortalidad prematura entre un 50% y un 70%</strong> (siendo 6.000 pasos un gran primer objetivo para mayores).
+                  Los «10.000 pasos» nacieron como publicidad en <strong>Japón (1965)</strong> para vender el podómetro <em>Manpo-kei</em>. Los estudios internacionales en <em>JAMA</em> y <em>The Lancet Public Health</em> (<em>Paluch et al., 2021, 2022</em>) probaron que pasar de <strong>3.000 a 7.000–8.000 pasos diarios reduce la mortalidad prematura entre un 50% y un 70%</strong> (y 6.000 pasos ya es un excelente comienzo para personas mayores).
                 </p>
               </div>
 
               <!-- 10.2 Las 4 Reglas de Walking 2.0 -->
               <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
                 <div class="p-3 rounded-xl bg-slate-800/80 border border-emerald-500/30">
-                  <strong class="text-emerald-300 block">1. Caminar 10–15 min tras las comidas</strong>
-                  <span class="text-slate-300">Reduce los picos posprandiales de glucosa hasta en un <strong>30%</strong> sin exigir grandes descargas de insulina (<em>DiPietro et al., 2013</em>).</span>
+                  <strong class="text-emerald-300 block">1. Caminar 10 a 15 min. tras las comidas</strong>
+                  <span class="text-slate-300">Reduce los picos de azúcar en sangre hasta en un <strong>30%</strong> sin exigir exceso de insulina (<em>DiPietro et al., 2013</em>).</span>
                 </div>
                 <div class="p-3 rounded-xl bg-slate-800/80 border border-amber-500/30">
                   <strong class="text-amber-300 block">2. Exposición a la luz solar matutina</strong>
-                  <span class="text-slate-300">Activa las células ganglionares de la retina, sincroniza el <strong>reloj circadiano</strong> y programa la <strong>melatonina</strong> 10–12 h después.</span>
+                  <span class="text-slate-300">Sincroniza tu reloj biológico, da energía de día y programa la <strong>melatonina</strong> 10 a 12 horas después para dormir mejor.</span>
                 </div>
                 <div class="p-3 rounded-xl bg-slate-800/80 border border-teal-500/30">
                   <strong class="text-teal-300 block">3. Variar terreno e incluir pendientes</strong>
-                  <span class="text-slate-300">Tierra, césped o cuestas activan estabilizadores, elevan el gasto calórico hasta un <strong>40%</strong> y recalibran la propiocepción.</span>
+                  <span class="text-slate-300">Tierra, césped o cuestas suaves activan músculos de apoyo, elevan el gasto calórico hasta un <strong>40%</strong> y mejoran el equilibrio.</span>
                 </div>
                 <div class="p-3 rounded-xl bg-slate-800/80 border border-purple-500/30">
-                  <strong class="text-purple-300 block">4. Práctica de «Rucking» (mochila 4–8 kg)</strong>
-                  <span class="text-slate-300">Duplica la quema calórica, corrige la postura encorvada por pantallas y multiplica la señal <strong>piezoeléctrica ósea</strong>.</span>
+                  <strong class="text-purple-300 block">4. Práctica de «Rucking» (mochila 4 a 8 kg)</strong>
+                  <span class="text-slate-300">Quien ya tenga buena condición puede añadir una mochila ajustada: duplica calorías quemadas, corrige la postura y fortalece huesos.</span>
                 </div>
               </div>
             </div>
@@ -1764,19 +2122,19 @@
             <!-- 10.3 Fórmula FIT y Técnica Postural Biomecánica -->
             <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
               <div class="lg:col-span-7 space-y-2">
-                <div class="text-xs font-extrabold text-emerald-400 uppercase">10.3 La Fórmula «FIT» de Progresión Segura (Cambiar 1 solo componente a la vez)</div>
+                <div class="text-xs font-extrabold text-emerald-400 uppercase">10.3 La Fórmula «FIT» de Progresión Segura (Cambiar un solo elemento a la vez)</div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
                   <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700">
                     <strong class="text-emerald-300 text-sm block">F — Frecuencia</strong>
-                    <span class="text-slate-300"><strong>3 a 5 veces/semana.</strong> Si al principio solo puedes 5 minutos, empieza con 5 minutos constantes.</span>
+                    <span class="text-slate-300"><strong>3 a 5 días por semana.</strong> Si al principio solo puedes 5 minutos, empieza con 5 minutos constantes.</span>
                   </div>
                   <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700">
                     <strong class="text-teal-300 text-sm block">I — Intensidad</strong>
-                    <span class="text-slate-300">2–3 km/h (inicio) o <strong>3–5 km/h</strong> aplicando el <strong>«Test del Habla»</strong> (conversar sin jadear).</span>
+                    <span class="text-slate-300">2 a 3 kilómetros por hora (inicio) o <strong>3 a 5 kilómetros por hora</strong> aplicando el <strong>«Test del Habla»</strong> (conversar sin jadear).</span>
                   </div>
                   <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700">
                     <strong class="text-amber-300 text-sm block">T — Tiempo</strong>
-                    <span class="text-slate-300">Apuntar a <strong>30–45 min diarios</strong> (o al escalón de 6.000 a 8.000 pasos).</span>
+                    <span class="text-slate-300">Apuntar poco a poco a <strong>30 a 45 minutos diarios</strong> (o de 6.000 a 8.000 pasos).</span>
                   </div>
                 </div>
               </div>
@@ -1784,12 +2142,12 @@
               <div class="lg:col-span-5 p-3.5 rounded-xl bg-slate-900/95 border border-emerald-500/30 space-y-1.5 text-xs">
                 <div class="font-extrabold text-white flex items-center gap-1.5">
                   <i data-lucide="user-check" class="w-4 h-4 text-emerald-400"></i>
-                  <span>Técnica Postural Biomecánica Correcta:</span>
+                  <span>Técnica Postural Correcta y Segura:</span>
                 </div>
                 <ul class="space-y-1 text-slate-300">
-                  <li>• <strong>Columna erguida:</strong> Gana estabilidad espinal y altura postural.</li>
-                  <li>• <strong>Vista hacia el horizonte:</strong> Desactiva la amígdala y libera el cuello.</li>
-                  <li>• <strong>Codos en ángulo de 90 grados:</strong> Balanceo natural de brazos y pelvis estable sin forzar zancadas exageradas.</li>
+                  <li>• <strong>Columna erguida:</strong> Da estabilidad a la espalda y evita dolores cervicales.</li>
+                  <li>• <strong>Vista hacia el horizonte:</strong> No mires al suelo ni al celular; calma la mente.</li>
+                  <li>• <strong>Codos en ángulo de 90 grados:</strong> Balanceo suave de brazos y pasos cómodos sin forzar la zancada.</li>
                 </ul>
               </div>
             </div>
@@ -1801,6 +2159,7 @@
         shortTitle: "Glosario Médico (60)",
         category: "DICCIONARIO CLÍNICO",
         badge: "UNIDAD 11 • GLOSARIO DE 60 TÉRMINOS MÉDICOS Y BIOFÍSICOS",
+        plainSummary: "¿Tienes dudas sobre alguna palabra médica? Escribe aquí el término o toca una categoría para leer su significado en lenguaje claro y sencillo.",
         title: "Glosario Médico Explicado: 60 Términos, Siglas y Conceptos Biomecánicos",
         speakerTip: "Usa el buscador o los botones de categoría para consultar al instante cualquier término médico o sigla utilizada en el estudio científico.",
         narrationText: "Unidad 11: Glosario Médico Explicado. Esta sección interactiva reúne los 60 términos médicos, siglas y conceptos biofísicos del programa Caminar es Salud 2.0, explicados con lenguaje claro y riguroso: desde Accidente Cerebrovascular, Amígdala cerebral, proteína BDNF, Beta-oxidación, Bipedestación, Bomba venosa plantar, Caza de persistencia y Difusión intervertebral, hasta Escaneo óptico lateral, Fórmula FIT, Hipocampo, Ley de Wolff, Manpo-kei, Óxido nítrico, Péndulo invertido, Piezoelectricidad ósea, Rucking, estudio STRRIDE-PD y Zona 2 de frecuencia cardíaca.",
@@ -1822,15 +2181,15 @@
                   <h2 class="text-xl sm:text-2xl font-extrabold text-white">Explora los 60 Conceptos Clave (${filtered.length} mostrados)</h2>
                 </div>
                 <div class="relative w-full md:w-72">
-                  <input type="text" id="glossarySearchInput" value="${glossarySearchQuery.replace(/"/g, '&quot;')}" oninput="handleGlossarySearch(this.value)" placeholder="Buscar término (ej. BDNF, Wolff, Linfa)..." class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400" />
-                  <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                  <input type="text" id="glossarySearchInput" value="${glossarySearchQuery.replace(/"/g, '&quot;')}" oninput="handleGlossarySearch(this.value)" placeholder="Buscar término (ejemplo: BDNF, Wolff, Linfa)..." class="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400" />
+                  <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
                 </div>
               </div>
 
               <!-- Filtros por Categoría -->
               <div class="flex flex-wrap items-center gap-1.5">
                 ${categories.map(c => `
-                  <button onclick="setGlossaryCategory('${c.id}')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${glossaryCategory === c.id ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-300 hover:text-white border border-slate-700'}">
+                  <button onclick="setGlossaryCategory('${c.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${glossaryCategory === c.id ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-300 hover:text-white border border-slate-700'}">
                     ${c.label}
                   </button>
                 `).join('')}
@@ -1846,7 +2205,7 @@
                   <div class="p-3 rounded-xl bg-slate-800/85 border border-slate-700/80 hover:border-emerald-500/40 transition-all space-y-1">
                     <div class="flex items-start justify-between gap-2">
                       <span class="font-extrabold text-emerald-300 text-xs sm:text-sm">${item.id}. ${item.term}</span>
-                      <span class="px-1.5 py-0.5 rounded bg-slate-900 text-[10px] text-slate-400 uppercase shrink-0">${item.tag}</span>
+                      <span class="px-1.5 py-0.5 rounded bg-slate-900 text-xs text-slate-400 uppercase shrink-0">${item.tag}</span>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">${item.def}</p>
                   </div>
@@ -1861,6 +2220,7 @@
         shortTitle: "Bibliografía y Plan",
         category: "EVIDENCIA Y ACCIÓN",
         badge: "UNIDAD 12 • BIBLIOGRAFÍA CIENTÍFICA VERIFICADA Y COMPROMISO FAMILIAR",
+        plainSummary: "Aquí tienes los estudios científicos originales que respaldan cada recomendación y cuatro compromisos sencillos para empezar esta misma semana en familia.",
         title: "Bibliografía Científica Internacional y Plan Semanal en Familia",
         speakerTip: "Cierra la presentación eligiendo en familia los compromisos para esta semana y descargando o leyendo el Paper Científico completo.",
         narrationText: "Unidad 12: Bibliografía Científica y Plan Familiar. Esta unidad final reúne los 12 estudios científicos internacionales principales junto con la totalidad de las 22 referencias indexadas con DOI y las 4 fuentes documentales del Notebook Caminar es Salud, incluyendo investigaciones en Nature, PNAS, The Lancet Public Health, JAMA, Diabetes Care y Diabetologia. Marca las casillas del plan familiar para incorporar el paseo digestivo de 15 minutos después de comer, alcanzar entre 7.000 y 8.000 pasos diarios, mirar al horizonte con luz matutina y practicar la Fórmula FIT.",
@@ -1879,7 +2239,7 @@
                         ${showAllBibliography ? '22 Referencias Académicas Indexadas + 4 Fuentes del Notebook' : '12 Estudios Científicos Internacionales Fundacionales'}
                       </h3>
                     </div>
-                    <button onclick="toggleBibliographyMode()" class="px-2.5 py-1 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 text-xs font-bold transition-all">
+                    <button onclick="toggleBibliographyMode()" class="px-2.5 py-1.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 text-xs font-bold transition-all">
                       ${showAllBibliography ? 'Ver Resumen (12 Clave)' : 'Ver las 26 Fuentes Completas'}
                     </button>
                   </div>
@@ -1889,12 +2249,12 @@
                       <div class="p-3 rounded-xl bg-slate-800/85 border border-slate-700/80 text-xs space-y-1">
                         <div class="flex items-start justify-between gap-2">
                           <span class="font-bold text-white">${item.id}. ${item.authors} (${item.year})</span>
-                          <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-bold text-[10px] shrink-0">${item.journal}</span>
+                          <span class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-bold text-xs shrink-0">${item.journal}</span>
                         </div>
                         <p class="text-slate-300">${item.title}</p>
                         <div class="flex flex-wrap items-center justify-between gap-2 pt-0.5">
-                          <span class="text-emerald-300/90 italic text-[11px]">Hallazgo: ${item.finding}</span>
-                          ${item.doi ? `<a href="${item.doi}" target="_blank" rel="noopener" class="text-purple-300 hover:underline font-semibold text-[11px]">DOI ↗</a>` : ''}
+                          <span class="text-emerald-300/90 italic text-xs">Hallazgo: ${item.finding}</span>
+                          ${item.doi ? `<a href="${item.doi}" target="_blank" rel="noopener" class="text-purple-300 hover:underline font-semibold text-xs">DOI ↗</a>` : ''}
                         </div>
                       </div>
                     `).join('')}
@@ -1923,25 +2283,25 @@
                     <div class="space-y-2 text-xs">
                       <label class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 flex items-start gap-2.5 cursor-pointer">
                         <input type="checkbox" checked class="mt-0.5 w-4 h-4 accent-emerald-500 rounded" />
-                        <span><strong>Paseo posprandial (10–15 min):</strong> Caminar después del almuerzo o cena para reducir un 30% el pico de glucosa.</span>
+                        <span><strong>Paseo después de comer (10 a 15 minutos):</strong> Caminar suave tras el almuerzo o la cena para reducir hasta un 30% el pico de azúcar.</span>
                       </label>
                       <label class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 flex items-start gap-2.5 cursor-pointer">
                         <input type="checkbox" checked class="mt-0.5 w-4 h-4 accent-emerald-500 rounded" />
-                        <span><strong>Rango óptimo (7.000–8.000 pasos):</strong> Mantener la constancia diaria aplicando la Fórmula FIT y el Test del Habla.</span>
+                        <span><strong>Meta inteligente (7.000 a 8.000 pasos):</strong> Mantener la constancia diaria aplicando la Fórmula FIT y el Test del Habla.</span>
                       </label>
                       <label class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 flex items-start gap-2.5 cursor-pointer">
                         <input type="checkbox" checked class="mt-0.5 w-4 h-4 accent-emerald-500 rounded" />
-                        <span><strong>Luz matutina y mirada al horizonte:</strong> Sincronizar el reloj circadiano y apagar la ansiedad de la amígdala.</span>
+                        <span><strong>Luz de mañana y mirada al horizonte:</strong> Sincronizar el reloj del sueño y descansar la vista de las pantallas.</span>
                       </label>
                       <label class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 flex items-start gap-2.5 cursor-pointer">
                         <input type="checkbox" checked class="mt-0.5 w-4 h-4 accent-emerald-500 rounded" />
-                        <span><strong>Autoevaluación de los 4 metros:</strong> Medir en casa la velocidad de marcha en llano (meta ≥ 1,0 m/s).</span>
+                        <span><strong>Autoevaluación de los 4 metros:</strong> Medir en casa nuestra velocidad en pasillo llano (meta: 1,0 metros por segundo o más).</span>
                       </label>
                     </div>
                   </div>
 
                   <!-- Botones Directos a todos los Recursos -->
-                  <div class="grid grid-cols-2 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <button onclick="switchView('paper')" class="p-2.5 rounded-xl bg-purple-600/25 hover:bg-purple-600/40 border border-purple-400/40 text-purple-200 font-extrabold text-xs flex items-center justify-center gap-1.5">
                       <i data-lucide="book-open" class="w-4 h-4"></i> Leer Paper en Página
                     </button>
@@ -1952,7 +2312,7 @@
                       <i data-lucide="file-text" class="w-4 h-4"></i> Descargar Guía PDF
                     </button>
                     <button onclick="downloadPPTX()" class="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-1.5">
-                      <i data-lucide="download" class="w-4 h-4"></i> Descargar .PPTX
+                      <i data-lucide="download" class="w-4 h-4"></i> Descargar PowerPoint
                     </button>
                   </div>
                 </div>
@@ -2024,7 +2384,7 @@
       { id: 57, term: "Test del habla (Talk Test)", cat: "clinica", tag: "Intensidad", def: "Regla clínica práctica para controlar la intensidad al caminar: llevar un paso vivo que permita conversar con frases completas sin jadear ni quedarse sin aliento." },
       { id: 58, term: "Tolerancia oral a la glucosa", cat: "metabolismo", tag: "Glucemia", def: "Capacidad de las células del cuerpo para absorber el azúcar de la sangre de manera eficiente después de comer sin exigir un exceso de insulina al páncreas." },
       { id: 59, term: "Válvulas unidireccionales", cat: "cardio", tag: "Venas / Linfa", def: "Compuertas anatómicas dentro de las venas de las piernas y los vasos linfáticos que se abren para dejar subir el fluido hacia el corazón cuando los músculos se contraen al caminar y se cierran para impedir que caiga por gravedad." },
-      { id: 60, term: "Zona 1 y Zona 2 de frecuencia cardíaca", cat: "metabolismo", tag: "Aeróbico", def: "Ritmo de ejercicio aeróbico suave a moderado (aproximadamente entre 90 y 115 pulsaciones por minuto en adultos) donde abunda el oxígeno celular y el cuerpo oxida la grasa almacenada sin elevar el cortisol." }
+      { id: 60, term: "Zona 1 y Zona 2 de frecuencia cardíaca", cat: "metabolismo", tag: "Aeróbico", def: "Ritmo de ejercicio aeróbico suave a moderado (aproximadamente entre 90 y 115 latidos por minuto en adultos) donde abunda el oxígeno celular y el cuerpo oxida la grasa almacenada sin elevar el cortisol." }
     ];
 
     // ================= BIBLIOGRAFÍA CIENTÍFICA INDEXADA (PARTE III DEL PAPER) =================
@@ -2034,15 +2394,15 @@
       { id: 3, core12: true, authors: "Cavagna, G. A., Heglund, N. C., y Taylor, C. R.", year: "1977", title: "Mechanical work in terrestrial locomotion: two basic mechanisms for minimizing energy expenditure.", journal: "Am. J. Physiol., 233(5), R243–R261", doi: "https://doi.org/10.1152/ajpregu.1977.233.5.R243", finding: "Demostración física del péndulo invertido durante la caminata bípeda, cuantificando un reciclaje del 65% de la energía mecánica en cada paso." },
       { id: 4, core12: true, authors: "Chao, A., Connell, C. J., et al.", year: "2004", title: "Amount, type, and timing of recreational physical activity in relation to colon and rectal cancer in older adults.", journal: "Cancer Epidemiol. Biomarkers Prev., 13(12)", doi: "", finding: "Estudio prospectivo en 151.343 hombres y mujeres que demuestra reducción significativa del riesgo de cáncer colorrectal al caminar regularmente." },
       { id: 5, core12: false, authors: "de Voogd, L. D., Kanen, J. W., et al.", year: "2018", title: "Eye-movement intervention enhances extinction via amygdala deactivation.", journal: "Journal of Neuroscience, 38(40), 8694–8706", doi: "https://doi.org/10.1523/JNEUROSCI.0703-18.2018", finding: "Desactivación de la amígdala cerebral mediante movimientos oculares horizontales equivalentes al escaneo óptico durante la marcha." },
-      { id: 6, core12: true, authors: "DiPietro, L., Gribok, A., et al.", year: "2013", title: "Three 15-min bouts of moderate postmeal walking significantly improves 24-h glycemic control in older people.", journal: "Diabetes Care, 36(10), 3262–3268", doi: "https://doi.org/10.2337/dc13-0084", finding: "Fundamenta la Regla 1 de Walking 2.0: caminar 15 min tras las comidas reduce hasta un 30% los picos posprandiales de glucosa." },
-      { id: 7, core12: true, authors: "Erickson, K. I., Voss, M. W., et al.", year: "2011", title: "Exercise training increases size of hippocampus and improves memory.", journal: "PNAS, 108(7), 3017–3022", doi: "https://doi.org/10.1073/pnas.1015950108", finding: "Universidad de Pittsburgh (120 mayores): aumento del +2% en el volumen del hipocampo tras 1 año caminando 40 min 3 veces/semana vía BDNF." },
+      { id: 6, core12: true, authors: "DiPietro, L., Gribok, A., et al.", year: "2013", title: "Three 15-min bouts of moderate postmeal walking significantly improves 24-h glycemic control in older people.", journal: "Diabetes Care, 36(10), 3262–3268", doi: "https://doi.org/10.2337/dc13-0084", finding: "Fundamenta la Regla 1 de Walking 2.0: caminar 15 minutos tras las comidas reduce hasta un 30% los picos posprandiales de glucosa." },
+      { id: 7, core12: true, authors: "Erickson, K. I., Voss, M. W., et al.", year: "2011", title: "Exercise training increases size of hippocampus and improves memory.", journal: "PNAS, 108(7), 3017–3022", doi: "https://doi.org/10.1073/pnas.1015950108", finding: "Universidad de Pittsburgh (120 mayores): aumento del +2% en el volumen del hipocampo tras 1 año caminando 40 minutos 3 veces por semana vía BDNF." },
       { id: 8, core12: false, authors: "Fukada, E., y Yasuda, I.", year: "1957", title: "On the piezoelectric effect of bone.", journal: "J. Phys. Soc. Jpn., 12(10), 1158–1162", doi: "https://doi.org/10.1143/JPSJ.12.1158", finding: "Descubrimiento clásico de las propiedades piezoeléctricas del tejido óseo bajo compresión mecánica (base biofísica de la Ley de Wolff)." },
-      { id: 9, core12: false, authors: "Gardner, A. M., y Fox, R. H.", year: "1983", title: "The venous pump of the human foot: preliminary report.", journal: "Bristol Med.-Chir. J., 98(367), 109–112", doi: "", finding: "Descripción anatómica y hemodinámica de la bomba venosa plantar (60–70 bombeos/min) que impulsa la sangre de retorno al corazón." },
+      { id: 9, core12: false, authors: "Gardner, A. M., y Fox, R. H.", year: "1983", title: "The venous pump of the human foot: preliminary report.", journal: "Bristol Med.-Chir. J., 98(367), 109–112", doi: "", finding: "Descripción anatómica y hemodinámica de la bomba venosa plantar (60 a 70 bombeos por minuto) que impulsa la sangre de retorno al corazón." },
       { id: 10, core12: true, authors: "Ker, R. F., Bennett, M. B., et al.", year: "1987", title: "The spring in the arch of the human foot.", journal: "Nature, 325(6100), 147–149", doi: "https://doi.org/10.1038/325147a0", finding: "Cuantifica el ahorro energético del 17% proporcionado por el arco longitudinal del pie y el 35% de retorno elástico del tendón de Aquiles." },
       { id: 11, core12: false, authors: "Lee, I. M., Shiroma, E. J., et al.", year: "2019", title: "Association of step volume and intensity with all-cause mortality in older women.", journal: "JAMA Internal Medicine, 179(8), 1105–1112", doi: "https://doi.org/10.1001/jamainternmed.2019.0899", finding: "Desmitifica la obligatoriedad de los 10.000 pasos y demuestra reducciones drásticas de mortalidad hacia los 7.500 pasos diarios." },
       { id: 12, core12: false, authors: "Meyerhardt, J. A., Giovannucci, E. L., et al.", year: "2006", title: "Physical activity and survival after colorectal cancer diagnosis.", journal: "Journal of Clinical Oncology, 24(22), 3527–3534", doi: "https://doi.org/10.1200/JCO.2006.06.0863", finding: "Caminar regularmente incrementa de forma notable la supervivencia incluso después del diagnóstico de cáncer de colon." },
       { id: 13, core12: false, authors: "Miller, J. C., y Krizan, Z.", year: "2016", title: "Walking facilitates positive affect (even when expecting the opposite).", journal: "Emotion (APA), 16(5), 775–785", doi: "https://doi.org/10.1037/emo0000177", finding: "Universidad Estatal de Iowa: caminar mejora el estado de ánimo y el afecto positivo de forma automática." },
-      { id: 14, core12: true, authors: "Mota-Pereira, J., Silverio, J., et al.", year: "2011", title: "Moderate exercise improves depression parameters in treatment-resistant patients with major depressive disorder.", journal: "J. Psychiatr. Res., 45(8), 1005–1011", doi: "https://doi.org/10.1016/j.jpsychires.2011.02.005", finding: "Mejoras significativas y remisión clínica en pacientes con Trastorno Depresivo Mayor (TDM) tras caminar 30–45 min/día, 5 días/semana." },
+      { id: 14, core12: true, authors: "Mota-Pereira, J., Silverio, J., et al.", year: "2011", title: "Moderate exercise improves depression parameters in treatment-resistant patients with major depressive disorder.", journal: "J. Psychiatr. Res., 45(8), 1005–1011", doi: "https://doi.org/10.1016/j.jpsychires.2011.02.005", finding: "Mejoras significativas y remisión clínica en pacientes con Trastorno Depresivo Mayor (TDM) tras caminar 30 a 45 minutos al día, 5 días por semana." },
       { id: 15, core12: false, authors: "Paluch, A. E., Gabriel, K. P., et al.", year: "2021", title: "Steps per day and all-cause mortality in middle-aged adults in the CARDIA study.", journal: "JAMA Network Open, 4(9), e2124516", doi: "https://doi.org/10.1001/jamanetworkopen.2021.24516", finding: "Confirma una reducción del 50% al 70% en el riesgo de muerte prematura en adultos que alcanzan al menos 7.000 pasos diarios." },
       { id: 16, core12: true, authors: "Paluch, A. E., Bajpai, S., et al.", year: "2022", title: "Daily steps and all-cause mortality: a meta-analysis of 15 international cohorts.", journal: "The Lancet Public Health, 7(3), e219–e228", doi: "https://doi.org/10.1016/S2468-2667(21)00302-9", finding: "Metaanálisis mundial con 47.471 adultos de 15 cohortes que establece la meseta óptima de longevidad entre 7.000 y 8.000 pasos diarios." },
       { id: 17, core12: true, authors: "Salay, L. D., Ishiko, N., y Huberman, A. D.", year: "2018", title: "A midline thalamic circuit determines reactions to visual threat.", journal: "Nature, 557(7704), 183–189", doi: "https://doi.org/10.1038/s41586-018-0078-2", finding: "Universidad de Stanford: procesamiento visual, flujo óptico hacia adelante y regulación de las respuestas de miedo y ansiedad." },
@@ -2055,7 +2415,7 @@
 
     const audiovisualSources = [
       { id: 23, name: "Fuente Documental 00 (Aplicación Web Interactiva)", desc: "Caminar: El Diseño Perfecto — Presentación interactiva familiar y Guía Práctica de Salud y Longevidad (2026). Plataforma PWA." },
-      { id: 24, name: "Fuente Audiovisual 01 (Vídeo de Referencia 1)", desc: "Canal El Lenguaje de tu Cuerpo (2026). «Caminar Es El Único Ejercicio Para El Que Tu Cuerpo Fue Realmente Diseñado» [29 min 20 s]. YouTube." },
+      { id: 24, name: "Fuente Audiovisual 01 (Vídeo de Referencia 1)", desc: "Canal El Lenguaje de tu Cuerpo (2026). «Caminar Es El Único Ejercicio Para El Que Tu Cuerpo Fue Realmente Diseñado» [29 minutos 20 segundos]. YouTube." },
       { id: 25, name: "Fuente Audiovisual 02 (Vídeo de Referencia 2)", desc: "Documental de Biomecánica y Fisiología Evolutiva (2026). «La prueba de diez segundos que predice cuánto vas a vivir y la física oculta de caminar»." },
       { id: 26, name: "Fuente Audiovisual 03 (Vídeo de Referencia 3)", desc: "Canal de Divulgación en Salud Integral (2026). «10 cosas que le sucederán a tu cuerpo si empiezas a caminar a diario y la Fórmula FIT»." }
     ];
@@ -2064,6 +2424,7 @@
     let currentSlideIndex = 0;
     let sidebarCollapsed = false;
     let seniorFontActive = false;
+    let lightModeActive = false;
     let isSpeaking = false;
     let glossarySearchQuery = '';
     let glossaryCategory = 'all';
@@ -2120,17 +2481,17 @@
       const statusEl = document.getElementById('gaitStatusText');
       const boxEl = document.getElementById('gaitResultBox');
       const speed = (4 / Math.max(1, gaitSeconds)).toFixed(2);
-      if (secEl) secEl.textContent = `${gaitSeconds.toFixed(1)} s`;
+      if (secEl) secEl.textContent = `${gaitSeconds.toFixed(1)} seg.`;
       if (speedEl) speedEl.textContent = speed;
       if (statusEl && boxEl) {
         if (speed < 0.8) {
-          statusEl.textContent = "Alerta Clínica de Fragilidad (< 0,8 m/s) • Priorizar Fórmula FIT";
+          statusEl.textContent = "Alerta Clínica de Fragilidad (menos de 0,8 metros por segundo) • Priorizar Fórmula FIT";
           boxEl.className = "p-2.5 rounded-lg border text-xs text-rose-300 border-rose-500/40 bg-rose-950/40";
         } else if (speed < 1.0) {
-          statusEl.textContent = "Funcionalidad Promedio (0,8 a 0,99 m/s) • Margen de mejora con Walking 2.0";
+          statusEl.textContent = "Funcionalidad Promedio (0,8 a 0,99 metros por segundo) • Margen de mejora con Walking 2.0";
           boxEl.className = "p-2.5 rounded-lg border text-xs text-amber-300 border-amber-500/40 bg-amber-950/40";
         } else {
-          statusEl.textContent = "Longevidad Óptima y Alta Reserva Funcional (≥ 1,0 m/s)";
+          statusEl.textContent = "Longevidad Óptima y Alta Reserva Funcional (1,0 metros por segundo o más)";
           boxEl.className = "p-2.5 rounded-lg border text-xs text-emerald-400 border-emerald-500/40 bg-emerald-950/40";
         }
       }
@@ -2141,7 +2502,7 @@
         clearInterval(gaitTimerInterval);
         gaitTimerRunning = false;
         renderSlide();
-        showToast(`Tiempo medido: ${gaitSeconds.toFixed(1)}s (${(4 / Math.max(1, gaitSeconds)).toFixed(2)} m/s)`, 'timer');
+        showToast(`Tiempo medido: ${gaitSeconds.toFixed(1)} seg. (${(4 / Math.max(1, gaitSeconds)).toFixed(2)} metros por segundo)`, 'timer');
       } else {
         gaitTimerRunning = true;
         gaitSeconds = 1.0;
@@ -2242,17 +2603,74 @@
     }
 
     function selectSlideFromDrawer(idx) {
-      goToSlide(idx);
       toggleMobileDrawer(false);
+      goToSlide(idx, true);
     }
 
     // ================= RENDERIZADO DE LA DIAPOSITIVA ACTIVA =================
+    let pendingScrollTimers = [];
+
+    function cancelPendingScrollResets() {
+      pendingScrollTimers.forEach((id) => clearTimeout(id));
+      pendingScrollTimers = [];
+    }
+
+    window.addEventListener('touchstart', cancelPendingScrollResets, { passive: true });
+    window.addEventListener('wheel', cancelPendingScrollResets, { passive: true });
+
+    function scrollSlideToTop(afterDrawer = false) {
+      cancelPendingScrollResets();
+      if (document.activeElement && document.activeElement !== document.body && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
+
+      const resetNow = () => {
+        const mainEl = document.querySelector('#slidesView main');
+        if (mainEl) mainEl.scrollTop = 0;
+
+        const isMobile = window.innerWidth < 1024;
+        const anchor = document.getElementById('slideTopAnchor');
+
+        if (isMobile && currentViewMode === 'slides' && anchor) {
+          const targetY = Math.max(0, Math.floor(anchor.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - 10));
+          if (document.scrollingElement) document.scrollingElement.scrollTop = targetY;
+          document.documentElement.scrollTop = targetY;
+          document.body.scrollTop = targetY;
+          window.scrollTo(0, targetY);
+        } else {
+          if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          window.scrollTo(0, 0);
+        }
+      };
+
+      resetNow();
+      requestAnimationFrame(() => {
+        resetNow();
+        requestAnimationFrame(resetNow);
+      });
+      pendingScrollTimers.push(setTimeout(resetNow, 80));
+      if (afterDrawer) {
+        pendingScrollTimers.push(setTimeout(resetNow, 310));
+      }
+    }
+
     function renderSlide(preserveSpeech = false) {
       if (!preserveSpeech && isSpeaking) {
         stopSpeech();
       }
       const slide = slides[currentSlideIndex];
-      document.getElementById('slideContainer').innerHTML = slide.render();
+      const plainBanner = slide.plainSummary
+        ? `<div class="plain-summary-box mb-4 p-3.5 sm:p-4 rounded-2xl bg-emerald-950/35 border border-emerald-500/35 flex items-start gap-3">
+            <i data-lucide="sparkles" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+            <div>
+              <div class="text-xs font-extrabold uppercase tracking-wider text-emerald-300 mb-0.5">En palabras sencillas</div>
+              <p class="text-sm sm:text-base text-slate-100 leading-relaxed">${slide.plainSummary}</p>
+            </div>
+          </div>`
+        : '';
+      document.getElementById('slideContainer').innerHTML = `${plainBanner}${slide.render()}`;
       document.getElementById('slideCounter').textContent = `${slide.badge}`;
       document.getElementById('speakerNoteText').textContent = slide.speakerTip;
 
@@ -2279,9 +2697,10 @@
         currentSlideIndex += delta;
       }
       renderSlide();
+      scrollSlideToTop();
     }
 
-    function goToSlide(idx) {
+    function goToSlide(idx, afterDrawer = false) {
       if (gaitTimerRunning) {
         clearInterval(gaitTimerInterval);
         gaitTimerRunning = false;
@@ -2291,22 +2710,46 @@
         switchView('slides');
       }
       renderSlide();
+      scrollSlideToTop(afterDrawer);
     }
 
-    // ================= ACCESIBILIDAD SENIOR: TIPOGRAFÍA ADAPTATIVA (A+ / A-) =================
-    function toggleSeniorFont() {
+    // ================= ACCESIBILIDAD SENIOR: TIPOGRAFÍA ADAPTATIVA Y MODO CLARO =================
+    function toggleSeniorFont(silent = false) {
       seniorFontActive = !seniorFontActive;
       document.body.classList.toggle('senior-font', seniorFontActive);
+      try {
+        localStorage.setItem('caminar_senior_font', seniorFontActive ? '1' : '0');
+      } catch (e) {}
       const label = document.getElementById('seniorFontLabel');
       const btn = document.getElementById('btnSeniorFont');
       if (seniorFontActive) {
-        label.textContent = 'Letra A-';
-        btn.className = "px-2.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-amber-400 text-slate-950 flex items-center gap-1 shadow";
-        showToast('Modo Senior activado: Tipografía ampliada (Letra A+)', 'type');
+        if (label) label.textContent = 'Letra A-';
+        if (btn) btn.className = "px-2.5 py-2 rounded-lg text-xs font-extrabold transition-all bg-amber-400 text-slate-950 flex items-center gap-1 shadow min-h-[38px]";
+        if (!silent) showToast('Modo Senior activado: Tipografía ampliada (Letra A+)', 'type');
       } else {
-        label.textContent = 'Letra A+';
-        btn.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-amber-300 border border-amber-500/30 flex items-center gap-1";
-        showToast('Tamaño de tipografía estándar restaurado', 'type');
+        if (label) label.textContent = 'Letra A+';
+        if (btn) btn.className = "px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-amber-300 border border-amber-500/30 flex items-center gap-1 active:scale-95 min-h-[38px]";
+        if (!silent) showToast('Tamaño de tipografía estándar restaurado', 'type');
+      }
+      lucide.createIcons();
+    }
+
+    function toggleLightMode(silent = false) {
+      lightModeActive = !lightModeActive;
+      document.body.classList.toggle('light-mode', lightModeActive);
+      try {
+        localStorage.setItem('caminar_light_mode', lightModeActive ? '1' : '0');
+      } catch (e) {}
+      const label = document.getElementById('themeToggleLabel');
+      const btn = document.getElementById('btnThemeToggle');
+      if (lightModeActive) {
+        if (label) label.textContent = 'Modo Oscuro 🌙';
+        if (btn) btn.className = "px-2.5 py-2 rounded-lg text-xs font-extrabold transition-all bg-emerald-500 text-slate-950 border border-emerald-600 flex items-center gap-1 shadow min-h-[38px]";
+        if (!silent) showToast('Modo Claro activado: Fondo blanco tipo papel para lectura descansada', 'sun');
+      } else {
+        if (label) label.textContent = 'Modo Claro ☀️';
+        if (btn) btn.className = "px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 active:scale-95 min-h-[38px]";
+        if (!silent) showToast('Modo Oscuro restaurado', 'moon');
       }
       lucide.createIcons();
     }
@@ -2321,7 +2764,7 @@
       const label = document.getElementById('speechLabel');
       const badge = document.getElementById('speechActiveBadge');
       if (label) label.textContent = 'Escuchar 🔊';
-      if (btn) btn.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 flex items-center gap-1";
+      if (btn) btn.className = "px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-slate-900 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 flex items-center gap-1 active:scale-95 min-h-[38px]";
       if (badge) {
         badge.classList.add('hidden');
         badge.classList.remove('inline-flex');
@@ -2342,7 +2785,8 @@
 
       window.speechSynthesis.cancel();
       const slide = slides[currentSlideIndex];
-      const textToRead = `${slide.narrationText}. Nota clínica para la familia: ${slide.speakerTip}`;
+      const plainIntro = slide.plainSummary ? `En palabras sencillas: ${slide.plainSummary}. ` : '';
+      const textToRead = `${plainIntro}${slide.narrationText}. Nota clínica para la familia: ${slide.speakerTip}`;
       const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.lang = 'es-ES';
       utterance.rate = 0.96;
@@ -2365,7 +2809,7 @@
       const label = document.getElementById('speechLabel');
       const badge = document.getElementById('speechActiveBadge');
       if (label) label.textContent = 'Detener ⏹';
-      if (btn) btn.className = "px-2.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-cyan-400 text-slate-950 flex items-center gap-1 shadow animate-pulse";
+      if (btn) btn.className = "px-2.5 py-2 rounded-lg text-xs font-extrabold transition-all bg-cyan-400 text-slate-950 flex items-center gap-1 shadow animate-pulse min-h-[38px]";
       if (badge) {
         badge.classList.remove('hidden');
         badge.classList.add('inline-flex');
@@ -2389,23 +2833,24 @@
       guideView.classList.add('hidden');
       paperView.classList.add('hidden');
 
-      const inactiveClass = "px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1";
+      const inactiveClass = "px-2.5 py-2 rounded-lg text-xs font-semibold transition-all text-slate-300 hover:text-white flex items-center gap-1 min-h-[38px]";
       btnSlides.className = inactiveClass;
       btnGuide.className = inactiveClass;
-      btnPaper.className = "px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-purple-300 hover:text-white flex items-center gap-1";
+      btnPaper.className = "px-2.5 py-2 rounded-lg text-xs font-semibold transition-all text-purple-300 hover:text-white flex items-center gap-1 min-h-[38px]";
 
       if (mode === 'slides') {
         slidesView.classList.remove('hidden');
-        btnSlides.className = "px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1";
+        btnSlides.className = "px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1 min-h-[38px]";
       } else if (mode === 'guide') {
         populateGuideView();
         guideView.classList.remove('hidden');
-        btnGuide.className = "px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1";
+        btnGuide.className = "px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-500 text-slate-950 flex items-center gap-1 min-h-[38px]";
       } else if (mode === 'paper') {
         populatePaperWebReader();
         paperView.classList.remove('hidden');
-        btnPaper.className = "px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-purple-600 text-white flex items-center gap-1";
+        btnPaper.className = "px-2.5 py-2 rounded-lg text-xs font-bold transition-all bg-purple-600 text-white flex items-center gap-1 min-h-[38px]";
       }
+      scrollSlideToTop(false);
       lucide.createIcons();
     }
 
@@ -2470,10 +2915,10 @@
             La transición evolutiva de los homínidos hacia la bipedestación obligada, ocurrida hace aproximadamente 6 millones de años en las sabanas africanas, configuró la arquitectura anatómica y metabólica del ser humano para desplazarse largas distancias caminando con un costo energético mínimo, asistida por un sistema único de termorregulación por sudoración ecrina (<em>Bramble y Lieberman, 2004</em>).
           </p>
           <ul class="space-y-2 text-xs sm:text-sm text-slate-200">
-            <li>• <strong>Hipótesis 1 (Biomecánica y Hemodinámica Periférica):</strong> Modelo de péndulo invertido (65% reciclaje energético, <em>Cavagna et al., 1977</em>), arco longitudinal del pie (17%) y tendón de Aquiles (35%, <em>Ker et al., 1987</em>), impacto de 1,2x el peso corporal y activación de la bomba venosa plantar (60–70/min) y linfática.</li>
+            <li>• <strong>Hipótesis 1 (Biomecánica y Hemodinámica Periférica):</strong> Modelo de péndulo invertido (65% reciclaje energético, <em>Cavagna et al., 1977</em>), arco longitudinal del pie (17%) y tendón de Aquiles (35%, <em>Ker et al., 1987</em>), impacto de 1,2 veces el peso corporal y activación de la bomba venosa plantar (60 a 70 bombeos por minuto) y linfática.</li>
             <li>• <strong>Hipótesis 2 (Endocrino-Metabólica y Pancreática):</strong> La caminata en Zona 1–2 prioriza la oxidación de ácidos grasos sin elevar el cortisol y supera casi 6 veces al trote vigoroso en la mejora de la tolerancia oral a la glucosa, preservando las células beta del páncreas (<em>Slentz et al., 2016; DiPietro et al., 2013</em>).</li>
             <li>• <strong>Hipótesis 3 (Neurobiológica y Psiquiátrica):</strong> Revierte la atrofia cerebral senil incrementando el volumen del hipocampo un +2% vía BDNF (<em>Erickson et al., 2011</em>), atenúa la amígdala por flujo óptico lateral (<em>Salay et al., 2018</em>) y reduce clínicamente el Trastorno Depresivo Mayor (<em>Mota-Pereira et al., 2011</em>).</li>
-            <li>• <strong>Hipótesis 4 (Multisistémica y Epidemiológica):</strong> Integra osteogénesis piezoeléctrica (<em>Fukada y Yasuda, 1957</em>), difusión intervertebral (<em>Urban et al., 2004</em>), reducción de presión intraocular y peristaltismo colónico (<em>Chao et al., 2004</em>); la prueba de 4 metros (<em>Studenski et al., 2011</em>) y acumular 7.000–8.000 pasos/día reducen la mortalidad prematura en más de un 50% (<em>Paluch et al., 2021, 2022</em>).</li>
+            <li>• <strong>Hipótesis 4 (Multisistémica y Epidemiológica):</strong> Integra osteogénesis piezoeléctrica (<em>Fukada y Yasuda, 1957</em>), difusión intervertebral (<em>Urban et al., 2004</em>), reducción de presión intraocular y peristaltismo colónico (<em>Chao et al., 2004</em>); la prueba de 4 metros (<em>Studenski et al., 2011</em>) y acumular 7.000–8.000 pasos diarios reducen la mortalidad prematura en más de un 50% (<em>Paluch et al., 2021, 2022</em>).</li>
           </ul>
         </div>
 
@@ -2533,7 +2978,7 @@
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8.5);
         doc.setTextColor(203, 213, 225);
-        doc.text('Indicadores Clave: -50% a -70% Mortalidad | 65% Péndulo Invertido | 6x Tolerancia a Glucosa | +2% Hipocampo', margin, 30);
+        doc.text('Indicadores Clave: -50% a -70% Mortalidad | 65% Péndulo Invertido | 6 veces mejor Tolerancia a Glucosa | +2% Hipocampo', margin, 30);
 
         y = 44;
 
@@ -2751,7 +3196,7 @@
       });
 
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=2.2', { updateViaCache: 'none' })
+        navigator.serviceWorker.register('./sw.js?v=2.4', { updateViaCache: 'none' })
           .then((reg) => {
             reg.update();
             if (reg.waiting) {
@@ -2765,6 +3210,15 @@
     }
 
     // ================= PARÁMETROS URL E INICIALIZACIÓN =================
+    try {
+      if (localStorage.getItem('caminar_light_mode') === '1') {
+        toggleLightMode(true);
+      }
+      if (localStorage.getItem('caminar_senior_font') === '1') {
+        toggleSeniorFont(true);
+      }
+    } catch (e) {}
+
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('view') === 'guide') {
       switchView('guide');
