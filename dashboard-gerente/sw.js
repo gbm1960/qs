@@ -3,8 +3,15 @@
  * Proporciona soporte offline, sincronización y caché inteligente
  */
 
-const CACHE_NAME = 'dashboard-gerente-v1.0';
-const DYNAMIC_CACHE = 'dashboard-gerente-dynamic-v1.0';
+const CACHE_NAME = 'dashboard-gerente-v1.1';
+const DYNAMIC_CACHE = 'dashboard-gerente-dynamic-v1.1';
+
+const ALLOWED_CDN_HOSTS = new Set([
+  'fonts.gstatic.com',
+  'fonts.googleapis.com',
+  'cdn.tailwindcss.com',
+  'cdnjs.cloudflare.com'
+]);
 
 const STATIC_ASSETS = [
   './',
@@ -109,10 +116,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (url.origin.includes('fonts.gstatic.com') ||
-      url.origin.includes('fonts.googleapis.com') ||
-      url.origin.includes('tailwindcss.com') ||
-      url.origin.includes('cdnjs.cloudflare.com')) {
+  if (request.method === 'GET' && ALLOWED_CDN_HOSTS.has(url.hostname)) {
     event.respondWith(
       (async () => {
         const cachedResponse = await caches.match(request);
@@ -141,6 +145,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  if (request.method !== 'GET' || url.origin !== self.location.origin) {
+    return;
+  }
+
   event.respondWith(
     (async () => {
       const cachedResponse = await caches.match(request);
@@ -148,7 +156,7 @@ self.addEventListener('fetch', (event) => {
 
       try {
         const networkResponse = await fetch(request);
-        if (networkResponse && networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200 && request.method === 'GET' && url.origin === self.location.origin) {
           const dynamicCache = await caches.open(DYNAMIC_CACHE);
           dynamicCache.put(request, networkResponse.clone());
         }

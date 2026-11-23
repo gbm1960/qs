@@ -28,8 +28,8 @@
 
   <!-- Dependencias Externas (Cacheadas por sw.js para uso offline) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
@@ -380,7 +380,7 @@
                 <label for="fieldContext" class="text-xs text-emerald-300 uppercase font-bold tracking-wider">Contexto de Campo</label>
                 <button type="button" onclick="fillSampleContext()" class="text-[11px] text-teal-300 hover:underline font-semibold">Cargar ejemplo</button>
               </div>
-              <textarea id="fieldContext" class="w-full bg-slate-950/80 border border-slate-700 p-3 rounded-xl text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-400 transition-colors" rows="3" placeholder="Ej.: Mantenimiento preventivo de 12 unidades industriales en Planta Norte con reemplazo de sensores ópticos..."></textarea>
+              <textarea id="fieldContext" maxlength="1500" class="w-full bg-slate-950/80 border border-slate-700 p-3 rounded-xl text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-400 transition-colors" rows="3" placeholder="Ej.: Mantenimiento preventivo de 12 unidades industriales en Planta Norte con reemplazo de sensores ópticos..."></textarea>
             </div>
 
             <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
@@ -425,7 +425,7 @@
 
           <div class="relative mb-4">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
-            <input type="text" id="inventorySearch" oninput="renderInventory()" placeholder="Buscar SKU o repuesto industrial..." class="w-full bg-slate-950/80 border border-slate-700 py-2.5 pl-9 pr-3 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-400" />
+            <input type="text" id="inventorySearch" maxlength="120" oninput="renderInventory()" placeholder="Buscar SKU o repuesto industrial..." class="w-full bg-slate-950/80 border border-slate-700 py-2.5 pl-9 pr-3 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-400" />
           </div>
 
           <div id="inventoryList" class="space-y-3">
@@ -494,7 +494,7 @@
       <div class="py-3.5 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div class="relative flex-1">
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
-          <input type="text" id="assetsSearchInput" oninput="renderAssetsModalTable()" placeholder="Filtrar por código, cliente o tipo de equipo..." class="w-full bg-slate-950 border border-slate-700 py-2 pl-9 pr-3 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400" />
+          <input type="text" id="assetsSearchInput" maxlength="120" oninput="renderAssetsModalTable()" placeholder="Filtrar por código, cliente o tipo de equipo..." class="w-full bg-slate-950 border border-slate-700 py-2 pl-9 pr-3 rounded-xl text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400" />
         </div>
         <div class="flex flex-wrap gap-1.5">
           <button onclick="setAssetFilter('all')" id="filter-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500 text-slate-950">Todos</button>
@@ -757,6 +757,15 @@
       showToast(`Mantenimiento agendado para ${asset.code} (${asset.site})`);
     }
 
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     // ================= CENTRO LOGÍSTICO INTERACTIVO =================
     function renderInventory() {
       const container = document.getElementById('inventoryList');
@@ -772,7 +781,7 @@
       }
 
       if (items.length === 0) {
-        container.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 bg-slate-900/50 rounded-xl border border-slate-800">Sin coincidencias para "${searchVal}".</div>`;
+        container.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 bg-slate-900/50 rounded-xl border border-slate-800">Sin coincidencias para "${escapeHtml(searchVal)}".</div>`;
         return;
       }
 
@@ -1032,7 +1041,7 @@
       });
 
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=1.0', { updateViaCache: 'none' })
+        navigator.serviceWorker.register('./sw.js?v=1.1', { updateViaCache: 'none' })
           .then((reg) => {
             reg.update();
             if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });

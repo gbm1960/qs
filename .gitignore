@@ -1,0 +1,14 @@
+# Local IDE & Workspace files
+*.code-workspace
+.vscode/
+.idea/
+
+# Python cache & temporary files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini

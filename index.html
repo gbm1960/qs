@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <!-- Iconos: FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <style>
         /* ===== VARIABLES DE DISEÑO (PALETA CAMINAR 2.0: SLATE & EMERALD) ===== */
@@ -501,6 +501,47 @@
             color: rgba(255, 255, 255, 0.3);
         }
 
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .form-consent {
+            margin-top: 4px;
+            margin-bottom: 16px;
+        }
+
+        .consent-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1.45;
+            font-weight: 400;
+        }
+
+        .consent-label input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-cyan);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .turnstile-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
         .btn-submit {
             width: 100%;
             cursor: pointer;
@@ -958,34 +999,48 @@
 
                 <div class="contact-form-container">
                     <form id="contact-form">
+                        <!-- Campo Honeypot Anti-Bot (oculto para usuarios reales) -->
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="website">Sitio Web (no diligenciar)</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="form-group">
                             <label for="nombre">Nombre Completo</label>
                             <input type="text" id="nombre" name="nombre" class="form-control" required
-                                placeholder="Ej: Juan Pérez">
+                                maxlength="100" autocomplete="name" placeholder="Ej: Juan Pérez">
                         </div>
                         <div class="form-group">
                             <label for="edificio">Empresa / Industria</label>
                             <input type="text" id="edificio" name="edificio" class="form-control" required
-                                placeholder="Nombre de su organización">
+                                maxlength="120" autocomplete="organization" placeholder="Nombre de su organización">
                         </div>
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>
                             <input type="email" id="email" name="email" class="form-control" required
-                                placeholder="ejemplo@correo.com">
+                                maxlength="150" autocomplete="email" placeholder="ejemplo@correo.com">
                         </div>
                         <div class="form-group">
                             <label for="telefono">Teléfono / Celular</label>
                             <input type="tel" id="telefono" name="telefono" class="form-control" required value="+57 "
-                                pattern="^\+57 \d{10}$" title="Debe incluir el indicativo +57 seguido de 10 dígitos"
+                                maxlength="14" autocomplete="tel" pattern="^\+57 \d{10}$"
+                                title="Debe incluir el indicativo +57 seguido de 10 dígitos"
                                 placeholder="+57 3xx xxx xxxx">
                         </div>
                         <div class="form-group">
                             <label for="mensaje">Mensaje</label>
                             <textarea id="mensaje" name="mensaje" class="form-control" rows="4" required
-                                placeholder="¿En qué podemos ayudarle?"></textarea>
+                                maxlength="2000" placeholder="¿En qué podemos ayudarle?"></textarea>
                         </div>
+                        <div class="form-group form-consent">
+                            <label class="consent-label" for="consentimiento">
+                                <input type="checkbox" id="consentimiento" name="consentimiento" required>
+                                <span>Autorizo el tratamiento de mis datos personales conforme a la <strong>Ley 1581 de 2012 (Habeas Data)</strong> para la gestión de esta solicitud comercial B2B.</span>
+                            </label>
+                        </div>
+                        <!-- Contenedor preparado para Cloudflare Turnstile (insertar div.cf-turnstile con data-sitekey al activarlo en Cloudflare) -->
+                        <div id="turnstile-container" class="turnstile-wrapper"></div>
                         <button type="submit" class="btn btn-primary btn-submit">Enviar Solicitud</button>
-                        <div id="form-status"></div>
+                        <div id="form-status" role="status" aria-live="polite"></div>
                     </form>
                 </div>
 
@@ -993,7 +1048,7 @@
                     <p style="margin-bottom: 20px; font-size: 1rem; color: var(--text-muted);">O si prefiere,
                         contáctenos directamente:</p>
                     <a href="https://wa.me/573112263821?text=Hola,%20me%20gustaría%20solicitar%20una%20reunión%20informativa%20sobre%20sus%20servicios%20de%20ingeniería%20inteligente."
-                        class="btn-whatsapp" target="_blank">
+                        class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-whatsapp"></i> +57 311 2263821
                     </a>
 
@@ -1112,34 +1167,114 @@
                     });
                 }
 
+                let lastSubmitTimestamp = 0;
+                const SUBMIT_COOLDOWN_MS = 15000;
+
                 contactForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
-                    // Cambiar estado del botón
-                    const submitBtn = contactForm.querySelector('button');
-                    const originalBtnText = submitBtn.textContent;
-                    submitBtn.textContent = 'Enviando...';
-                    submitBtn.disabled = true;
+                    const now = Date.now();
+                    if (now - lastSubmitTimestamp < SUBMIT_COOLDOWN_MS) {
+                        formStatus.textContent = 'Por favor espere unos segundos antes de enviar otra solicitud.';
+                        formStatus.className = 'status-error';
+                        return;
+                    }
 
                     const formData = new FormData(contactForm);
                     const data = Object.fromEntries(formData.entries());
 
-                    try {
-                        // URL del Cloudflare Worker original
-                        const WORKER_URL = 'https://contacto-quadratic.gilberto-borbon-1ec.workers.dev/';
+                    // 1. Filtro Honeypot anti-bots en cliente
+                    if (data.website && String(data.website).trim() !== '') {
+                        formStatus.textContent = '¡Mensaje enviado con éxito! Nos contactaremos pronto.';
+                        formStatus.className = 'status-success';
+                        contactForm.reset();
+                        if (phoneInput) phoneInput.value = '+57 ';
+                        return;
+                    }
 
-                        const response = await fetch(WORKER_URL, {
+                    // 2. Validación de longitudes, formato y consentimiento (Ley 1581) antes de enviar
+                    const nombre = (data.nombre || '').trim();
+                    const edificio = (data.edificio || '').trim();
+                    const email = (data.email || '').trim();
+                    const telefono = (data.telefono || '').trim();
+                    const mensaje = (data.mensaje || '').trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+                    const consentCheckbox = document.getElementById('consentimiento');
+                    const hasConsent = Boolean(data.consentimiento) && (!consentCheckbox || consentCheckbox.checked);
+
+                    if (
+                        !nombre || nombre.length > 100 ||
+                        !edificio || edificio.length > 120 ||
+                        !email || email.length > 150 || !emailRegex.test(email) ||
+                        !/^\+57 \d{10}$/.test(telefono) ||
+                        !mensaje || mensaje.length > 2000 ||
+                        !hasConsent
+                    ) {
+                        formStatus.textContent = 'Por favor verifique que todos los campos y la autorización de datos estén diligenciados correctamente.';
+                        formStatus.className = 'status-error';
+                        return;
+                    }
+
+                    // 3. Soporte opcional para Cloudflare Turnstile (activo si se configura un widget con data-sitekey)
+                    const turnstileWidget = contactForm.querySelector('.cf-turnstile[data-sitekey]');
+                    const hasActiveTurnstile = Boolean(turnstileWidget && (turnstileWidget.getAttribute('data-sitekey') || '').trim());
+                    let turnstileToken = (data['cf-turnstile-response'] || '').trim();
+                    if (!turnstileToken && window.turnstile && typeof window.turnstile.getResponse === 'function') {
+                        try {
+                            turnstileToken = (window.turnstile.getResponse() || '').trim();
+                        } catch (_) {}
+                    }
+                    if (hasActiveTurnstile && !turnstileToken) {
+                        formStatus.textContent = 'Por favor complete la verificación de seguridad anti-bot.';
+                        formStatus.className = 'status-error';
+                        return;
+                    }
+
+                    const payload = {
+                        nombre,
+                        edificio,
+                        email,
+                        telefono,
+                        mensaje,
+                        website: ''
+                    };
+                    if (turnstileToken) {
+                        payload['cf-turnstile-response'] = turnstileToken;
+                    }
+
+                    // Cambiar estado del botón
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalBtnText = submitBtn.textContent;
+                    submitBtn.textContent = 'Enviando...';
+                    submitBtn.disabled = true;
+
+                    try {
+                        // Ruta protegida bajo el dominio propio con fallback transparente al Worker durante transición de ruta WAF
+                        const FALLBACK_WORKER_URL = 'https://contacto-quadratic.gilberto-borbon-1ec.workers.dev/';
+                        const isProdDomain = window.location.hostname === 'quadraticsolutions.com.co' ||
+                            window.location.hostname === 'www.quadraticsolutions.com.co';
+                        const primaryUrl = isProdDomain ? '/api/contacto' : FALLBACK_WORKER_URL;
+
+                        const requestOptions = {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify(data)
-                        });
+                            body: JSON.stringify(payload)
+                        };
+
+                        let response = await fetch(primaryUrl, requestOptions);
+
+                        if (isProdDomain && (response.status === 404 || response.status === 405)) {
+                            response = await fetch(FALLBACK_WORKER_URL, requestOptions);
+                        }
 
                         if (response.ok) {
+                            lastSubmitTimestamp = Date.now();
                             formStatus.textContent = '¡Mensaje enviado con éxito! Nos contactaremos pronto.';
                             formStatus.className = 'status-success';
                             contactForm.reset();
+                            if (phoneInput) phoneInput.value = '+57 ';
                         } else {
                             throw new Error('Error en el servidor');
                         }
@@ -1148,6 +1283,11 @@
                         formStatus.textContent = 'Hubo un error al enviar el mensaje. Por favor intenta por WhatsApp.';
                         formStatus.className = 'status-error';
                     } finally {
+                        if (window.turnstile && typeof window.turnstile.reset === 'function') {
+                            try {
+                                window.turnstile.reset();
+                            } catch (_) {}
+                        }
                         submitBtn.textContent = originalBtnText;
                         submitBtn.disabled = false;
                     }

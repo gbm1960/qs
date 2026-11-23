@@ -3,8 +3,17 @@
  * Proporciona soporte offline completo, sincronización y caché inteligente
  */
 
-const CACHE_NAME = 'caminar-pwa-v2.4';
-const DYNAMIC_CACHE = 'caminar-dynamic-v2.4';
+const CACHE_NAME = 'caminar-pwa-v2.5';
+const DYNAMIC_CACHE = 'caminar-dynamic-v2.5';
+
+const ALLOWED_CDN_HOSTS = new Set([
+  'fonts.gstatic.com',
+  'fonts.googleapis.com',
+  'cdn.tailwindcss.com',
+  'unpkg.com',
+  'cdnjs.cloudflare.com',
+  'cdn.jsdelivr.net'
+]);
 
 // Recursos críticos locales para funcionamiento offline
 const STATIC_ASSETS = [
@@ -28,7 +37,7 @@ const STATIC_ASSETS = [
 // Librerías externas CDN necesarias para la app
 const CDN_ASSETS = [
   'https://cdn.tailwindcss.com',
-  'https://unpkg.com/lucide@latest',
+  'https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
   'https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js',
   'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap'
@@ -126,13 +135,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. Estrategia para fuentes de Google (fonts.gstatic.com) y CDNs: Cache-First con Network Fallback
-  if (url.origin.includes('fonts.gstatic.com') ||
-      url.origin.includes('fonts.googleapis.com') ||
-      url.origin.includes('tailwindcss.com') ||
-      url.origin.includes('unpkg.com') ||
-      url.origin.includes('cdnjs.cloudflare.com') ||
-      url.origin.includes('jsdelivr.net')) {
+  // 2. Estrategia para fuentes de Google (fonts.gstatic.com) y CDNs autorizados: Cache-First con Network Fallback
+  if (request.method === 'GET' && ALLOWED_CDN_HOSTS.has(url.hostname)) {
     event.respondWith(
       (async () => {
         const cachedResponse = await caches.match(request);
@@ -163,7 +167,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Estrategia por defecto para imágenes, iconos y recursos locales: Cache-First
+  // 3. Estrategia por defecto para imágenes, iconos y recursos locales del mismo origen: Cache-First
+  if (request.method !== 'GET' || url.origin !== self.location.origin) {
+    return;
+  }
+
   event.respondWith(
     (async () => {
       const cachedResponse = await caches.match(request);
@@ -171,7 +179,7 @@ self.addEventListener('fetch', (event) => {
 
       try {
         const networkResponse = await fetch(request);
-        if (networkResponse && networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200 && request.method === 'GET' && url.origin === self.location.origin) {
           const dynamicCache = await caches.open(DYNAMIC_CACHE);
           dynamicCache.put(request, networkResponse.clone());
         }

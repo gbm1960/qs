@@ -29,9 +29,9 @@
 
   <!-- Dependencias Externas (Cacheadas por sw.js para uso offline) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.bundle.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -1036,7 +1036,7 @@
             </button>
           </div>
 
-          <a href="data/20261102_Artículo_Caminar_es_Salud_2.0.pdf" target="_blank" rel="noopener"
+          <a href="data/20261102_Artículo_Caminar_es_Salud_2.0.pdf" target="_blank" rel="noopener noreferrer"
             class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-700"
             title="Abrir PDF en pestaña nueva">
             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
@@ -2181,7 +2181,7 @@
                   <h2 class="text-xl sm:text-2xl font-extrabold text-white">Explora los 60 Conceptos Clave (${filtered.length} mostrados)</h2>
                 </div>
                 <div class="relative w-full md:w-72">
-                  <input type="text" id="glossarySearchInput" value="${glossarySearchQuery.replace(/"/g, '&quot;')}" oninput="handleGlossarySearch(this.value)" placeholder="Buscar término (ejemplo: BDNF, Wolff, Linfa)..." class="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400" />
+                  <input type="text" id="glossarySearchInput" maxlength="100" value="${escapeHtml(glossarySearchQuery)}" oninput="handleGlossarySearch(this.value)" placeholder="Buscar término (ejemplo: BDNF, Wolff, Linfa)..." class="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400" />
                   <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
                 </div>
               </div>
@@ -2199,7 +2199,7 @@
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-[340px] overflow-y-auto custom-scrollbar pr-1">
                 ${filtered.length === 0 ? `
                   <div class="col-span-full p-6 text-center text-slate-400 text-xs bg-slate-800/50 rounded-2xl border border-slate-700">
-                    No se encontraron términos que coincidan con "${glossarySearchQuery}".
+                    No se encontraron términos que coincidan con "${escapeHtml(glossarySearchQuery)}".
                   </div>
                 ` : filtered.map(item => `
                   <div class="p-3 rounded-xl bg-slate-800/85 border border-slate-700/80 hover:border-emerald-500/40 transition-all space-y-1">
@@ -2254,7 +2254,7 @@
                         <p class="text-slate-300">${item.title}</p>
                         <div class="flex flex-wrap items-center justify-between gap-2 pt-0.5">
                           <span class="text-emerald-300/90 italic text-xs">Hallazgo: ${item.finding}</span>
-                          ${item.doi ? `<a href="${item.doi}" target="_blank" rel="noopener" class="text-purple-300 hover:underline font-semibold text-xs">DOI ↗</a>` : ''}
+                          ${item.doi ? `<a href="${item.doi}" target="_blank" rel="noopener noreferrer" class="text-purple-300 hover:underline font-semibold text-xs">DOI ↗</a>` : ''}
                         </div>
                       </div>
                     `).join('')}
@@ -2430,6 +2430,15 @@
     let glossaryCategory = 'all';
     let showAllBibliography = false;
     let currentViewMode = 'slides'; // 'slides' | 'guide' | 'paper'
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
     // ================= FILTRADO DEL GLOSARIO DE 60 TÉRMINOS =================
     function getFilteredGlossary() {
@@ -3196,7 +3205,7 @@
       });
 
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=2.4', { updateViaCache: 'none' })
+        navigator.serviceWorker.register('./sw.js?v=2.5', { updateViaCache: 'none' })
           .then((reg) => {
             reg.update();
             if (reg.waiting) {
